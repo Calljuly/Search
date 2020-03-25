@@ -13,7 +13,7 @@ namespace TestChamber
         {
             testExtractor = new WordExtractor();
             string filePath = @"C:/";
-            string words = "hej hejsan hallå, tjena sm-guld 2020.";
+            string words = "hej! hejsan; hallå, tjena: sm-guld 2020.";
             wordList = testExtractor.ExtractWords(words, filePath);
             for (int i = 0; i < wordList.Count - 1; i++)
             {
@@ -21,7 +21,7 @@ namespace TestChamber
                 Assert.AreEqual("hejsan", wordList[1].word);
                 Assert.AreEqual("hallå", wordList[2].word);
                 Assert.AreEqual("tjena", wordList[3].word);
-                Assert.AreEqual("sm-guld", wordList[4].word);
+                Assert.AreEqual("smguld", wordList[4].word);
                 Assert.AreEqual("2020", wordList[5].word);
             }
         }

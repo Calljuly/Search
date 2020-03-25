@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Search
 {
-    class Word
+    public class Word
     {
         public string word;
         public string file;

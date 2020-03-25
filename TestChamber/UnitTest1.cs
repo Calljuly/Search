@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using System.Collections.Generic;
+using Search;
 
 namespace TestChamber
 {

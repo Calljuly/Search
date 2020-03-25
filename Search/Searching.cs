@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Search
 {
-    class Searching
+    public class Searching
     {
+        public List<Word> BinarySearch(string word)
+        {
+            return new List<Word>();
+        }
     }
 }

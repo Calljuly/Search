@@ -37,14 +37,7 @@ namespace TestChamber
                 Assert.AreEqual(filePath, word.file);
             }
         }
-        [Test]
-        public void ExtractFromEmptyStrings()
-        {
-            wordList = new List<Word>();
-            testExtractor = new WordExtractor();
-            var test = testExtractor.ExtractWords("", "");
-            Assert.IsEmpty(test);
-        }
+        
         [Test]
         public void FilePath_NotEmpty()
         {
@@ -64,6 +57,31 @@ namespace TestChamber
             {
                 Assert.AreEqual("yes", word.word);
             }
+        }
+        [Test]
+        public void ExtractFromEmptyStrings()
+        {
+            wordList = new List<Word>();
+            testExtractor = new WordExtractor();
+            var test = testExtractor.ExtractWords("", "");
+            Assert.IsEmpty(test);
+        }
+        [Test]
+        public void ExtractFromEmptyFilePath()
+        {
+            wordList = new List<Word>();
+            testExtractor = new WordExtractor();
+            var test = testExtractor.ExtractWords("Filepath is empty", "");
+            Assert.IsEmpty(test);
+
+        }
+        [Test]
+        public void ExtractFromEmptyText()
+        {
+            wordList = new List<Word>();
+            testExtractor = new WordExtractor();
+            var test = testExtractor.ExtractWords("", "Text document is empty");
+            Assert.IsEmpty(test);
         }
     }
 }

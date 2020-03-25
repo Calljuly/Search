@@ -11,13 +11,14 @@ namespace TestChamber
         {
         }
 
+        // what if the list is empty or contains only one or two items. 
         [Test]
         public void BinarySearch_OnlyOneWordExists_FindsTheWord()
         {
             Searching search = new Searching();
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
             var result = search.BinarySearch(wordList, "bb");
-            Assert.AreEqual("b", result[0].word);
+            Assert.AreEqual("bb", result[0].word);
         }
 
         [Test]
@@ -26,6 +27,8 @@ namespace TestChamber
             Searching search = new Searching();
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
             var result = search.BinarySearch(wordList, "");
+            string test = "";
+            int count = test.Length;
             Assert.AreEqual(0, result.Count);
             var result2 = search.BinarySearch(wordList, null);
             Assert.AreEqual(0, result2.Count);

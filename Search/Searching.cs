@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Search
 {
-    class Searching
+    public class Searching
     {
     }
 }

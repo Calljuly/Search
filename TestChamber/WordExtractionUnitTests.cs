@@ -4,12 +4,12 @@ using Search;
 
 namespace TestChamber
 {
-    public class WordExtractionTests //Patrik
+    public class WordExtractionUnitTests //Patrik
     {
         List<Word> wordList;
         WordExtractor testExtractor;
         [Test]
-        public void WordsAreExtracted()
+        public void WordsAreExtractedCorrectly()
         {
             testExtractor = new WordExtractor();
             string filePath = @"C:/";

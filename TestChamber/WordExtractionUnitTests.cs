@@ -55,6 +55,15 @@ namespace TestChamber
                 Assert.IsNotEmpty(word.file);
             }
         }
+        [Test]
+        public void WordsWithSeparatorsAreSameWord()
+        {
+            testExtractor = new WordExtractor();
+            wordList = testExtractor.ExtractWords("yes yes, yes.", @"C:/");
+            foreach (var word in wordList)
+            {
+                Assert.AreEqual("yes", word.word);
+            }
+        }
     }
-
 }

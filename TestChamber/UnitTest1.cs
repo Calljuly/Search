@@ -20,14 +20,14 @@ namespace TestChamber
     public class TestSort // Julia
     {
         public List<Word> sut;
-        public Sorting myTestEngine;
+        public Soring myTestEngine;
 
 
         [Test]
         public void ifListGetSorted()
         {
             sut = new List<Word>();
-            myTestEngine = new Sorting();
+            myTestEngine = new Soring();
             sut.Add(new Word("Hulda", "TextFile"));
             sut.Add(new Word("Maja", "TextFile"));
             sut = myTestEngine.sortAllWords(sut);
@@ -36,11 +36,12 @@ namespace TestChamber
                 Assert.Pass();
             }
         }
+
         [Test]
         public void ifListGetSortedMoreWords()
         {
             sut = new List<Word>();
-            myTestEngine = new Sorting();
+            myTestEngine = new Soring();
             sut.Add(new Word("Hulda", "TextFile"));
             sut.Add(new Word("Maja", "TextFile"));
             sut.Add(new Word("Sten", "TextFile"));
@@ -49,16 +50,14 @@ namespace TestChamber
             sut.Add(new Word("Lama", "TextFile"));
 
             sut = myTestEngine.sortAllWords(sut);
-            if (sut[0].word == "Brygga")
-            {
-                Assert.Pass();
-            }
+
+            Assert.AreEqual("Brygga", sut[0].word);
         }
         [Test]
         public void ifListGetSortedWithSimilarWords()
         {
             sut = new List<Word>();
-            myTestEngine = new Sorting();
+            myTestEngine = new Soring();
 
             sut.Add(new Word("Anna", "TextFile"));
             sut.Add(new Word("Annas", "TextFile"));

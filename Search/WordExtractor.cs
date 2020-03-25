@@ -9,9 +9,12 @@ namespace Search
     {
         public List<Word> ExtractWords(string text, string filePath)
         {
+            //Replaces all characters specified in the regular expression of 'text' with an empty string.
             var regexdText = Regex.Replace(text, "[.,{}¤#\"\'*:;<>|?=!_&/\\n\\r\\e\\t]", string.Empty);
+            //Upon space splits the string into a piece of string.
             var splittedText = regexdText.Split(' ');
             var wordList = new List<Word>();
+            //Adds all words in the text in to a list of words.
             foreach (var word in splittedText)
             {
                 wordList.Add(new Word(word, filePath));

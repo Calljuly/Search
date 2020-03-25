@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Search
 {
-    public class Sorting
+    public class Soring
     {
         List<Word> listOfWord = new List<Word>();
 

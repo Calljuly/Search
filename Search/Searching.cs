@@ -6,9 +6,9 @@ namespace Search
 {
     public class Searching
     {
-        public List<Word> BinarySearch(string word)
+        public List<Word> BinarySearch(List<Word> list, string word)
         {
-            return new List<Word>();
+            return new List<Word> {new Word("fail", "txt") };
         }
     }
 }

@@ -20,28 +20,26 @@ namespace TestChamber
     public class TestSort // Julia
     {
         public List<Word> sut;
-        public Soring myTestEngine;
+        public Sorting myTestEngine;
 
 
         [Test]
         public void ifListGetSorted()
         {
             sut = new List<Word>();
-            myTestEngine = new Soring();
-            sut.Add(new Word("Hulda", "TextFile"));
+            myTestEngine = new Sorting();
             sut.Add(new Word("Maja", "TextFile"));
-            sut = myTestEngine.sortAllWords(sut);
-            if (sut[0].word == "Hulda")
-            {
-                Assert.Pass();
-            }
+            sut.Add(new Word("Hulda", "TextFile"));
+
+            myTestEngine.sortAllWords(sut,0,1);
+            Assert.AreEqual(sut[1].word, "Maja");
         }
 
         [Test]
         public void ifListGetSortedMoreWords()
         {
             sut = new List<Word>();
-            myTestEngine = new Soring();
+            myTestEngine = new Sorting();
             sut.Add(new Word("Hulda", "TextFile"));
             sut.Add(new Word("Maja", "TextFile"));
             sut.Add(new Word("Sten", "TextFile"));
@@ -49,7 +47,7 @@ namespace TestChamber
             sut.Add(new Word("Kanna", "TextFile"));
             sut.Add(new Word("Lama", "TextFile"));
 
-            sut = myTestEngine.sortAllWords(sut);
+            myTestEngine.sortAllWords(sut, 0,5);
 
             Assert.AreEqual("Brygga", sut[0].word);
         }
@@ -57,16 +55,15 @@ namespace TestChamber
         public void ifListGetSortedWithSimilarWords()
         {
             sut = new List<Word>();
-            myTestEngine = new Soring();
+            myTestEngine = new Sorting();
 
-            sut.Add(new Word("Anna", "TextFile"));
             sut.Add(new Word("Annas", "TextFile"));
+            sut.Add(new Word("Anna", "TextFile"));
 
-            sut = myTestEngine.sortAllWords(sut);
-            if (sut[1].word == "Annas")
-            {
-                Assert.Pass();
-            }
+            myTestEngine.sortAllWords(sut,0,1);
+            
+            Assert.AreEqual("Anna", sut[0].word);
+
         }
     }
 

@@ -29,8 +29,29 @@ namespace Search
         }
 
 
-        public static void SaveFile(string file)
+        public static void SaveFile(string fileText, string fileLocation, string filename = null)
         {
+            try
+            {
+                if (filename == null)
+                {
+                    // Save on a existing file
+                    File.WriteAllText(fileLocation, fileText);
+                }
+                else
+                {
+                    // Create a new file and save
+                    string path = "\\";
+                    path = fileLocation + path + filename + ".txt";
+                    StreamWriter sw = File.CreateText(path);
+                    sw.Close();
+                    File.WriteAllText(path, fileText);
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
         }
     }

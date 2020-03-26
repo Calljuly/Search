@@ -9,7 +9,6 @@ namespace TestChamber
         public void IORead()
         {
             string fileLocation = "C:\\Users\\97yunwon\\Desktop\\IOTest1.txt";
-
             Assert.AreEqual("text", IO.ReadFile(fileLocation));
         }
 

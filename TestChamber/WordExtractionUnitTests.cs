@@ -83,12 +83,26 @@ namespace TestChamber
         [Test]
         public void ExtractWordsFromString_TextAndFilePathIsNull()
         {
-            //wordList = new List<Word>();
             testExtractor = new WordExtractor();
             wordList = testExtractor.ExtractWordsFromString(null, null);
             Assert.IsEmpty(wordList);
-            //Assert.AreEqual(null, wordList[0].word);
-            //Assert.AreEqual(null, wordList[0].file);
+        }
+        [Test]
+        public void ExtractWordsFromString_TextIsNull()
+        {
+            testExtractor = new WordExtractor();
+            wordList = testExtractor.ExtractWordsFromString(null, "C");
+            Assert.IsEmpty(wordList);
+        }
+        [Test]
+        public void ExtractWordsFromString_FilePathIsNull()
+        {
+            testExtractor = new WordExtractor();
+            wordList = testExtractor.ExtractWordsFromString("mjauuuu kss kss", null);
+            foreach (var word in wordList)
+            {
+                Assert.IsNull(word.file);
+            }
         }
     }
 }

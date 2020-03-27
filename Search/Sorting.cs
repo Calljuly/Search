@@ -6,39 +6,38 @@ namespace Search
 {
     public class Sorting
     {
-        List<Word> listOfWord = new List<Word>();
-
-        public void sortAllWords(List<Word> a, int start, int end)
+        //Quick sort metod för att sortera varje ord som kommer in. Det är en rekursiv metod som anropar 
+        // och tar svaret från den metoden och anropar sig själv med som parameter.
+        public void sortAllWords(List<Word> listOfWords, int startIndex, int endIndex)
         {
-            if (start < end)
+            if (startIndex < endIndex)
             {
-                var q = Parti(a, start, end);
-                sortAllWords(a, start, q - 1);
-                sortAllWords(a, q + 1, end);
+                var q = Partition(listOfWords, startIndex, endIndex);
+                sortAllWords(listOfWords, startIndex, q - 1);
+                sortAllWords(listOfWords, q + 1, endIndex);
             }
         }
-        public int Parti(List<Word> a, int start, int end)
+        public int Partition(List<Word> listOfWords, int startIndex, int endIndex)
         {
-            Word pivot = a[end];
+            Word pivot = listOfWords[endIndex];
             Word temporary;
             Word temporaryTwo;
-            int i = start;
+            int indexToGoThrowList = startIndex;
 
-            for (int x = start; x < end; x++)
+            for (int x = startIndex; x < endIndex; x++)
             {
-                if (a[x].word.CompareTo(pivot.word) < 0)
+                if (listOfWords[x].word.CompareTo(pivot.word) < 0)
                 {
-                    temporary = a[x];
-                    a[x] = a[i];
-                    a[i] = temporary;
-                    i++;
+                    temporary = listOfWords[x];
+                    listOfWords[x] = listOfWords[indexToGoThrowList];
+                    listOfWords[indexToGoThrowList] = temporary;
+                    indexToGoThrowList++;
                 }
             }
-            temporaryTwo = a[i];
-            a[i] = a[end];
-            a[end] = temporaryTwo;
-            return i;
+            temporaryTwo = listOfWords[indexToGoThrowList];
+            listOfWords[indexToGoThrowList] = listOfWords[endIndex];
+            listOfWords[endIndex] = temporaryTwo;
+            return indexToGoThrowList;
         }
-
     }
 }

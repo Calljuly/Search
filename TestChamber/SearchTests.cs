@@ -1,6 +1,8 @@
 using NUnit.Framework;
 using Search;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace TestChamber
 {
@@ -16,7 +18,7 @@ namespace TestChamber
         {
             Searching search = new Searching();
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = search.BinarySearch(wordList, "bb");
+            var result = search.BinarySearch(wordList, true, "bb");
             Assert.AreEqual("bb", result[0].word);
         }
 
@@ -25,11 +27,11 @@ namespace TestChamber
         {
             Searching search = new Searching();
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = search.BinarySearch(wordList, "");
+            var result = search.BinarySearch(wordList, true, "");
             string test = "";
             int count = test.Length;
             Assert.AreEqual(0, result.Count);
-            var result2 = search.BinarySearch(wordList, null);
+            var result2 = search.BinarySearch(wordList, true, null);
             Assert.AreEqual(0, result2.Count);
         }
 
@@ -39,7 +41,7 @@ namespace TestChamber
             Searching search = new Searching();
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("bb", "txt"), new Word("bb", "txt"), new Word("bb", "txt"),
                                   new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = search.BinarySearch(wordList, "bb");
+            var result = search.BinarySearch(wordList, true, "bb");
 
             if (result.Count < 1)
             {
@@ -62,7 +64,7 @@ namespace TestChamber
         {
             Searching search = new Searching();
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = search.BinarySearch(wordList, "pp");
+            var result = search.BinarySearch(wordList, true, "pp");
             Assert.AreEqual(0, result.Count);
         }
 
@@ -71,7 +73,7 @@ namespace TestChamber
         {
             Searching search = new Searching();
             List<Word> wordList = new List<Word> { new Word("jj", "txt"), new Word("ee", "txt"), new Word("pp", "txt"), new Word("aa", "txt"), new Word("bb", "txt") };
-            var result = search.BinarySearch(wordList, "bb");
+            var result = search.BinarySearch(wordList, false, "bb");
             Assert.AreEqual("bb", result[0].word);
         }
 
@@ -80,7 +82,7 @@ namespace TestChamber
         {
             Searching search = new Searching();
             List<Word> wordList = new List<Word>();
-            var result = search.BinarySearch(wordList, "bb");
+            var result = search.BinarySearch(wordList, false, "bb");
             Assert.AreEqual(0, result.Count);
         }
 
@@ -89,10 +91,41 @@ namespace TestChamber
         {
             Searching search = new Searching();
             List<Word> wordList = null;
-            var result = search.BinarySearch(wordList, "bb");
+            var result = search.BinarySearch(wordList, false, "bb");
             Assert.AreEqual(0, result.Count);
         }
 
+        [Test]
+        public void BinarySearch_ListIsBig_ReturnsCorrectList()
+        {
+            Searching search = new Searching();
+            List<Word> wordList = new List<Word>();
 
+            Random rnd = new Random();
+
+            for (int i = 0; i < 100000; i++)
+            {
+                wordList.Add(new Word($"{(char)rnd.Next('c', 'z')}{(char)rnd.Next('c', 'z')}", "txt"));
+            }
+
+            wordList.Add(new Word("bb", "text"));
+
+            for (int i = 0; i < 1000000; i++)
+            {
+                wordList.Add(new Word($"{(char)rnd.Next('c', 'z')}{(char)rnd.Next('c', 'z')}", "txt"));
+            }
+
+            Sorting sort = new Sorting();
+            sort.sortAllWords(wordList, 0, wordList.Count -1); ;
+
+            DateTime start = DateTime.Now;
+
+            var result = search.BinarySearch(wordList, true, "bb");
+
+            TimeSpan span = DateTime.Now - start;
+
+            Debug.WriteLine($"Time of search was {span.TotalMilliseconds} milliseconds");
+            Assert.AreEqual("bb", result[0].word);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Search
         /// <param name="list"></param>
         /// <param name="targetWord"></param>
         /// <returns></returns>
-        public List<Word> BinarySearch(List<Word> list, string targetWord)
+        public List<Word> BinarySearch(List<Word> list, bool listIsSorted, string targetWord)
         {
             // Place for essential variables 
             int? targetFoundAt = null;
@@ -33,7 +33,19 @@ namespace Search
             int last = list.Count - 1;
             int first = 0;
 
-            sort.sortAllWords(list, 0, list.Count - 1);
+            // ** Fix ** this means that this class cannot stand alone. It's dependent on a method from another class. 
+            #region
+            // Maybe this is what they mean that methods should be independent of one another. That one method should not be dependent on
+            // a method from another custom class. Meaning that methods that are built into c# are ok because those will always be there anyway. 
+            // What we want is for one class to be able to be lifted out of it's context and be inserted in another context. 
+            // But what about single responsibility? It may still be that you need to lift out several of classes....
+            // But then maybe the methods still shouldn't be dependant on one another?
+            #endregion
+
+            if (!listIsSorted)
+            {
+                sort.sortAllWords(list, 0, list.Count - 1);
+            }
 
             while (first <= last)
             {

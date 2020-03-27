@@ -6,56 +6,76 @@ namespace Search
 {
     public class Searching
     {
-        public List<Word> BinarySearch(List<Word> list, string word)
+        /// <summary>
+        /// Returns a List<Word> of found results. If no words were found, then an empty list is returned. 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="targetWord"></param>
+        /// <returns></returns>
+        public List<Word> BinarySearch(List<Word> list, string targetWord)
         {
+            // Place for essential variables 
             int last = list.Count -1;
             int first = 0;
-            int foundAt = 0; // **FIX**
+            int? targetFoundAt = null;
+            bool wordFound = false;
             List<Word> result = new List<Word>();
 
-            if (word == null || word.Length < 1)
+            if (targetWord == null || targetWord.Length < 1)
             {
                 return result;
             }
             
+            // This algoritm starts in the middle of the list and checks if the targetWord is before or after the current position. 
+            // If targetWord is before, then the algorithm excludes the latter half of the list by assigning middle position to "last". 
+            // Then it checks the new middle of the list and so on until it either finds the targetWord or no more parts of the list
+            // can be excluded. It only works if the list is sorted. 
 
             while (first <= last)
             {
                 int middle = (first + last) / 2;
 
-                if (list[middle].word.Equals(word))
+                if (list[middle].word.Equals(targetWord))
                 {
-                    foundAt = middle;
+                    targetFoundAt = middle;
                     result.Add(list[middle]);
+                    wordFound = true;
                     break;
                 }
-                else if (list[middle].word.CompareTo(word) == 1)
+                else if (list[middle].word.CompareTo(targetWord) == 1)
                 {
                     last = middle - 1; 
                 }
-                else if (list[middle].word.CompareTo(word) == -1)
+                else if (list[middle].word.CompareTo(targetWord) == -1)
                 {
                     first = middle + 1;
                 }
             }
 
+
+
+            /*
+             If we found the targetWord then we need to see if there are more words that fit the targetWord in the list. So we check the two words next to 
+             the wprd that was found. Fter that we check the two words that are 2 steps to the left and 2 steps to the right of the first found word. 
+             Then 3 steps to the left and right and so on. Every new match we find is added to "result". This continues until the algorithm stops finding matches.  
+             */
+
             int stepLength = 1;
-            bool found = true;
-
-            while (found)
+            
+            while (wordFound)
             {
-                found = false;
+                wordFound = false;
 
-                if ((foundAt + stepLength) <= (list.Count - 1) && list[foundAt + stepLength].word.Equals(word))
+                if ((targetFoundAt + stepLength) <= (list.Count - 1) && list[targetFoundAt.Value + stepLength].word.Equals(targetWord))
                 {
-                    result.Add(list[foundAt + stepLength]);
-                    found = true;
+                    result.Add(list[targetFoundAt.Value + stepLength]);
+                    wordFound = true;
                 }
                 
-                if ((foundAt - stepLength) >= 0 && list[foundAt - stepLength].word.Equals(word))
+                if ((targetFoundAt - stepLength) >= 0 && list[targetFoundAt.Value - stepLength].word.Equals(targetWord))
                 {
-                    result.Add(list[foundAt - stepLength]);
-                    found = true;
+                    result.Add(list[targetFoundAt.Value - stepLength]);
+                    wordFound = true;
                 }
 
                 stepLength++;

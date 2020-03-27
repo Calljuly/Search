@@ -11,9 +11,8 @@ namespace TestChamber
         {
         }
 
-        // what if the list is empty or contains only one or two items. 
         [Test]
-        public void BinarySearch_OnlyOneWordExists_FindsTheWord()
+        public void BinarySearch_OnlyOneMatchExists_FindsTheWord()
         {
             Searching search = new Searching();
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
@@ -35,7 +34,7 @@ namespace TestChamber
         }
 
         [Test]
-        public void BinarySearch_SeveralWordsExists_FindsAll()
+        public void BinarySearch_SeveralMatchesExists_FindsAll()
         {
             Searching search = new Searching();
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("bb", "txt"), new Word("bb", "txt"), new Word("bb", "txt"),
@@ -66,5 +65,34 @@ namespace TestChamber
             var result = search.BinarySearch(wordList, "pp");
             Assert.AreEqual(0, result.Count);
         }
+
+        [Test]
+        public void BinarySearch_ListNotSorted_FindsCorrectWord()
+        {
+            Searching search = new Searching();
+            List<Word> wordList = new List<Word> { new Word("jj", "txt"), new Word("ee", "txt"), new Word("pp", "txt"), new Word("aa", "txt"), new Word("bb", "txt") };
+            var result = search.BinarySearch(wordList, "bb");
+            Assert.AreEqual("bb", result[0].word);
+        }
+
+        [Test]
+        public void BinarySearch_EmptyListInserted_EmptyListReturned()
+        {
+            Searching search = new Searching();
+            List<Word> wordList = new List<Word>();
+            var result = search.BinarySearch(wordList, "bb");
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [Test]
+        public void BinarySearch_NullListInserted_EmptyListReturned()
+        {
+            Searching search = new Searching();
+            List<Word> wordList = null;
+            var result = search.BinarySearch(wordList, "bb");
+            Assert.AreEqual(0, result.Count);
+        }
+
+
     }
 }

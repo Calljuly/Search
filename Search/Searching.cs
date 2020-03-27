@@ -15,21 +15,25 @@ namespace Search
         public List<Word> BinarySearch(List<Word> list, string targetWord)
         {
             // Place for essential variables 
-            int last = list.Count -1;
-            int first = 0;
             int? targetFoundAt = null;
             bool wordFound = false;
             List<Word> result = new List<Word>();
+            Sorting sort = new Sorting();
 
-            if (targetWord == null || targetWord.Length < 1)
+            if (list == null || targetWord == null || targetWord.Length < 1)
             {
                 return result;
             }
-            
+
             // This algoritm starts in the middle of the list and checks if the targetWord is before or after the current position. 
             // If targetWord is before, then the algorithm excludes the latter half of the list by assigning middle position to "last". 
             // Then it checks the new middle of the list and so on until it either finds the targetWord or no more parts of the list
             // can be excluded. It only works if the list is sorted. 
+
+            int last = list.Count - 1;
+            int first = 0;
+
+            sort.sortAllWords(list, 0, list.Count - 1);
 
             while (first <= last)
             {

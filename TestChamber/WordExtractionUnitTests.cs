@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Search;
 
@@ -7,11 +8,10 @@ namespace TestChamber
     public class WordExtractionUnitTests //Patrik
     {
         List<Word> wordList;
-        WordExtractor testExtractor;
+        WordExtractor testExtractor = new WordExtractor();
         [Test]
         public void ExtractWordsFromString_WordsAreExtractedCorrectly()
         {
-            testExtractor = new WordExtractor();
             string filePath = @"C:/";
             string words = "hej! hejsan; hallå, tjena: sm-guld 2020.";
             wordList = testExtractor.ExtractWordsFromString(words, filePath);
@@ -28,7 +28,6 @@ namespace TestChamber
         [Test]
         public void ExtractWordsFromString_FilePathIsCorrect()
         {
-            testExtractor = new WordExtractor();
             string filePath = @"C:/";
             string words = "hej hejsan hallå, tjena sm-guld 2020.";
             wordList = testExtractor.ExtractWordsFromString(words, filePath);
@@ -41,7 +40,6 @@ namespace TestChamber
         [Test]
         public void ExtractWordsFromString_FilePathNotEmpty()
         {
-            testExtractor = new WordExtractor();
             wordList = testExtractor.ExtractWordsFromString("yes yes yes", @"C:/");
             foreach (var word in wordList)
             {
@@ -51,7 +49,6 @@ namespace TestChamber
         [Test]
         public void ExtractWordsFromString_WordsWithSeparatorsAreSameWord()
         {
-            testExtractor = new WordExtractor();
             wordList = testExtractor.ExtractWordsFromString("yes yes, yes.", @"C:/");
             foreach (var word in wordList)
             {
@@ -61,14 +58,12 @@ namespace TestChamber
         [Test]
         public void ExtractWordsFromString_ExtractFromEmptyStrings()
         {
-            testExtractor = new WordExtractor();
             wordList = testExtractor.ExtractWordsFromString("", "");
             Assert.IsEmpty(wordList);
         }
         [Test]
         public void ExtractWordsFromString_ExtractFromEmptyFilePath()
         {
-            testExtractor = new WordExtractor();
             wordList = testExtractor.ExtractWordsFromString("Filepath is empty", "");
             Assert.IsEmpty(wordList);
 
@@ -76,33 +71,66 @@ namespace TestChamber
         [Test]
         public void ExtractWordsFromString_ExtractFromEmptyText()
         {
-            testExtractor = new WordExtractor();
             wordList = testExtractor.ExtractWordsFromString("", "Text document is empty");
             Assert.IsEmpty(wordList);
         }
         [Test]
-        public void ExtractWordsFromString_TextAndFilePathIsNull()
+        public void ExtractWordsFromString_TextAndFilePathIsNull_ListIsEmpty()
         {
-            testExtractor = new WordExtractor();
             wordList = testExtractor.ExtractWordsFromString(null, null);
             Assert.IsEmpty(wordList);
         }
         [Test]
-        public void ExtractWordsFromString_TextIsNull()
+        public void ExtractWordsFromString_TextAndFilePathIsNull_ListIsNotNull()
         {
-            testExtractor = new WordExtractor();
+            wordList = testExtractor.ExtractWordsFromString(null, null);
+            Assert.IsNotNull(wordList);
+        }
+        [Test]
+        public void ExtractWordsFromString_TextIsNull_ListIsEmpty()
+        {
             wordList = testExtractor.ExtractWordsFromString(null, "C");
             Assert.IsEmpty(wordList);
         }
         [Test]
-        public void ExtractWordsFromString_FilePathIsNull()
+        public void ExtractWordsFromString_TextIsNull_ListIsNotNull()
         {
-            testExtractor = new WordExtractor();
+            wordList = testExtractor.ExtractWordsFromString(null, "C");
+            Assert.IsNotNull(wordList);
+        }
+        [Test]
+        public void ExtractWordsFromString_FilePathIsNull_WordFileIsNull()
+        {
             wordList = testExtractor.ExtractWordsFromString("mjauuuu kss kss", null);
             foreach (var word in wordList)
             {
                 Assert.IsNull(word.file);
             }
+        }
+        [Test]
+        public void ExtractWordsFromString_FilePathIsNull_ListIsNotNull()
+        {
+            wordList = testExtractor.ExtractWordsFromString("mjauuuu kss kss", null);
+            Assert.IsNotNull(wordList);
+        }
+        [Test]
+        public void ReplaceSeparators_HappyDays()
+        {
+            string s = "hej, hej. hej! hej=hej( hej[i] / hej&hej%hej hej'hej\n hej: hej; @hej$hej kram\\kram* ja? #är det sant\"-+{}";
+            s = testExtractor.ReplaceSeparators(s);
+            Assert.AreEqual("hej hej hej hejhej heji  hejhejhej hej'hej hej hej hejhej kramkram ja är det sant", s);
+        }
+        [Test]
+        public void ReplaceSeparators_InsertEmptyString()
+        {
+            string s = string.Empty;
+            s = testExtractor.ReplaceSeparators(s);
+            Assert.IsEmpty(s);
+        }
+        [Test]
+        public void ReplaceSeparators_InsertNull()
+        {
+            Assert.Throws<NullReferenceException>(() => testExtractor.ReplaceSeparators(null));
         }
     }
 }

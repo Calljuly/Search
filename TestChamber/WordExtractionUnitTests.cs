@@ -114,23 +114,39 @@ namespace TestChamber
             Assert.IsNotNull(wordList);
         }
         [Test]
-        public void ReplaceSeparators_HappyDays()
+        public void ReplaceSpecialCharacter_HappyDays()
         {
             string s = "hej, hej. hej! hej=hej( hej[i] / hej&hej%hej hej'hej\n hej: hej; @hej$hej kram\\kram* ja? #är det sant\"-+{}";
-            s = testExtractor.ReplaceSeparators(s);
+            s = testExtractor.ReplaceSpecialCharacter(s);
             Assert.AreEqual("hej hej hej hejhej heji  hejhejhej hej'hej hej hej hejhej kramkram ja är det sant", s);
         }
         [Test]
-        public void ReplaceSeparators_InsertEmptyString()
+        public void ReplaceSpecialCharacter_InsertEmptyString()
         {
             string s = string.Empty;
-            s = testExtractor.ReplaceSeparators(s);
+            s = testExtractor.ReplaceSpecialCharacter(s);
             Assert.IsEmpty(s);
         }
         [Test]
-        public void ReplaceSeparators_InsertNull()
+        public void ReplaceSpecialCharacter_InsertNull()
         {
-            Assert.Throws<NullReferenceException>(() => testExtractor.ReplaceSeparators(null));
+            Assert.Throws<NullReferenceException>(() => testExtractor.ReplaceSpecialCharacter(null));
+        }
+        /// <summary>
+        /// Testet behöver göras om. Är inte alls bra i nuläget.
+        /// </summary>
+        [Test]
+        public void AppendWordListsToCompoundedList_HappyDays()
+        {
+            testExtractor.ExtractWordsFromString("yes hello", "a");
+            testExtractor.ExtractWordsFromString("yes hello", "b");
+            foreach (var word in testExtractor.compoundedList)
+            {
+                if (word.file == "a" || word.file == "b") 
+                {
+                    Assert.Pass();
+                }
+            }
         }
     }
 }

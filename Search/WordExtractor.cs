@@ -8,37 +8,45 @@ namespace Search
 {
     public class WordExtractor
     {
-        public string ReplaceSeparators(string text) //enkapsulera till internal/private
+        public List<Word> compoundedList; // ändra private/internal, endast public för tester
+        public WordExtractor()
+        {
+            compoundedList = new List<Word>();
+        }
+        /// <summary>
+        /// Replaces a non word- or digit character with an empty string(exceptions made for space and ').
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>String without special characters</returns>
+        public string ReplaceSpecialCharacter(string text) //enkapsulera till internal/private
         {
             var sb = new StringBuilder();
-            //try
-            //{
-                foreach (char c in text)
+            foreach (char c in text)
+            {
+                if (char.IsLetterOrDigit(c) || (c == ' ') || (c == '\''))
                 {
-                    if (char.IsLetterOrDigit(c) || (c == ' ') || (c == '\''))
-                    {
-                        sb.Append(c);
-                    }
+                    sb.Append(c);
                 }
-                return sb.ToString();
-            //}
-            //catch (NullReferenceException)
-            //{
-            //    return sb.ToString();
-            //}
+            }
+            return sb.ToString();
         }
+        /// <summary>
+        /// Extracts all words from a given string and returns a list of word objects containing the actual word and the origin of the text. 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="filePath"></param>
+        /// <returns>A list of all words found in the string, non-unique</returns>
         public List<Word> ExtractWordsFromString(string text, string filePath)
         {
-            var extractor = new WordExtractor();
             var wordList = new List<Word>();
             try
             {
                 if (!(text == "") && !(filePath == ""))
                 {
-                    var regexdText = extractor.ReplaceSeparators(text);
+                    var textWithoutSpecialCharacters = this.ReplaceSpecialCharacter(text);
 
                     //Upon space splits the string into a piece of string.
-                    var splittedText = regexdText.Split(' ');
+                    var splittedText = textWithoutSpecialCharacters.Split(' ');
 
                     //Adds all words in the text in to a list of words.
                     foreach (var word in splittedText)
@@ -46,17 +54,26 @@ namespace Search
                         wordList.Add(new Word(word, filePath));
                     }
                 }
+                this.AppendWordListsToCompoundedList(wordList);
                 return wordList;
             }
             catch (NullReferenceException)
             {
                 return wordList;
             }
-            //Replaces all characters specified in the regular expression of 'text' with an empty string.
-            //var regexdText = Regex.Replace(text, "[.,+{}¤#\"\'*:;<>|?=!_&/\\n\\r\\e\\t]", string.Empty);
-            //var regex = new Regex("[\\s\\W\\n\\t]");
-            //var test = text.Where(char.IsPunctuation).Distinct().ToArray();
-            //var words = text.Split().Select(x => x.Trim(test));
+        }
+        /// <summary>
+        /// Adds the words of a single word list to a collection where words from all the current selected wordlists exists.
+        /// </summary>
+        /// <param name="wordList"></param>
+        /// <returns>The WordExtractors compounded list</returns>
+        public List<Word> AppendWordListsToCompoundedList(List<Word> wordList) // ändra till internal 
+        {
+            foreach (var word in wordList)
+            {
+                compoundedList.Add(word);
+            }
+            return compoundedList;
         }
     }
 }

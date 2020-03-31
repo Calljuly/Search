@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Search
 {
@@ -7,6 +8,9 @@ namespace Search
         static void Main(string[] args)
         {
             List<string> filesLoaded = new List<string>();
+            WordExtractor wordExtractor = new WordExtractor();
+            IO iO = new IO();
+            Sorting sorting = new Sorting();
 
             while (true)
             {
@@ -15,8 +19,14 @@ namespace Search
                 {
                     case "1":
                         Console.WriteLine("File Location exp \"C\\User\\... \"");
-                        Console.ReadLine();
-                        //read file method
+                        var filePath = Console.ReadLine();
+                        string textString = IO.ReadFile(filePath);
+                        var wordList = wordExtractor.ExtractWordsFromString(textString, filePath);
+                        sorting.sortAllWords(wordExtractor.compoundedList, 0, wordExtractor.compoundedList.Count - 1);
+                        foreach (var item in wordExtractor.compoundedList)
+                        {
+                            Console.WriteLine(item.word);
+                        }
                         break;
                     case "2":
                         if (filesLoaded.Count > 0)

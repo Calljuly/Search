@@ -18,9 +18,8 @@ namespace Search
             int? targetFoundAt = null;
             bool wordFound = false;
             Dictionary<string, int> result = new Dictionary<string, int>();
-            Sorting sort = new Sorting();
 
-            if (list == null || targetWord == null || targetWord.Length < 1)
+            if (list == null || targetWord == null || targetWord.Length < 1 || list.Count < 1)
             {
                 return result;
             }
@@ -45,7 +44,7 @@ namespace Search
 
             if (!listIsSorted)
             {
-                sort.sortAllWords(list, 0, list.Count - 1);
+                Sorting.myQuickSort(list, 0, list.Count - 1);
             }
 
             while (first <= last)

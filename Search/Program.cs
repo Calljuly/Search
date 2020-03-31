@@ -7,7 +7,11 @@ namespace Search
     {
         static void Main(string[] args)
         {
-            List<string> filesLoaded = new List<string>();
+            List<List<Word>> filesLoaded = new List<List<Word>>();
+            WordExtractor wordExtractor = new WordExtractor();
+            IO iO = new IO();
+            Sorting sorting = new Sorting();
+            Searching searching = new Searching();
 
             while (true)
             {
@@ -16,14 +20,16 @@ namespace Search
                 {
                     case "1":
                         Console.WriteLine("File Location exp \"C\\User\\... \"");
-                        Console.ReadLine();
-                        //read file method
+                        string filePath = Console.ReadLine();
+                        string textString = IO.ReadFile(filePath);
+                        var wordList = wordExtractor.ExtractWordsFromString(textString, filePath);
+                        sorting.sortAllWords(wordExtractor.compoundedList, 0, wordExtractor.compoundedList.Count - 1);
                         break;
                     case "2":
-                        if (filesLoaded.Count > 0)
+                        if (wordExtractor.compoundedList.Count > 0)
                         {
                             Console.Write("Type the word you want to search: ");
-                            Console.ReadLine();
+                            var searchWord = Console.ReadLine();
                             //sort and find method
                         }
                         else
@@ -32,7 +38,7 @@ namespace Search
                         }
                         break;
                     case "3":
-                        //save file method
+                        IO.SaveFile(wordExtractor.compoundedList, @"C:\Users\Patrik\Desktop" , "yes");
                         break;
                     case "0":
                         Environment.Exit(0);

@@ -20,15 +20,23 @@ namespace Search
         /// <returns>String without special characters</returns>
         public string ReplaceSpecialCharacter(string text) //enkapsulera till internal/private
         {
-            var sb = new StringBuilder();
-            foreach (char c in text)
+            try
             {
-                if (char.IsLetterOrDigit(c) || (c == ' ') || (c == '\''))
+                var sb = new StringBuilder();
+                foreach (char c in text)
                 {
-                    sb.Append(c);
+                    if (char.IsLetterOrDigit(c) || (c == ' ') || (c == '\''))
+                    {
+                        sb.Append(c);
+                    }
                 }
+                return sb.ToString();
             }
-            return sb.ToString();
+            catch (NullReferenceException)
+            {
+                return null;
+            }
+           
         }
         /// <summary>
         /// Extracts all words from a given string and returns a list of word objects containing the actual word and the origin of the text. 

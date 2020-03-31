@@ -16,7 +16,7 @@ namespace Search
                 // Read the stream to a string.
                 string fileContent = sr.ReadToEnd();
                 // Return the file Content as a string
-                return fileContent;
+                return fileContent.ToLower();
             }
             catch (IOException e)
             {
@@ -26,19 +26,28 @@ namespace Search
                 // Return null if file fail to read
                 return null;
             }
+            catch (ArgumentNullException)
+            {
+                return null;
+            }
 
         }
 
 
-        public static void SaveFile(string fileText, string fileLocation, string filename = null)
+        public static void SaveFile(List<Word> wordList, string fileLocation, string filename = null)
         {
             // Code reference from https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
             try
             {
+                string textContent = "Word: \t\t\t File Path: \n";
+                foreach (var word in wordList)
+                {
+                    textContent += word.word + "\t\t\t(" + word.file + ")" + "\n";
+                }
                 if (filename == null)
                 {
                     // Save on a existing file
-                    File.WriteAllText(fileLocation, fileText);
+                    File.WriteAllText(fileLocation, textContent);
                 }
                 else
                 {
@@ -50,7 +59,7 @@ namespace Search
                     // Close the text file
                     sw.Close();
                     // Write text string to the file
-                    File.WriteAllText(path, fileText);
+                    File.WriteAllText(path, textContent);
                 }
             }
             catch (IOException e)

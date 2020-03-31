@@ -28,10 +28,13 @@ namespace Search
             {
                 if (listOfWords[x].word.CompareTo(pivot.word) < 0)
                 {
-                    temporary = listOfWords[x];
-                    listOfWords[x] = listOfWords[indexToGoThrowList];
-                    listOfWords[indexToGoThrowList] = temporary;
-                    indexToGoThrowList++;
+                    if (listOfWords[x].word != pivot.word) 
+                    {
+                        temporary = listOfWords[x];
+                        listOfWords[x] = listOfWords[indexToGoThrowList];
+                        listOfWords[indexToGoThrowList] = temporary;
+                        indexToGoThrowList++;
+                    }
                 }
             }
             temporaryTwo = listOfWords[indexToGoThrowList];

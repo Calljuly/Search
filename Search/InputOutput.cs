@@ -9,7 +9,7 @@ namespace Search
     {
         public static string ReadFile(string fileLocation)
         {
-            // code came from https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-
+            // Code reference from https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-
             try
             {   // Open the text file using a stream reader.
                 StreamReader sr = new StreamReader(fileLocation);
@@ -20,6 +20,7 @@ namespace Search
             }
             catch (IOException e)
             {
+                Console.WriteLine("Could not read file");
                 // Write the e.Message to console 
                 Console.WriteLine(e.Message);
                 // Return null if file fail to read
@@ -31,6 +32,7 @@ namespace Search
 
         public static void SaveFile(string fileText, string fileLocation, string filename = null)
         {
+            // Code reference from https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
             try
             {
                 if (filename == null)
@@ -40,16 +42,21 @@ namespace Search
                 }
                 else
                 {
-                    // Create a new file and save
+                    // Create a path for the new file
                     string path = "\\";
                     path = fileLocation + path + filename + ".txt";
+                    // Create the text file using a stream reader.
                     StreamWriter sw = File.CreateText(path);
+                    // Close the text file
                     sw.Close();
+                    // Write text string to the file
                     File.WriteAllText(path, fileText);
                 }
             }
             catch (IOException e)
             {
+                Console.WriteLine("Could not save file. ");
+                // Write the e.Message to console 
                 Console.WriteLine(e.Message);
             }
 

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Search;
+using System.IO;
 
 namespace TestChamber
 {
@@ -15,7 +16,13 @@ namespace TestChamber
         [Test]
         public void IOSave()
         {
-            Assert.Pass();
+            string fileLocation = "C:\\Users\\97yunwon\\Desktop\\IOTest1.txt";
+            IO.SaveFile(fileLocation, "text1", "test1");
+
+            if (!File.Exists(fileLocation))
+            {
+                Assert.Pass();
+            }
         }
 
     }

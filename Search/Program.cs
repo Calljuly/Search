@@ -19,20 +19,16 @@ namespace Search
                 {
                     case "1":
                         Console.WriteLine("File Location exp \"C\\User\\... \"");
-                        var filePath = Console.ReadLine();
+                        string filePath = Console.ReadLine();
                         string textString = IO.ReadFile(filePath);
                         var wordList = wordExtractor.ExtractWordsFromString(textString, filePath);
                         sorting.sortAllWords(wordExtractor.compoundedList, 0, wordExtractor.compoundedList.Count - 1);
-                        foreach (var item in wordExtractor.compoundedList)
-                        {
-                            Console.WriteLine(item.word);
-                        }
                         break;
                     case "2":
-                        if (filesLoaded.Count > 0)
+                        if (wordExtractor.compoundedList.Count > 0)
                         {
                             Console.Write("Type the word you want to search: ");
-                            Console.ReadLine();
+                            var searchWord = Console.ReadLine();
                             //sort and find method
                         }
                         else

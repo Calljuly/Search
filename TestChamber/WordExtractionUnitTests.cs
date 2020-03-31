@@ -36,7 +36,7 @@ namespace TestChamber
                 Assert.AreEqual(filePath, word.file);
             }
         }
-        
+
         [Test]
         public void ExtractWordsFromString_FilePathNotEmpty()
         {
@@ -141,13 +141,17 @@ namespace TestChamber
         {
             testExtractor.ExtractWordsFromString("yes hello", "a");
             testExtractor.ExtractWordsFromString("yes hello", "b");
-            foreach (var word in testExtractor.compoundedList)
-            {
-                if (word.file == "a" || word.file == "b") 
-                {
-                    Assert.Pass();
-                }
-            }
+            Assert.AreEqual("a", testExtractor.compoundedList[0].file);
+            Assert.AreEqual("a", testExtractor.compoundedList[1].file);
+            Assert.AreEqual("b", testExtractor.compoundedList[2].file);
+            Assert.AreEqual("b", testExtractor.compoundedList[3].file);
+        }
+        [Test]
+        public void AppendWordListsToCompoundedList_AddsCorrectNumberOfWords()
+        {
+            testExtractor.ExtractWordsFromString("yes hello", "a");
+            testExtractor.ExtractWordsFromString("yes hello", "b");
+            Assert.AreEqual(4, testExtractor.compoundedList.Count);
         }
     }
 }

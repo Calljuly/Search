@@ -17,8 +17,8 @@ namespace TestChamber
         public void BinarySearch_OnlyOneMatchExists_FindsTheWord()
         {
             Searching search = new Searching();
-            List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = search.BinarySearch(wordList, true, "bb");
+            List<Word> wordList = new List<Word> { new Word("a", "txt"), new Word("b", "txt"), new Word("c", "txt"), new Word("d", "txt"), new Word("e", "txt") };
+            var result = search.BinarySearch(wordList, true, "b");
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add("txt", 1);
             Assert.AreEqual(expected, result);
@@ -41,8 +41,6 @@ namespace TestChamber
             Searching search = new Searching();
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
             var result = search.BinarySearch(wordList, true, "");
-            string test = "";
-            int count = test.Length;
             Assert.AreEqual(0, result.Count);
             var result2 = search.BinarySearch(wordList, true, null);
             Assert.AreEqual(0, result2.Count);

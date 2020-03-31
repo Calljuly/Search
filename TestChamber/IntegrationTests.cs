@@ -48,7 +48,7 @@ namespace TestChamber
         }
 
         [Test]
-        public void BinarySearch_SeveralMatceshExists_FindsAll()
+        public void BinarySearch_SeveralMatchesExists_FindsAll()
         {
             WordExtractor extractor = new WordExtractor();
             Sorting sort = new Sorting();
@@ -83,7 +83,5 @@ namespace TestChamber
             expected.Add(path4, 1);
             Assert.AreEqual(expected, result);
         }
-
-
     }
 }

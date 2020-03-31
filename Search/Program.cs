@@ -29,7 +29,9 @@ namespace Search
                         if (wordExtractor.compoundedList.Count > 0)
                         {
                             Console.Write("Type the word you want to search: ");
-                            var searchWord = Console.ReadLine();
+                            var searchWord = Console.ReadLine().ToLower();
+                            var searchedWords = searching.BinarySearch(wordExtractor.compoundedList, true, searchWord);
+                           
                             //sort and find method
                         }
                         else

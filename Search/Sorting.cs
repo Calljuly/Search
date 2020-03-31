@@ -6,8 +6,7 @@ namespace Search
 {
     public class Sorting
     {
-        /*Quicksort metod som anropar Partition metoden för att få ut det nya indexet som ska användas
-         när vi sorterar listan. */
+        
         public void sortAllWords(List<Word> listOfWords, int startIndex, int endIndex)
         {
             if (startIndex < endIndex)
@@ -42,7 +41,9 @@ namespace Search
             listOfWords[endIndex] = temporaryTwo;
             return indexToGoThrowList;
         }
-        public static void myQuickSort(List<Word> list, int start, int end)
+        /*Quicksort method that had an pivot in the middle of the list. The list will be divied in two
+         parts and get sorted.*/
+        public static void QuickSort(List<Word> list, int start, int end)
         {
             int leftSideOfList = start;
             int rightSideOfList = end;
@@ -70,11 +71,11 @@ namespace Search
             //Chooses if we should go to the right part of the list or the left and start sorting that part
             if (start < rightSideOfList)
             {
-                myQuickSort(list, start, rightSideOfList);
+                QuickSort(list, start, rightSideOfList);
             }
             if (leftSideOfList < end)
             {
-                myQuickSort(list, leftSideOfList, end);
+                QuickSort(list, leftSideOfList, end);
             }
         }
     }

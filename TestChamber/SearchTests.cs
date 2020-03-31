@@ -25,6 +25,17 @@ namespace TestChamber
         }
 
         [Test]
+        public void BinarySearch_CaseDoesntMatch_FindsTheWord()
+        {
+            Searching search = new Searching();
+            List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bB", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
+            var result = search.BinarySearch(wordList, true, "Bb");
+            Dictionary<string, int> expected = new Dictionary<string, int>();
+            expected.Add("txt", 1);
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
         public void BinarySearch_EnterWeirdCharacters_ReturnsEmptyList()
         {
             Searching search = new Searching();

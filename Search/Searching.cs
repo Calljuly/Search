@@ -32,6 +32,7 @@ namespace Search
 
             int last = list.Count - 1;
             int first = 0;
+            string targetWordAsLower = targetWord.ToLower();
 
             // ** Fix ** this means that this class cannot stand alone. It's dependent on a method from another class. 
             #region
@@ -51,18 +52,18 @@ namespace Search
             {
                 int middle = (first + last) / 2;
 
-                if (list[middle].word.Equals(targetWord))
+                if (list[middle].word.ToLower().Equals(targetWordAsLower))
                 {
                     targetFoundAt = middle;
                     AddToDictionary(result, list[middle].file);
                     wordFound = true;
                     break;
                 }
-                else if (list[middle].word.CompareTo(targetWord) == 1)
+                else if (list[middle].word.ToLower().CompareTo(targetWordAsLower) == 1)
                 {
                     last = middle - 1;
                 }
-                else if (list[middle].word.CompareTo(targetWord) == -1)
+                else if (list[middle].word.ToLower().CompareTo(targetWordAsLower) == -1)
                 {
                     first = middle + 1;
                 }
@@ -82,13 +83,13 @@ namespace Search
             {
                 wordFound = false;
 
-                if ((targetFoundAt + stepLength) <= (list.Count - 1) && list[targetFoundAt.Value + stepLength].word.Equals(targetWord))
+                if ((targetFoundAt + stepLength) <= (list.Count - 1) && list[targetFoundAt.Value + stepLength].word.ToLower().Equals(targetWordAsLower))
                 {
                     AddToDictionary(result, list[targetFoundAt.Value + stepLength].file);
                     wordFound = true;
                 }
 
-                if ((targetFoundAt - stepLength) >= 0 && list[targetFoundAt.Value - stepLength].word.Equals(targetWord))
+                if ((targetFoundAt - stepLength) >= 0 && list[targetFoundAt.Value - stepLength].word.ToLower().Equals(targetWordAsLower))
                 {
                     AddToDictionary(result, list[targetFoundAt.Value - stepLength].file);
                     wordFound = true;

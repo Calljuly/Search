@@ -44,7 +44,7 @@ namespace Search
 
             if (!listIsSorted)
             {
-                Sorting.myQuickSort(list, 0, list.Count - 1);
+                Sorting.QuickSort(list, 0, list.Count - 1);
             }
 
             while (first <= last)

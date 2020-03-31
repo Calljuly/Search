@@ -8,8 +8,6 @@ namespace Search
         static void Main(string[] args)
         {
             WordExtractor wordExtractor = new WordExtractor();
-            IO iO = new IO();
-            Sorting sorting = new Sorting();
             Searching searching = new Searching();
 
             while (true)
@@ -23,7 +21,7 @@ namespace Search
                         string filePath = Console.ReadLine();
                         string textString = IO.ReadFile(filePath);
                         wordExtractor.ExtractWordsFromString(textString, filePath);
-                        sorting.sortAllWords(wordExtractor.compoundedList, 0, wordExtractor.compoundedList.Count - 1);
+                        Sorting.QuickSort(wordExtractor.compoundedList, 0, wordExtractor.compoundedList.Count - 1);
                         break;
 
                         //Searches for a word selected by user input. Prints existance of word in all files to console.

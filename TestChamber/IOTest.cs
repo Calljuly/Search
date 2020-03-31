@@ -13,17 +13,17 @@ namespace TestChamber
             Assert.AreEqual("text1", IO.ReadFile(fileLocation));
         }
 
-        [Test]
-        public void IOSave()
-        {
-            string fileLocation = "C:\\Users\\97yunwon\\Desktop\\IOTest1.txt";
-            IO.SaveFile(fileLocation, "text1", "test1");
+        //[Test]
+        //public void IOSave()
+        //{
+        //    string fileLocation = "C:\\Users\\97yunwon\\Desktop\\IOTest1.txt";
+        //    IO.SaveFile(fileLocation, "text1", "test1");
 
-            if (!File.Exists(fileLocation))
-            {
-                Assert.Pass();
-            }
-        }
+        //    if (!File.Exists(fileLocation))
+        //    {
+        //        Assert.Pass();
+        //    }
+        //}
 
     }
 }

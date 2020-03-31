@@ -130,7 +130,8 @@ namespace TestChamber
         [Test]
         public void ReplaceSpecialCharacter_InsertNull()
         {
-            Assert.Throws<NullReferenceException>(() => testExtractor.ReplaceSpecialCharacter(null));
+            Assert.IsNull(testExtractor.ReplaceSpecialCharacter(null));
+            //Assert.Throws<NullReferenceException>(() => testExtractor.ReplaceSpecialCharacter(null));
         }
         /// <summary>
         /// Testet behöver göras om. Är inte alls bra i nuläget.

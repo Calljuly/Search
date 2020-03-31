@@ -7,10 +7,11 @@ namespace Search
     {
         static void Main(string[] args)
         {
-            List<string> filesLoaded = new List<string>();
+            List<List<Word>> filesLoaded = new List<List<Word>>();
             WordExtractor wordExtractor = new WordExtractor();
             IO iO = new IO();
             Sorting sorting = new Sorting();
+            Searching searching = new Searching();
 
             while (true)
             {
@@ -37,7 +38,7 @@ namespace Search
                         }
                         break;
                     case "3":
-                        //save file method
+                        IO.SaveFile(wordExtractor.compoundedList, @"C:\Users\Patrik\Desktop" , "yes");
                         break;
                     case "0":
                         Environment.Exit(0);

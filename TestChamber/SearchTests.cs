@@ -49,29 +49,6 @@ namespace TestChamber
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add("txt", 4);
             Assert.AreEqual(expected, result);
-
-            //if (result.Count < 1)
-            //{
-            //    Assert.Fail();
-            //}
-
-            //foreach (KeyValuePair<string, int> value in result)
-            //{
-            //    if (value.!result[i].word.Equals("bb"))
-            //    {
-            //        Assert.Fail();
-            //    }
-            //}
-
-            //for (int i = 0; i < result.Count; i++)
-            //{
-            //    if (!result[i].word.Equals("bb"))
-            //    {
-            //        Assert.Fail();
-            //    }
-            //}
-
-            Assert.Pass();
         }
 
         [Test]
@@ -144,6 +121,22 @@ namespace TestChamber
             Debug.WriteLine($"Time of search was {span.TotalMilliseconds} milliseconds");
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add("text", 1);
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void BinarySearch_SeveralMatchesFromDifferentFiles_FindsAllAndPresentsThemSeparately()
+        {
+            Searching search = new Searching();
+            List<Word> wordList = new List<Word> { new Word("aa", "txt1"), new Word("bb", "txt2"), new Word("bb", "txt3"), new Word("bb", "txt4"), new Word("bb", "txt5"),
+                                  new Word("cc", "txt7"), new Word("dd", "txt8"), new Word("ee", "txt10") };
+            var result = search.BinarySearch(wordList, true, "bb");
+
+            Dictionary<string, int> expected = new Dictionary<string, int>();
+            expected.Add("txt2", 1);
+            expected.Add("txt3", 1);
+            expected.Add("txt4", 1);
+            expected.Add("txt5", 1);
             Assert.AreEqual(expected, result);
         }
     }

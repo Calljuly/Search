@@ -55,7 +55,8 @@ namespace Search
                 while (list[leftSideOfList].word.CompareTo(pivot.word) < 0) { leftSideOfList++; }
                 //Checks if value should be in right part of list
                 while (list[rightSideOfList].word.CompareTo(pivot.word) > 0) { rightSideOfList--; }
-                //Swoops values
+                
+                //Swoops values found if they doesnt belong in their current part of list
                 if (leftSideOfList <= rightSideOfList)
                 {
                     temporary = list[leftSideOfList];

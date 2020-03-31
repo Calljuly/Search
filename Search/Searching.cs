@@ -12,12 +12,12 @@ namespace Search
         /// <param name="list"></param>
         /// <param name="targetWord"></param>
         /// <returns></returns>
-        public List<Word> BinarySearch(List<Word> list, bool listIsSorted, string targetWord)
+        public Dictionary<string, int> BinarySearch(List<Word> list, bool listIsSorted, string targetWord)
         {
             // Place for essential variables 
             int? targetFoundAt = null;
             bool wordFound = false;
-            List<Word> result = new List<Word>();
+            Dictionary<string, int> result = new Dictionary<string, int>();
             Sorting sort = new Sorting();
 
             if (list == null || targetWord == null || targetWord.Length < 1)
@@ -54,13 +54,13 @@ namespace Search
                 if (list[middle].word.Equals(targetWord))
                 {
                     targetFoundAt = middle;
-                    result.Add(list[middle]);
+                    AddToDictionary(result, list[middle].file);
                     wordFound = true;
                     break;
                 }
                 else if (list[middle].word.CompareTo(targetWord) == 1)
                 {
-                    last = middle - 1; 
+                    last = middle - 1;
                 }
                 else if (list[middle].word.CompareTo(targetWord) == -1)
                 {
@@ -77,27 +77,40 @@ namespace Search
              */
 
             int stepLength = 1;
-            
+
             while (wordFound)
             {
                 wordFound = false;
 
                 if ((targetFoundAt + stepLength) <= (list.Count - 1) && list[targetFoundAt.Value + stepLength].word.Equals(targetWord))
                 {
-                    result.Add(list[targetFoundAt.Value + stepLength]);
+                    AddToDictionary(result, list[targetFoundAt.Value + stepLength].file);
                     wordFound = true;
                 }
-                
+
                 if ((targetFoundAt - stepLength) >= 0 && list[targetFoundAt.Value - stepLength].word.Equals(targetWord))
                 {
-                    result.Add(list[targetFoundAt.Value - stepLength]);
+                    AddToDictionary(result, list[targetFoundAt.Value - stepLength].file);
                     wordFound = true;
                 }
 
                 stepLength++;
             }
-        
+
+            //result.Add("fail", 28);
             return result;
+        }
+
+        private void AddToDictionary(Dictionary<string, int> dictionary, string key)
+        {
+            if (!dictionary.ContainsKey(key))
+            {
+                dictionary.Add(key, 1);
+            }
+            else
+            {
+                dictionary[key]++;
+            }
         }
     }
 }

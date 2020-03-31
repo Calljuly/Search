@@ -19,7 +19,9 @@ namespace TestChamber
             Searching search = new Searching();
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
             var result = search.BinarySearch(wordList, true, "bb");
-            Assert.AreEqual("bb", result[0].word);
+            Dictionary<string, int> expected = new Dictionary<string, int>();
+            expected.Add("txt", 1);
+            Assert.AreEqual(expected, result);
         }
 
         [Test]
@@ -43,18 +45,31 @@ namespace TestChamber
                                   new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
             var result = search.BinarySearch(wordList, true, "bb");
 
-            if (result.Count < 1)
-            {
-                Assert.Fail();
-            }
+            Assert.AreEqual(4, result["txt"]);
+            Dictionary<string, int> expected = new Dictionary<string, int>();
+            expected.Add("txt", 4);
+            Assert.AreEqual(expected, result);
 
-            for (int i = 0; i < result.Count; i++)
-            {
-                if (!result[i].word.Equals("bb"))
-                {
-                    Assert.Fail();
-                }
-            }
+            //if (result.Count < 1)
+            //{
+            //    Assert.Fail();
+            //}
+
+            //foreach (KeyValuePair<string, int> value in result)
+            //{
+            //    if (value.!result[i].word.Equals("bb"))
+            //    {
+            //        Assert.Fail();
+            //    }
+            //}
+
+            //for (int i = 0; i < result.Count; i++)
+            //{
+            //    if (!result[i].word.Equals("bb"))
+            //    {
+            //        Assert.Fail();
+            //    }
+            //}
 
             Assert.Pass();
         }
@@ -74,7 +89,9 @@ namespace TestChamber
             Searching search = new Searching();
             List<Word> wordList = new List<Word> { new Word("jj", "txt"), new Word("ee", "txt"), new Word("pp", "txt"), new Word("aa", "txt"), new Word("bb", "txt") };
             var result = search.BinarySearch(wordList, false, "bb");
-            Assert.AreEqual("bb", result[0].word);
+            Dictionary<string, int> expected = new Dictionary<string, int>();
+            expected.Add("txt", 1);
+            Assert.AreEqual(expected, result);
         }
 
         [Test]
@@ -116,7 +133,7 @@ namespace TestChamber
             }
 
             Sorting sort = new Sorting();
-            sort.sortAllWords(wordList, 0, wordList.Count -1); ;
+            sort.sortAllWords(wordList, 0, wordList.Count - 1); ;
 
             DateTime start = DateTime.Now;
 
@@ -125,7 +142,9 @@ namespace TestChamber
             TimeSpan span = DateTime.Now - start;
 
             Debug.WriteLine($"Time of search was {span.TotalMilliseconds} milliseconds");
-            Assert.AreEqual("bb", result[0].word);
+            Dictionary<string, int> expected = new Dictionary<string, int>();
+            expected.Add("text", 1);
+            Assert.AreEqual(expected, result);
         }
     }
 }

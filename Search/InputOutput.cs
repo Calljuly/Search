@@ -16,7 +16,7 @@ namespace Search
                 // Read the stream to a string.
                 string fileContent = sr.ReadToEnd();
                 // Return the file Content as a string
-                return fileContent;
+                return fileContent.ToLower();
             }
             catch (IOException e)
             {

@@ -83,5 +83,15 @@ namespace Search
             }
             return compoundedList;
         }
+        public string BuildStringFromListOfWords(List<Word> wordList)
+        {
+            StringBuilder textContent = new StringBuilder();
+            textContent.Append("Word: \t\t\t File Path: \n");
+            foreach (var word in wordList)
+            {
+                textContent.Append(word.word + "\t\t\t(" + word.file + ")" + "\n");
+            }
+            return textContent.ToString();
+        }
     }
 }

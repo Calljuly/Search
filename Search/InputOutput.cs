@@ -40,20 +40,16 @@ namespace Search
         }
 
 
-        public static string SaveFile(List<Word> wordList, string fileLocation, string filename = null)
+        public static string SaveFile(string textFile, string fileLocation, string filename = null)
         {
             // Code reference from https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
             try
             {
-                string textContent = "Word: \t\t\t File Path: \n";
-                foreach (var word in wordList)
-                {
-                    textContent += word.word + "\t\t\t(" + word.file + ")" + "\n";
-                }
+                
                 if (filename == null)
                 {
                     // Save on a existing file
-                    File.WriteAllText(fileLocation, textContent);
+                    File.WriteAllText(fileLocation, textFile);
                     return fileLocation;
                 }
                 else
@@ -66,7 +62,7 @@ namespace Search
                     // Close the text file
                     sw.Close();
                     // Write text string to the file
-                    File.WriteAllText(path, textContent);
+                    File.WriteAllText(path, textFile);
                     return path;
                 }
             }

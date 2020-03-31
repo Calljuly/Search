@@ -118,16 +118,16 @@ namespace TestChamber
                 wordList.Add(new Word($"{(char)rnd.Next('c', 'z')}{(char)rnd.Next('c', 'z')}", "txt"));
             }
 
-            Sorting sort = new Sorting();
-            sort.sortAllWords(wordList, 0, wordList.Count - 1); ;
-
             DateTime start = DateTime.Now;
-
-            var result = search.BinarySearch(wordList, true, "bb");
-
+            Sorting.myQuickSort(wordList, 0, wordList.Count - 1);
             TimeSpan span = DateTime.Now - start;
+            Debug.WriteLine($"Time of sort was {span.TotalSeconds} seconds");
 
-            Debug.WriteLine($"Time of search was {span.TotalMilliseconds} milliseconds");
+            start = DateTime.Now;
+            var result = search.BinarySearch(wordList, true, "bb");
+            span = DateTime.Now - start;
+            Debug.WriteLine($"Time of search was {span.TotalSeconds} seconds");
+
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add("text", 1);
             Assert.AreEqual(expected, result);

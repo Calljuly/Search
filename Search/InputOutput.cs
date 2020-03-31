@@ -26,8 +26,14 @@ namespace Search
                 // Return null if file fail to read
                 return null;
             }
-            catch (ArgumentNullException)
+            catch (ArgumentNullException e)
             {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
                 return null;
             }
 

@@ -26,7 +26,7 @@ namespace Search
                 // Return null if file fail to read
                 return null;
             }
-            catch (NullReferenceException)
+            catch (ArgumentNullException)
             {
                 return null;
             }

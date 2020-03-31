@@ -40,7 +40,7 @@ namespace Search
         }
 
 
-        public static void SaveFile(List<Word> wordList, string fileLocation, string filename = null)
+        public static string SaveFile(List<Word> wordList, string fileLocation, string filename = null)
         {
             // Code reference from https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
             try
@@ -54,6 +54,7 @@ namespace Search
                 {
                     // Save on a existing file
                     File.WriteAllText(fileLocation, textContent);
+                    return fileLocation;
                 }
                 else
                 {
@@ -66,6 +67,7 @@ namespace Search
                     sw.Close();
                     // Write text string to the file
                     File.WriteAllText(path, textContent);
+                    return path;
                 }
             }
             catch (IOException e)
@@ -73,6 +75,7 @@ namespace Search
                 Console.WriteLine("Could not save file. ");
                 // Write the e.Message to console 
                 Console.WriteLine(e.Message);
+                return null;
             }
 
         }

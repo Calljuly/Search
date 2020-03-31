@@ -6,8 +6,8 @@ namespace Search
 {
     public class Sorting
     {
-        //Quick sort metod för att sortera varje ord som kommer in. Det är en rekursiv metod som anropar 
-        // och tar svaret från den metoden och anropar sig själv med som parameter.
+        /*Quicksort metod som anropar Partition metoden för att få ut det nya indexet som ska användas
+         när vi sorterar listan. */
         public void sortAllWords(List<Word> listOfWords, int startIndex, int endIndex)
         {
             if (startIndex < endIndex)
@@ -41,6 +41,40 @@ namespace Search
             listOfWords[indexToGoThrowList] = listOfWords[endIndex];
             listOfWords[endIndex] = temporaryTwo;
             return indexToGoThrowList;
+        }
+        public static void myQuickSort(List<Word> list, int start, int end)
+        {
+            int leftSideOfList = start;
+            int rightSideOfList = end;
+            var pivot = list[(start + end) / 2];
+            Word temporary;
+
+            while (leftSideOfList <= rightSideOfList)
+            {
+                //Checks if value should be in Left part of list
+                while (list[leftSideOfList].word.CompareTo(pivot.word) < 0) { leftSideOfList++; }
+                //Checks if value should be in right part of list
+                while (list[rightSideOfList].word.CompareTo(pivot.word) > 0) { rightSideOfList--; }
+                //Swoops values
+                if (leftSideOfList <= rightSideOfList)
+                {
+                    temporary = list[leftSideOfList];
+                    list[leftSideOfList] = list[rightSideOfList];
+                    list[rightSideOfList] = temporary;
+
+                    leftSideOfList++;
+                    rightSideOfList--;
+                }
+            }
+            //Chooses if we should go to the right part of the list or the left and start sorting that part
+            if (start < rightSideOfList)
+            {
+                myQuickSort(list, start, rightSideOfList);
+            }
+            if (leftSideOfList < end)
+            {
+                myQuickSort(list, leftSideOfList, end);
+            }
         }
     }
 }

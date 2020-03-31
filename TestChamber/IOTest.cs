@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Search;
+using System;
 using System.IO;
 
 namespace TestChamber
@@ -9,8 +10,8 @@ namespace TestChamber
         [Test]
         public void IORead()
         {
-            string fileLocation = "C:\\Users\\97yunwon\\Desktop\\IOTest1.txt";
-            Assert.AreEqual("text1", IO.ReadFile(fileLocation));
+            string path = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile3.txt";
+            Assert.AreEqual("timmy is the smartest. #admit", IO.ReadFile(path));
         }
 
         //[Test]

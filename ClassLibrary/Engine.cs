@@ -70,15 +70,6 @@ namespace ClassLibrary
             // If targetWord is before, then the algorithm excludes the latter half of the list by assigning middle position to "last". 
             // Then it checks the new middle of the list and so on until it either finds the targetWord or no more parts of the list
             // can be excluded. It only works if the list is sorted. 
-                       
-            // ** Fix ** this means that this class cannot stand alone. It's dependent on a method from another class. 
-            #region
-            // Maybe this is what they mean that methods should be independent of one another. That one method should not be dependent on
-            // a method from another custom class. Meaning that methods that are built into c# are ok because those will always be there anyway. 
-            // What we want is for one class to be able to be lifted out of it's context and be inserted in another context. 
-            // But what about single responsibility? It may still be that you need to lift out several of classes....
-            // But then maybe the methods still shouldn't be dependant on one another?
-            #endregion
 
             if (!listIsSorted)
             {

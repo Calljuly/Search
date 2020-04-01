@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Search
+namespace ClassLibrary
 {
     public class Engine
     {

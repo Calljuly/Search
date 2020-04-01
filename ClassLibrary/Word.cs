@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("TestChamber")]
 
-namespace Search
+namespace ClassLibrary
 {
     public class Word
     {

@@ -3,6 +3,7 @@ using Search;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using ClassLibrary;
 
 namespace TestChamber
 {

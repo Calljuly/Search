@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Search
+namespace ClassLibrary
 {
     public class IO
     {

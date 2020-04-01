@@ -18,9 +18,9 @@ namespace ClassLibrary
             while (leftSideOfList <= rightSideOfList)
             {
                 //Checks if value should be in Left part of list
-                while (list[leftSideOfList].word.CompareTo(pivot.word) < 0) { leftSideOfList++; }
+                while (list[leftSideOfList].Value.CompareTo(pivot.Value) < 0) { leftSideOfList++; }
                 //Checks if value should be in right part of list
-                while (list[rightSideOfList].word.CompareTo(pivot.word) > 0) { rightSideOfList--; }
+                while (list[rightSideOfList].Value.CompareTo(pivot.Value) > 0) { rightSideOfList--; }
 
                 //Swoops values found if they doesnt belong in their current part of list
                 if (leftSideOfList <= rightSideOfList)
@@ -89,18 +89,18 @@ namespace ClassLibrary
             {
                 int middle = (first + last) / 2;
 
-                if (list[middle].word.ToLower().Equals(targetWordAsLower))
+                if (list[middle].Value.ToLower().Equals(targetWordAsLower))
                 {
                     targetIndex = middle;
-                    AddToDictionary(result, list[middle].file);
+                    AddToDictionary(result, list[middle].File);
                     wordFound = true;
                     break;
                 }
-                else if (list[middle].word.ToLower().CompareTo(targetWordAsLower) == 1)
+                else if (list[middle].Value.ToLower().CompareTo(targetWordAsLower) == 1)
                 {
                     last = middle - 1;
                 }
-                else if (list[middle].word.ToLower().CompareTo(targetWordAsLower) == -1)
+                else if (list[middle].Value.ToLower().CompareTo(targetWordAsLower) == -1)
                 {
                     first = middle + 1;
                 }
@@ -120,15 +120,15 @@ namespace ClassLibrary
             {
                 wordFound = false;
 
-                if ((targetIndex + stepLength) <= (list.Count - 1) && list[targetIndex.Value + stepLength].word.ToLower().Equals(targetWordAsLower))
+                if ((targetIndex + stepLength) <= (list.Count - 1) && list[targetIndex.Value + stepLength].Value.ToLower().Equals(targetWordAsLower))
                 {
-                    AddToDictionary(result, list[targetIndex.Value + stepLength].file);
+                    AddToDictionary(result, list[targetIndex.Value + stepLength].File);
                     wordFound = true;
                 }
 
-                if ((targetIndex - stepLength) >= 0 && list[targetIndex.Value - stepLength].word.ToLower().Equals(targetWordAsLower))
+                if ((targetIndex - stepLength) >= 0 && list[targetIndex.Value - stepLength].Value.ToLower().Equals(targetWordAsLower))
                 {
-                    AddToDictionary(result, list[targetIndex.Value - stepLength].file);
+                    AddToDictionary(result, list[targetIndex.Value - stepLength].File);
                     wordFound = true;
                 }
 

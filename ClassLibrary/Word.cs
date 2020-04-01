@@ -9,13 +9,13 @@ namespace ClassLibrary
 {
     public class Word
     {
-        internal string word;
-        internal string file;
+        public string Value { get; private set; }
+        public string File { get; private set; }
 
         public Word(string theWord, string theFile)
         {
-            word = theWord;
-            file = theFile;
+            Value = theWord;
+            File = theFile;
         }
     }
 }

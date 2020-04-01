@@ -60,7 +60,7 @@ namespace Search
                             }
                             else if (saveOption == "2")
                             {
-                                FullFilePath = IO.SaveFile(sortedFileContent, wordExtractor.GetCompoundedList()[0].file + "new.txt");
+                                FullFilePath = IO.SaveFile(sortedFileContent, wordExtractor.GetCompoundedList()[0].File + "new.txt");
                                 Console.WriteLine($"Finished saving file at {FullFilePath}");
                             }
                             else

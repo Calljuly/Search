@@ -33,7 +33,7 @@ namespace TestChamber
             sut.Add(new Word("Hulda", "TextFile"));
 
             Engine.QuickSort(sut,0,1);
-            Assert.AreEqual(sut[1].word, "Maja");
+            Assert.AreEqual(sut[1].Value, "Maja");
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace TestChamber
 
             Engine.QuickSort(sut, 0,5);
 
-            Assert.AreEqual("Brygga", sut[0].word);
+            Assert.AreEqual("Brygga", sut[0].Value);
         }
         [Test]
         public void ifListGetSortedWithSimilarWords()
@@ -63,7 +63,7 @@ namespace TestChamber
 
             Engine.QuickSort(sut,0,1);
             
-            Assert.AreEqual("Anna", sut[0].word);
+            Assert.AreEqual("Anna", sut[0].Value);
 
         }
     }

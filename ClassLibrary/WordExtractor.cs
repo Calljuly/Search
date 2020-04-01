@@ -96,7 +96,7 @@ namespace ClassLibrary
             fileContent.Append($"Word: \t\t\t File Path: {Environment.NewLine}");
             foreach (var wordObject in wordList)
             {
-                fileContent.Append(wordObject.word + "\t\t\t(" + wordObject.file + ")" + Environment.NewLine);
+                fileContent.Append(wordObject.Value + "\t\t\t(" + wordObject.File + ")" + Environment.NewLine);
             }
             return fileContent.ToString();
         }

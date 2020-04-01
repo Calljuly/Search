@@ -16,6 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary\ClassLibrary.csproj" />
+    <ProjectReference Include="..\FormsVersion\FormsVersion.csproj" />
     <ProjectReference Include="..\Search\Search.csproj" />
   </ItemGroup>
 

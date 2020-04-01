@@ -17,8 +17,6 @@ namespace TestChamber
         public void BinarySearch_OnlyOneMatchExists_FindsTheWord()
         {
             WordExtractor extractor = new WordExtractor();
-            Engine sort = new Engine();
-
 
             string path1 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile1.txt";
             string text1 = IO.ReadFile(path1);
@@ -39,7 +37,7 @@ namespace TestChamber
 
             List<Word> list = extractor.compoundedList;
 
-            sort.sortAllWords(list, 0, list.Count - 1);
+            Engine.QuickSort(list, 0, list.Count - 1);
             
             var result = Engine.BinarySearch(list, true, "admit");
             Dictionary<string, int> expected = new Dictionary<string, int>();
@@ -51,8 +49,6 @@ namespace TestChamber
         public void BinarySearch_SeveralMatchesExists_FindsAll()
         {
             WordExtractor extractor = new WordExtractor();
-            Engine sort = new Engine();
-
 
             string path1 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile1.txt";
             string text1 = IO.ReadFile(path1);
@@ -73,7 +69,7 @@ namespace TestChamber
 
             List<Word> list = extractor.compoundedList;
 
-            sort.sortAllWords(list, 0, list.Count - 1);
+            Engine.QuickSort(list, 0, list.Count - 1);
 
             var result = Engine.BinarySearch(list, true, "is");
             Dictionary<string, int> expected = new Dictionary<string, int>();

@@ -73,7 +73,7 @@ namespace ClassLibrary
 
             if (!listIsSorted)
             {
-                Engine.QuickSort(list, 0, list.Count - 1);
+                QuickSort(list, 0, list.Count - 1);
             }
 
             while (first <= last)

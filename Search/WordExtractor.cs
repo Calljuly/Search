@@ -86,10 +86,10 @@ namespace Search
         public string BuildStringFromListOfWords(List<Word> wordList)
         {
             StringBuilder textContent = new StringBuilder();
-            textContent.Append("Word: \t\t\t File Path: \n");
+            textContent.Append($"Word: \t\t\t File Path: {Environment.NewLine}");
             foreach (var word in wordList)
             {
-                textContent.Append(word.word + "\t\t\t(" + word.file + ")" + "\n");
+                textContent.Append(word.word + "\t\t\t(" + word.file + ")" + Environment.NewLine);
             }
             return textContent.ToString();
         }

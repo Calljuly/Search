@@ -24,7 +24,7 @@ namespace Search
                         Sorting.QuickSort(wordExtractor.compoundedList, 0, wordExtractor.compoundedList.Count - 1);
                         break;
 
-                        //Searches for a word selected by user input. Prints existance of word in all files to console.
+                    //Searches for a word selected by user input. Prints existance of word in all files to console.
                     case "2":
                         if (wordExtractor.compoundedList.Count > 0)
                         {
@@ -44,40 +44,55 @@ namespace Search
 
                     //Creates a new .txt-file. Saves sorted list of all words in all files read to this file.
                     case "3":
-                        Console.WriteLine(@"Press '1' if you would like to save in a new file. Press '2' if you would like to create a new default file:");
-                        var choice = Console.ReadLine();
-                        string path;
-                        string fileContent = wordExtractor.BuildStringFromListOfWords(wordExtractor.compoundedList);
-                        if (choice == "1")
+                        if (wordExtractor.compoundedList.Count > 0)
                         {
-                            Console.WriteLine("Enter a location where you would like to save your file:");
-                            string fileLocation = Console.ReadLine();
-                            Console.WriteLine("Enter a name for your file:");
-                            path = IO.SaveFile(fileContent, fileLocation, Console.ReadLine());
-                            Console.WriteLine($"Finished saving file at {path}");
-                        }
-                        else if (choice == "2")
-                        {
-                            path = IO.SaveFile(fileContent, wordExtractor.compoundedList[0].file + "new.txt");
-                            Console.WriteLine($"Finished saving file at {path}");
+                            Console.WriteLine(@"Press '1' if you would like to save in a new file. Press '2' if you would like to create a new default file:");
+                            var choice = Console.ReadLine();
+                            string path;
+                            string fileContent = wordExtractor.BuildStringFromListOfWords(wordExtractor.compoundedList);
+                            if (choice == "1")
+                            {
+                                Console.WriteLine("Enter a location where you would like to save your file:");
+                                string fileLocation = Console.ReadLine();
+                                Console.WriteLine("Enter a name for your file:");
+                                path = IO.SaveFile(fileContent, fileLocation, Console.ReadLine());
+                                Console.WriteLine($"Finished saving file at {path}");
+                            }
+                            else if (choice == "2")
+                            {
+                                path = IO.SaveFile(fileContent, wordExtractor.compoundedList[0].file + "new.txt");
+                                Console.WriteLine($"Finished saving file at {path}");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Illegal command!");
+                            }
                         }
                         else
                         {
-                            Console.WriteLine("Illegal command!");
+                            Console.WriteLine("No file read yet");
                         }
                         break;
 
-                        //Prints the sorted list to console.
+                    //Prints the sorted list to console.
                     case "4":
-                        Console.WriteLine(wordExtractor.BuildStringFromListOfWords(wordExtractor.compoundedList));
+                        if (wordExtractor.compoundedList.Count > 0)
+                        {
+                            Console.WriteLine(wordExtractor.BuildStringFromListOfWords(wordExtractor.compoundedList));
+                        }
+                        else
+                        {
+                            Console.WriteLine("No file read yet");
+                        }
+
                         break;
 
-                        //Exits the program.
+                    //Exits the program.
                     case "0":
                         Environment.Exit(0);
                         break;
 
-                        //Prints a message to the console when input is erroneous.
+                    //Prints a message to the console when input is erroneous.
                     default:
                         Console.WriteLine("Wrong input please try again.");
                         break;

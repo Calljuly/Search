@@ -2,6 +2,7 @@
 using Search;
 using System;
 using System.IO;
+using ClassLibrary;
 
 namespace TestChamber
 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Search;
+using ClassLibrary;
 
 namespace TestChamber
 {
@@ -17,12 +18,12 @@ namespace TestChamber
             wordList = testExtractor.ExtractWordsFromTextFile(words, filePath);
             for (int i = 0; i < wordList.Count - 1; i++)
             {
-                Assert.AreEqual("hej", wordList[0].word);
-                Assert.AreEqual("hejsan", wordList[1].word);
-                Assert.AreEqual("hallå", wordList[2].word);
-                Assert.AreEqual("tjena", wordList[3].word);
-                Assert.AreEqual("smguld", wordList[4].word);
-                Assert.AreEqual("2020", wordList[5].word);
+                Assert.AreEqual("hej", wordList[0].Value);
+                Assert.AreEqual("hejsan", wordList[1].Value);
+                Assert.AreEqual("hallå", wordList[2].Value);
+                Assert.AreEqual("tjena", wordList[3].Value);
+                Assert.AreEqual("smguld", wordList[4].Value);
+                Assert.AreEqual("2020", wordList[5].Value);
             }
         }
         [Test]
@@ -33,7 +34,7 @@ namespace TestChamber
             wordList = testExtractor.ExtractWordsFromTextFile(words, filePath);
             foreach (var word in wordList)
             {
-                Assert.AreEqual(filePath, word.file);
+                Assert.AreEqual(filePath, word.File);
             }
         }
 
@@ -43,7 +44,7 @@ namespace TestChamber
             wordList = testExtractor.ExtractWordsFromTextFile("yes yes yes", @"C:/");
             foreach (var word in wordList)
             {
-                Assert.IsNotEmpty(word.file);
+                Assert.IsNotEmpty(word.File);
             }
         }
         [Test]
@@ -52,7 +53,7 @@ namespace TestChamber
             wordList = testExtractor.ExtractWordsFromTextFile("yes yes, yes.", @"C:/");
             foreach (var word in wordList)
             {
-                Assert.AreEqual("yes", word.word);
+                Assert.AreEqual("yes", word.Value);
             }
         }
         [Test]
@@ -104,7 +105,7 @@ namespace TestChamber
             wordList = testExtractor.ExtractWordsFromTextFile("mjauuuu kss kss", null);
             foreach (var word in wordList)
             {
-                Assert.IsNull(word.file);
+                Assert.IsNull(word.File);
             }
         }
         [Test]
@@ -141,10 +142,10 @@ namespace TestChamber
         {
             testExtractor.ExtractWordsFromTextFile("yes hello", "a");
             testExtractor.ExtractWordsFromTextFile("yes hello", "b");
-            Assert.AreEqual("a", testExtractor.GetCompoundedList()[0].file);
-            Assert.AreEqual("a", testExtractor.GetCompoundedList()[1].file);
-            Assert.AreEqual("b", testExtractor.GetCompoundedList()[2].file);
-            Assert.AreEqual("b", testExtractor.GetCompoundedList()[3].file);
+            Assert.AreEqual("a", testExtractor.GetCompoundedList()[0].File);
+            Assert.AreEqual("a", testExtractor.GetCompoundedList()[1].File);
+            Assert.AreEqual("b", testExtractor.GetCompoundedList()[2].File);
+            Assert.AreEqual("b", testExtractor.GetCompoundedList()[3].File);
         }
         [Test]
         public void AppendWordListsToCompoundedList_AddsCorrectNumberOfWords()

@@ -85,6 +85,11 @@ namespace Search
             }
             return compoundedList;
         }
+        public List<Word> GetCompoundedList()
+        {
+            List<Word> publicCompoundedList = this.compoundedList;
+            return publicCompoundedList;
+        }
         public string BuildStringFromListOfWords(List<Word> wordList)
         {
             StringBuilder fileContent = new StringBuilder();

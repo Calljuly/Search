@@ -37,9 +37,9 @@ namespace TestChamber
             extractor.ExtractWordsFromTextFile(text3, path3);
             extractor.ExtractWordsFromTextFile(text4, path4);
 
-            List<Word> list = extractor.compoundedList;
+            List<Word> list = extractor.GetCompoundedList();
 
-            sort.sortAllWords(list, 0, list.Count - 1);
+            Engine.QuickSort(list, 0, list.Count - 1);
             
             var result = Engine.BinarySearch(list, true, "admit");
             Dictionary<string, int> expected = new Dictionary<string, int>();
@@ -71,9 +71,9 @@ namespace TestChamber
             extractor.ExtractWordsFromTextFile(text3, path3);
             extractor.ExtractWordsFromTextFile(text4, path4);
 
-            List<Word> list = extractor.compoundedList;
+            List<Word> list = extractor.GetCompoundedList();
 
-            sort.sortAllWords(list, 0, list.Count - 1);
+            Engine.QuickSort(list, 0, list.Count - 1);
 
             var result = Engine.BinarySearch(list, true, "is");
             Dictionary<string, int> expected = new Dictionary<string, int>();

@@ -16,9 +16,9 @@ namespace TestChamber
         [Test]
         public void BinarySearch_OnlyOneMatchExists_FindsTheWord()
         {
-            Searching search = new Searching();
+
             List<Word> wordList = new List<Word> { new Word("a", "txt"), new Word("b", "txt"), new Word("c", "txt"), new Word("d", "txt"), new Word("e", "txt") };
-            var result = search.BinarySearch(wordList, true, "b");
+            var result = Engine.BinarySearch(wordList, true, "b");
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add("txt", 1);
             Assert.AreEqual(expected, result);
@@ -27,9 +27,9 @@ namespace TestChamber
         [Test]
         public void BinarySearch_CaseDoesntMatch_FindsTheWord()
         {
-            Searching search = new Searching();
+
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bB", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = search.BinarySearch(wordList, true, "Bb");
+            var result = Engine.BinarySearch(wordList, true, "Bb");
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add("txt", 1);
             Assert.AreEqual(expected, result);
@@ -38,21 +38,21 @@ namespace TestChamber
         [Test]
         public void BinarySearch_EnterWeirdCharacters_ReturnsEmptyList()
         {
-            Searching search = new Searching();
+
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = search.BinarySearch(wordList, true, "");
+            var result = Engine.BinarySearch(wordList, true, "");
             Assert.AreEqual(0, result.Count);
-            var result2 = search.BinarySearch(wordList, true, null);
+            var result2 = Engine.BinarySearch(wordList, true, null);
             Assert.AreEqual(0, result2.Count);
         }
 
         [Test]
         public void BinarySearch_SeveralMatchesExists_FindsAll()
         {
-            Searching search = new Searching();
+
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("bb", "txt"), new Word("bb", "txt"), new Word("bb", "txt"),
                                   new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = search.BinarySearch(wordList, true, "bb");
+            var result = Engine.BinarySearch(wordList, true, "bb");
 
             Assert.AreEqual(4, result["txt"]);
             Dictionary<string, int> expected = new Dictionary<string, int>();
@@ -63,18 +63,18 @@ namespace TestChamber
         [Test]
         public void BinarySearch_SearchForNonExistingWord_ReturnsEmptyList()
         {
-            Searching search = new Searching();
+
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = search.BinarySearch(wordList, true, "pp");
+            var result = Engine.BinarySearch(wordList, true, "pp");
             Assert.AreEqual(0, result.Count);
         }
 
         [Test]
         public void BinarySearch_ListNotSorted_FindsCorrectWord()
         {
-            Searching search = new Searching();
+
             List<Word> wordList = new List<Word> { new Word("jj", "txt"), new Word("ee", "txt"), new Word("pp", "txt"), new Word("aa", "txt"), new Word("bb", "txt") };
-            var result = search.BinarySearch(wordList, false, "bb");
+            var result = Engine.BinarySearch(wordList, false, "bb");
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add("txt", 1);
             Assert.AreEqual(expected, result);
@@ -83,25 +83,25 @@ namespace TestChamber
         [Test]
         public void BinarySearch_EmptyListInserted_EmptyListReturned()
         {
-            Searching search = new Searching();
+
             List<Word> wordList = new List<Word>();
-            var result = search.BinarySearch(wordList, false, "bb");
+            var result = Engine.BinarySearch(wordList, false, "bb");
             Assert.AreEqual(0, result.Count);
         }
 
         [Test]
         public void BinarySearch_NullListInserted_EmptyListReturned()
         {
-            Searching search = new Searching();
+
             List<Word> wordList = null;
-            var result = search.BinarySearch(wordList, false, "bb");
+            var result = Engine.BinarySearch(wordList, false, "bb");
             Assert.AreEqual(0, result.Count);
         }
 
         [Test]
         public void BinarySearch_ListIsBig_ReturnsCorrectList()
         {
-            Searching search = new Searching();
+
             List<Word> wordList = new List<Word>();
 
             Random rnd = new Random();
@@ -119,12 +119,12 @@ namespace TestChamber
             }
 
             DateTime start = DateTime.Now;
-            Sorting.myQuickSort(wordList, 0, wordList.Count - 1);
+            Engine.QuickSort(wordList, 0, wordList.Count - 1);
             TimeSpan span = DateTime.Now - start;
             Debug.WriteLine($"Time of sort was {span.TotalSeconds} seconds");
 
             start = DateTime.Now;
-            var result = search.BinarySearch(wordList, true, "bb");
+            var result = Engine.BinarySearch(wordList, true, "bb");
             span = DateTime.Now - start;
             Debug.WriteLine($"Time of search was {span.TotalSeconds} seconds");
 
@@ -136,10 +136,10 @@ namespace TestChamber
         [Test]
         public void BinarySearch_SeveralMatchesFromDifferentFiles_FindsAllAndPresentsThemSeparately()
         {
-            Searching search = new Searching();
+
             List<Word> wordList = new List<Word> { new Word("aa", "txt1"), new Word("bb", "txt2"), new Word("bb", "txt3"), new Word("bb", "txt4"), new Word("bb", "txt5"),
                                   new Word("cc", "txt7"), new Word("dd", "txt8"), new Word("ee", "txt10") };
-            var result = search.BinarySearch(wordList, true, "bb");
+            var result = Engine.BinarySearch(wordList, true, "bb");
 
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add("txt2", 1);

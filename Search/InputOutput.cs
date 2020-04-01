@@ -12,66 +12,57 @@ namespace Search
             // Code reference from https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-
             try
             {   // Open the text file using a stream reader.
-                StreamReader sr = new StreamReader(fileLocation);
+                StreamReader fileReader = new StreamReader(fileLocation);
                 // Read the stream to a string.
-                string fileContent = sr.ReadToEnd();
+                string fileContent = fileReader.ReadToEnd();
                 // Return the file Content as a string
                 return fileContent.ToLower();
             }
-            catch (IOException e)
+            catch (IOException)
             {
-                Console.WriteLine("Could not read file");
-                // Write the e.Message to console 
-                Console.WriteLine(e.Message);
-                // Return null if file fail to read
-                return null;
+                return "Could not read file";
             }
-            catch (ArgumentNullException e)
+            catch (ArgumentNullException)
             {
-                Console.WriteLine(e.Message);
-                return null;
+                return "Could not read file";
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
-                Console.WriteLine(e.Message);
-                return null;
+                return "Could not read file";
             }
 
         }
 
 
-        public static string SaveFile(string textFile, string fileLocation, string filename = null)
+        public static string SaveFile(string fileContent, string directory, string newFileName = null)
         {
             // Code reference from https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
             try
             {
                 
-                if (filename == null)
+                if (newFileName == null)
                 {
                     // Save on a existing file
-                    File.WriteAllText(fileLocation, textFile);
-                    return fileLocation;
+                    File.WriteAllText(directory, fileContent);
+                    return directory;
                 }
                 else
                 {
                     // Create a path for the new file
                     string path = "\\";
-                    path = fileLocation + path + filename + ".txt";
+                    path = directory + path + newFileName + ".txt";
                     // Create the text file using a stream reader.
-                    StreamWriter sw = File.CreateText(path);
+                    StreamWriter fileWriter = File.CreateText(path);
                     // Close the text file
-                    sw.Close();
+                    fileWriter.Close();
                     // Write text string to the file
-                    File.WriteAllText(path, textFile);
+                    File.WriteAllText(path, fileContent);
                     return path;
                 }
             }
-            catch (IOException e)
+            catch (IOException)
             {
-                Console.WriteLine("Could not save file. ");
-                // Write the e.Message to console 
-                Console.WriteLine(e.Message);
-                return null;
+                return "Could not save file.";
             }
 
         }

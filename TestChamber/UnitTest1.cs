@@ -20,14 +20,14 @@ namespace TestChamber
     public class TestSort // Julia
     {
         public List<Word> sut;
-        public Sorting myTestEngine;
+        public Engine myTestEngine;
 
 
         [Test]
         public void ifListGetSorted()
         {
             sut = new List<Word>();
-            myTestEngine = new Sorting();
+            myTestEngine = new Engine();
             sut.Add(new Word("Maja", "TextFile"));
             sut.Add(new Word("Hulda", "TextFile"));
 
@@ -39,7 +39,7 @@ namespace TestChamber
         public void ifListGetSortedMoreWords()
         {
             sut = new List<Word>();
-            myTestEngine = new Sorting();
+            myTestEngine = new Engine();
             sut.Add(new Word("Hulda", "TextFile"));
             sut.Add(new Word("Maja", "TextFile"));
             sut.Add(new Word("Sten", "TextFile"));
@@ -55,7 +55,7 @@ namespace TestChamber
         public void ifListGetSortedWithSimilarWords()
         {
             sut = new List<Word>();
-            myTestEngine = new Sorting();
+            myTestEngine = new Engine();
 
             sut.Add(new Word("Annas", "TextFile"));
             sut.Add(new Word("Anna", "TextFile"));

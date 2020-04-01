@@ -14,7 +14,7 @@ namespace TestChamber
         {
             string filePath = @"C:/";
             string words = "hej! hejsan; hallå, tjena: sm-guld 2020.";
-            wordList = testExtractor.ExtractWordsFromString(words, filePath);
+            wordList = testExtractor.ExtractWordsFromTextFile(words, filePath);
             for (int i = 0; i < wordList.Count - 1; i++)
             {
                 Assert.AreEqual("hej", wordList[0].word);
@@ -30,7 +30,7 @@ namespace TestChamber
         {
             string filePath = @"C:/";
             string words = "hej hejsan hallå, tjena sm-guld 2020.";
-            wordList = testExtractor.ExtractWordsFromString(words, filePath);
+            wordList = testExtractor.ExtractWordsFromTextFile(words, filePath);
             foreach (var word in wordList)
             {
                 Assert.AreEqual(filePath, word.file);
@@ -40,7 +40,7 @@ namespace TestChamber
         [Test]
         public void ExtractWordsFromString_FilePathNotEmpty()
         {
-            wordList = testExtractor.ExtractWordsFromString("yes yes yes", @"C:/");
+            wordList = testExtractor.ExtractWordsFromTextFile("yes yes yes", @"C:/");
             foreach (var word in wordList)
             {
                 Assert.IsNotEmpty(word.file);
@@ -49,7 +49,7 @@ namespace TestChamber
         [Test]
         public void ExtractWordsFromString_WordsWithSeparatorsAreSameWord()
         {
-            wordList = testExtractor.ExtractWordsFromString("yes yes, yes.", @"C:/");
+            wordList = testExtractor.ExtractWordsFromTextFile("yes yes, yes.", @"C:/");
             foreach (var word in wordList)
             {
                 Assert.AreEqual("yes", word.word);
@@ -58,50 +58,50 @@ namespace TestChamber
         [Test]
         public void ExtractWordsFromString_ExtractFromEmptyStrings()
         {
-            wordList = testExtractor.ExtractWordsFromString("", "");
+            wordList = testExtractor.ExtractWordsFromTextFile("", "");
             Assert.IsEmpty(wordList);
         }
         [Test]
         public void ExtractWordsFromString_ExtractFromEmptyFilePath()
         {
-            wordList = testExtractor.ExtractWordsFromString("Filepath is empty", "");
+            wordList = testExtractor.ExtractWordsFromTextFile("Filepath is empty", "");
             Assert.IsEmpty(wordList);
 
         }
         [Test]
         public void ExtractWordsFromString_ExtractFromEmptyText()
         {
-            wordList = testExtractor.ExtractWordsFromString("", "Text document is empty");
+            wordList = testExtractor.ExtractWordsFromTextFile("", "Text document is empty");
             Assert.IsEmpty(wordList);
         }
         [Test]
         public void ExtractWordsFromString_TextAndFilePathIsNull_ListIsEmpty()
         {
-            wordList = testExtractor.ExtractWordsFromString(null, null);
+            wordList = testExtractor.ExtractWordsFromTextFile(null, null);
             Assert.IsEmpty(wordList);
         }
         [Test]
         public void ExtractWordsFromString_TextAndFilePathIsNull_ListIsNotNull()
         {
-            wordList = testExtractor.ExtractWordsFromString(null, null);
+            wordList = testExtractor.ExtractWordsFromTextFile(null, null);
             Assert.IsNotNull(wordList);
         }
         [Test]
         public void ExtractWordsFromString_TextIsNull_ListIsEmpty()
         {
-            wordList = testExtractor.ExtractWordsFromString(null, "C");
+            wordList = testExtractor.ExtractWordsFromTextFile(null, "C");
             Assert.IsEmpty(wordList);
         }
         [Test]
         public void ExtractWordsFromString_TextIsNull_ListIsNotNull()
         {
-            wordList = testExtractor.ExtractWordsFromString(null, "C");
+            wordList = testExtractor.ExtractWordsFromTextFile(null, "C");
             Assert.IsNotNull(wordList);
         }
         [Test]
         public void ExtractWordsFromString_FilePathIsNull_WordFileIsNull()
         {
-            wordList = testExtractor.ExtractWordsFromString("mjauuuu kss kss", null);
+            wordList = testExtractor.ExtractWordsFromTextFile("mjauuuu kss kss", null);
             foreach (var word in wordList)
             {
                 Assert.IsNull(word.file);
@@ -110,27 +110,27 @@ namespace TestChamber
         [Test]
         public void ExtractWordsFromString_FilePathIsNull_ListIsNotNull()
         {
-            wordList = testExtractor.ExtractWordsFromString("mjauuuu kss kss", null);
+            wordList = testExtractor.ExtractWordsFromTextFile("mjauuuu kss kss", null);
             Assert.IsNotNull(wordList);
         }
         [Test]
         public void ReplaceSpecialCharacter_HappyDays()
         {
             string s = "hej, hej. hej! hej=hej( hej[i] / hej&hej%hej hej'hej\n hej: hej; @hej$hej kram\\kram* ja? #är det sant\"-+{}";
-            s = testExtractor.ReplaceSpecialCharacter(s);
+            s = testExtractor.ReplaceSpecialCharacters(s);
             Assert.AreEqual("hej hej hej hejhej heji  hejhejhej hej'hej hej hej hejhej kramkram ja är det sant", s);
         }
         [Test]
         public void ReplaceSpecialCharacter_InsertEmptyString()
         {
             string s = string.Empty;
-            s = testExtractor.ReplaceSpecialCharacter(s);
+            s = testExtractor.ReplaceSpecialCharacters(s);
             Assert.IsEmpty(s);
         }
         [Test]
         public void ReplaceSpecialCharacter_InsertNull()
         {
-            Assert.IsNull(testExtractor.ReplaceSpecialCharacter(null));
+            Assert.IsNull(testExtractor.ReplaceSpecialCharacters(null));
             //Assert.Throws<NullReferenceException>(() => testExtractor.ReplaceSpecialCharacter(null));
         }
         /// <summary>
@@ -139,8 +139,8 @@ namespace TestChamber
         [Test]
         public void AppendWordListsToCompoundedList_HappyDays()
         {
-            testExtractor.ExtractWordsFromString("yes hello", "a");
-            testExtractor.ExtractWordsFromString("yes hello", "b");
+            testExtractor.ExtractWordsFromTextFile("yes hello", "a");
+            testExtractor.ExtractWordsFromTextFile("yes hello", "b");
             Assert.AreEqual("a", testExtractor.compoundedList[0].file);
             Assert.AreEqual("a", testExtractor.compoundedList[1].file);
             Assert.AreEqual("b", testExtractor.compoundedList[2].file);
@@ -149,8 +149,8 @@ namespace TestChamber
         [Test]
         public void AppendWordListsToCompoundedList_AddsCorrectNumberOfWords()
         {
-            testExtractor.ExtractWordsFromString("yes hello", "a");
-            testExtractor.ExtractWordsFromString("yes hello", "b");
+            testExtractor.ExtractWordsFromTextFile("yes hello", "a");
+            testExtractor.ExtractWordsFromTextFile("yes hello", "b");
             Assert.AreEqual(4, testExtractor.compoundedList.Count);
         }
     }

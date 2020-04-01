@@ -3,12 +3,15 @@ using System;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("TestChamber")]
 
 namespace Search
 {
     public class WordExtractor
     {
-        public List<Word> compoundedList; // ändra private/internal, endast public för tester
+        private List<Word> compoundedList; // ändra private/internal, endast public för tester
         public WordExtractor()
         {
             compoundedList = new List<Word>();
@@ -18,40 +21,39 @@ namespace Search
         /// </summary>
         /// <param name="text"></param>
         /// <returns>String without special characters</returns>
-        public string ReplaceSpecialCharacter(string text) //enkapsulera till internal/private
+        internal string ReplaceSpecialCharacters(string text) //enkapsulera till internal/private
         {
             try
             {
-                var sb = new StringBuilder();
-                foreach (char c in text)
+                var stringBuilder = new StringBuilder();
+                foreach (char character in text)
                 {
-                    if (char.IsLetterOrDigit(c) || (c == ' ') || (c == '\''))
+                    if (char.IsLetterOrDigit(character) || (character == ' ') || (character == '\''))
                     {
-                        sb.Append(c);
+                        stringBuilder.Append(character);
                     }
                 }
-                return sb.ToString();
+                return stringBuilder.ToString();
             }
             catch (NullReferenceException)
             {
                 return null;
             }
-           
         }
         /// <summary>
         /// Extracts all words from a given string and returns a list of word objects containing the actual word and the origin of the text. 
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="fileContent"></param>
         /// <param name="filePath"></param>
         /// <returns>A list of all words found in the string, non-unique</returns>
-        public List<Word> ExtractWordsFromString(string text, string filePath)
+        public List<Word> ExtractWordsFromTextFile(string fileContent, string filePath)
         {
             var wordList = new List<Word>();
             try
             {
-                if (!(text == "") && !(filePath == ""))
+                if (!(fileContent == "") && !(filePath == ""))
                 {
-                    var textWithoutSpecialCharacters = this.ReplaceSpecialCharacter(text);
+                    var textWithoutSpecialCharacters = this.ReplaceSpecialCharacters(fileContent);
 
                     //Upon space splits the string into a piece of string.
                     var splittedText = textWithoutSpecialCharacters.Split(' ');
@@ -75,7 +77,7 @@ namespace Search
         /// </summary>
         /// <param name="wordList"></param>
         /// <returns>The WordExtractors compounded list</returns>
-        public List<Word> AppendWordListsToCompoundedList(List<Word> wordList) // ändra till internal 
+        internal List<Word> AppendWordListsToCompoundedList(List<Word> wordList) // ändra till internal 
         {
             foreach (var word in wordList)
             {
@@ -85,13 +87,13 @@ namespace Search
         }
         public string BuildStringFromListOfWords(List<Word> wordList)
         {
-            StringBuilder textContent = new StringBuilder();
-            textContent.Append($"Word: \t\t\t File Path: {Environment.NewLine}");
-            foreach (var word in wordList)
+            StringBuilder fileContent = new StringBuilder();
+            fileContent.Append($"Word: \t\t\t File Path: {Environment.NewLine}");
+            foreach (var wordObject in wordList)
             {
-                textContent.Append(word.word + "\t\t\t(" + word.file + ")" + Environment.NewLine);
+                fileContent.Append(wordObject.word + "\t\t\t(" + wordObject.file + ")" + Environment.NewLine);
             }
-            return textContent.ToString();
+            return fileContent.ToString();
         }
     }
 }

@@ -8,7 +8,6 @@ namespace Search
         static void Main(string[] args)
         {
             WordExtractor wordExtractor = new WordExtractor();
-            Searching searching = new Searching();
 
             while (true)
             {
@@ -19,9 +18,9 @@ namespace Search
                     case "1":
                         Console.WriteLine("File Location exp \"C\\User\\... \"");
                         string filePath = Console.ReadLine();
-                        string textString = IO.ReadFile(filePath);
-                        wordExtractor.ExtractWordsFromString(textString, filePath);
-                        Sorting.QuickSort(wordExtractor.compoundedList, 0, wordExtractor.compoundedList.Count - 1);
+                        string fileContent = IO.ReadFile(filePath);
+                        wordExtractor.ExtractWordsFromTextFile(fileContent, filePath);
+                        Engine.QuickSort(wordExtractor.compoundedList, 0, wordExtractor.compoundedList.Count - 1);
                         break;
 
                     //Searches for a word selected by user input. Prints existance of word in all files to console.
@@ -30,7 +29,7 @@ namespace Search
                         {
                             Console.Write("Type the word you want to search: ");
                             var searchWord = Console.ReadLine().ToLower();
-                            var searchedWords = searching.BinarySearch(wordExtractor.compoundedList, true, searchWord);
+                            var searchedWords = Engine.BinarySearch(wordExtractor.compoundedList, true, searchWord);
                             foreach (var item in searchedWords)
                             {
                                 Console.WriteLine($"{searchWord} exists {item.Value} times in {item.Key}");
@@ -47,21 +46,21 @@ namespace Search
                         if (wordExtractor.compoundedList.Count > 0)
                         {
                             Console.WriteLine(@"Press '1' if you would like to save in a new file. Press '2' if you would like to create a new default file:");
-                            var choice = Console.ReadLine();
-                            string path;
-                            string fileContent = wordExtractor.BuildStringFromListOfWords(wordExtractor.compoundedList);
-                            if (choice == "1")
+                            var saveOption = Console.ReadLine();
+                            string FullFilePath;
+                            string sortedFileContent = wordExtractor.BuildStringFromListOfWords(wordExtractor.compoundedList);
+                            if (saveOption == "1")
                             {
                                 Console.WriteLine("Enter a location where you would like to save your file:");
-                                string fileLocation = Console.ReadLine();
+                                string directoryPath = Console.ReadLine();
                                 Console.WriteLine("Enter a name for your file:");
-                                path = IO.SaveFile(fileContent, fileLocation, Console.ReadLine());
-                                Console.WriteLine($"Finished saving file at {path}");
+                                FullFilePath = IO.SaveFile(sortedFileContent, directoryPath, Console.ReadLine());
+                                Console.WriteLine($"Finished saving file at {FullFilePath}");
                             }
-                            else if (choice == "2")
+                            else if (saveOption == "2")
                             {
-                                path = IO.SaveFile(fileContent, wordExtractor.compoundedList[0].file + "new.txt");
-                                Console.WriteLine($"Finished saving file at {path}");
+                                FullFilePath = IO.SaveFile(sortedFileContent, wordExtractor.compoundedList[0].file + "new.txt");
+                                Console.WriteLine($"Finished saving file at {FullFilePath}");
                             }
                             else
                             {

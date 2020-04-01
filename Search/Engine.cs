@@ -4,19 +4,55 @@ using System.Text;
 
 namespace Search
 {
-    public class Searching
+    public class Engine
     {
+        /*Quicksort method that had an pivot in the middle of the list. The list will be divied in two
+         parts and get sorted.*/
+        public static void QuickSort(List<Word> list, int start, int end)
+        {
+            int leftSideOfList = start;
+            int rightSideOfList = end;
+            var pivot = list[(start + end) / 2];
+            Word temporaryWord;
+
+            while (leftSideOfList <= rightSideOfList)
+            {
+                //Checks if value should be in Left part of list
+                while (list[leftSideOfList].word.CompareTo(pivot.word) < 0) { leftSideOfList++; }
+                //Checks if value should be in right part of list
+                while (list[rightSideOfList].word.CompareTo(pivot.word) > 0) { rightSideOfList--; }
+
+                //Swoops values found if they doesnt belong in their current part of list
+                if (leftSideOfList <= rightSideOfList)
+                {
+                    temporaryWord = list[leftSideOfList];
+                    list[leftSideOfList] = list[rightSideOfList];
+                    list[rightSideOfList] = temporaryWord;
+
+                    leftSideOfList++;
+                    rightSideOfList--;
+                }
+            }
+            //Chooses if we should go to the right part of the list or the left and start sorting that part
+            if (start < rightSideOfList)
+            {
+                QuickSort(list, start, rightSideOfList);
+            }
+            if (leftSideOfList < end)
+            {
+                QuickSort(list, leftSideOfList, end);
+            }
+        }
+
         /// <summary>
         /// Returns a List<Word> of found results. If no words were found, then an empty list is returned. 
         /// </summary>
         /// <param name="list"></param>
         /// <param name="targetWord"></param>
         /// <returns></returns>
-        public Dictionary<string, int> BinarySearch(List<Word> list, bool listIsSorted, string targetWord)
+        public static Dictionary<string, int> BinarySearch(List<Word> list, bool listIsSorted, string targetWord)
         {
             // Place for essential variables 
-            int? targetFoundAt = null;
-            bool wordFound = false;
             Dictionary<string, int> result = new Dictionary<string, int>();
 
             if (list == null || targetWord == null || targetWord.Length < 1 || list.Count < 1)
@@ -24,15 +60,17 @@ namespace Search
                 return result;
             }
 
-            // This algoritm starts in the middle of the list and checks if the targetWord is before or after the current position. 
-            // If targetWord is before, then the algorithm excludes the latter half of the list by assigning middle position to "last". 
-            // Then it checks the new middle of the list and so on until it either finds the targetWord or no more parts of the list
-            // can be excluded. It only works if the list is sorted. 
-
+            int? targetIndex = null;
+            bool wordFound = false;
             int last = list.Count - 1;
             int first = 0;
             string targetWordAsLower = targetWord.ToLower();
 
+            // This algoritm starts in the middle of the list and checks if the targetWord is before or after the current position. 
+            // If targetWord is before, then the algorithm excludes the latter half of the list by assigning middle position to "last". 
+            // Then it checks the new middle of the list and so on until it either finds the targetWord or no more parts of the list
+            // can be excluded. It only works if the list is sorted. 
+                       
             // ** Fix ** this means that this class cannot stand alone. It's dependent on a method from another class. 
             #region
             // Maybe this is what they mean that methods should be independent of one another. That one method should not be dependent on
@@ -44,7 +82,7 @@ namespace Search
 
             if (!listIsSorted)
             {
-                Sorting.QuickSort(list, 0, list.Count - 1);
+                Engine.QuickSort(list, 0, list.Count - 1);
             }
 
             while (first <= last)
@@ -53,7 +91,7 @@ namespace Search
 
                 if (list[middle].word.ToLower().Equals(targetWordAsLower))
                 {
-                    targetFoundAt = middle;
+                    targetIndex = middle;
                     AddToDictionary(result, list[middle].file);
                     wordFound = true;
                     break;
@@ -82,15 +120,15 @@ namespace Search
             {
                 wordFound = false;
 
-                if ((targetFoundAt + stepLength) <= (list.Count - 1) && list[targetFoundAt.Value + stepLength].word.ToLower().Equals(targetWordAsLower))
+                if ((targetIndex + stepLength) <= (list.Count - 1) && list[targetIndex.Value + stepLength].word.ToLower().Equals(targetWordAsLower))
                 {
-                    AddToDictionary(result, list[targetFoundAt.Value + stepLength].file);
+                    AddToDictionary(result, list[targetIndex.Value + stepLength].file);
                     wordFound = true;
                 }
 
-                if ((targetFoundAt - stepLength) >= 0 && list[targetFoundAt.Value - stepLength].word.ToLower().Equals(targetWordAsLower))
+                if ((targetIndex - stepLength) >= 0 && list[targetIndex.Value - stepLength].word.ToLower().Equals(targetWordAsLower))
                 {
-                    AddToDictionary(result, list[targetFoundAt.Value - stepLength].file);
+                    AddToDictionary(result, list[targetIndex.Value - stepLength].file);
                     wordFound = true;
                 }
 
@@ -101,7 +139,7 @@ namespace Search
             return result;
         }
 
-        private void AddToDictionary(Dictionary<string, int> dictionary, string key)
+        private static void AddToDictionary(Dictionary<string, int> dictionary, string key)
         {
             if (!dictionary.ContainsKey(key))
             {

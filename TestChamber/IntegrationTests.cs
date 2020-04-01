@@ -35,7 +35,7 @@ namespace TestChamber
             extractor.ExtractWordsFromTextFile(text3, path3);
             extractor.ExtractWordsFromTextFile(text4, path4);
 
-            List<Word> list = extractor.compoundedList;
+            List<Word> list = extractor.GetCompoundedList();
 
             Engine.QuickSort(list, 0, list.Count - 1);
             
@@ -67,7 +67,7 @@ namespace TestChamber
             extractor.ExtractWordsFromTextFile(text3, path3);
             extractor.ExtractWordsFromTextFile(text4, path4);
 
-            List<Word> list = extractor.compoundedList;
+            List<Word> list = extractor.GetCompoundedList();
 
             Engine.QuickSort(list, 0, list.Count - 1);
 

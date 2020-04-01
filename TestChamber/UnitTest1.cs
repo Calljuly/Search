@@ -31,7 +31,7 @@ namespace TestChamber
             sut.Add(new Word("Maja", "TextFile"));
             sut.Add(new Word("Hulda", "TextFile"));
 
-            myTestEngine.sortAllWords(sut,0,1);
+            Engine.QuickSort(sut,0,1);
             Assert.AreEqual(sut[1].word, "Maja");
         }
 
@@ -47,7 +47,7 @@ namespace TestChamber
             sut.Add(new Word("Kanna", "TextFile"));
             sut.Add(new Word("Lama", "TextFile"));
 
-            myTestEngine.sortAllWords(sut, 0,5);
+            Engine.QuickSort(sut, 0,5);
 
             Assert.AreEqual("Brygga", sut[0].word);
         }
@@ -60,7 +60,7 @@ namespace TestChamber
             sut.Add(new Word("Annas", "TextFile"));
             sut.Add(new Word("Anna", "TextFile"));
 
-            myTestEngine.sortAllWords(sut,0,1);
+            Engine.QuickSort(sut,0,1);
             
             Assert.AreEqual("Anna", sut[0].word);
 

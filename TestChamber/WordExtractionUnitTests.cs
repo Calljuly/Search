@@ -141,17 +141,17 @@ namespace TestChamber
         {
             testExtractor.ExtractWordsFromTextFile("yes hello", "a");
             testExtractor.ExtractWordsFromTextFile("yes hello", "b");
-            Assert.AreEqual("a", testExtractor.compoundedList[0].file);
-            Assert.AreEqual("a", testExtractor.compoundedList[1].file);
-            Assert.AreEqual("b", testExtractor.compoundedList[2].file);
-            Assert.AreEqual("b", testExtractor.compoundedList[3].file);
+            Assert.AreEqual("a", testExtractor.GetCompoundedList()[0].file);
+            Assert.AreEqual("a", testExtractor.GetCompoundedList()[1].file);
+            Assert.AreEqual("b", testExtractor.GetCompoundedList()[2].file);
+            Assert.AreEqual("b", testExtractor.GetCompoundedList()[3].file);
         }
         [Test]
         public void AppendWordListsToCompoundedList_AddsCorrectNumberOfWords()
         {
             testExtractor.ExtractWordsFromTextFile("yes hello", "a");
             testExtractor.ExtractWordsFromTextFile("yes hello", "b");
-            Assert.AreEqual(4, testExtractor.compoundedList.Count);
+            Assert.AreEqual(4, testExtractor.GetCompoundedList().Count);
         }
     }
 }

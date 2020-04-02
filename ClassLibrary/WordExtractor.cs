@@ -63,8 +63,8 @@ namespace ClassLibrary
                     {
                         wordList.Add(new Word(word, filePath));
                     }
+                    this.AppendWordListsToCompoundedList(wordList);
                 }
-                this.AppendWordListsToCompoundedList(wordList);
                 return wordList;
             }
             catch (NullReferenceException)

@@ -150,8 +150,11 @@ namespace TestChamber
         [Test]
         public void AppendWordListsToCompoundedList_AddsCorrectNumberOfWords()
         {
+            var wordList = new List<Word>();
             testExtractor.ExtractWordsFromTextFile("yes hello", "a");
-            testExtractor.ExtractWordsFromTextFile("yes hello", "b");
+            wordList.Add(new Word("yes", "b"));
+            wordList.Add(new Word("hello", "b"));
+            testExtractor.AppendWordListsToCompoundedList(wordList);
             Assert.AreEqual(4, testExtractor.GetCompoundedList().Count);
         }
     }

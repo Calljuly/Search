@@ -20,8 +20,15 @@ namespace Search
                         Console.WriteLine("File Location exp \"C\\User\\... \"");
                         string filePath = Console.ReadLine();
                         string fileContent = IO.ReadFile(filePath);
-                        wordExtractor.ExtractWordsFromTextFile(fileContent, filePath);
-                        Engine.QuickSort(wordExtractor.GetCompoundedList(), 0, wordExtractor.GetCompoundedList().Count - 1);
+                        if (fileContent == "Could not read file")
+                        {
+                            Console.WriteLine(fileContent);
+                        }
+                        else
+                        {
+                            wordExtractor.ExtractWordsFromTextFile(fileContent, filePath);
+                            Engine.QuickSort(wordExtractor.GetCompoundedList(), 0, wordExtractor.GetCompoundedList().Count - 1);
+                        }
                         break;
 
                     //Searches for a word selected by user input. Prints existance of word in all files to console.
@@ -48,20 +55,34 @@ namespace Search
                         {
                             Console.WriteLine(@"Press '1' if you would like to save in a new file. Press '2' if you would like to create a new default file:");
                             var saveOption = Console.ReadLine();
-                            string FullFilePath;
+                            string fullFilePath;
                             string sortedFileContent = wordExtractor.BuildStringFromListOfWords(wordExtractor.GetCompoundedList());
                             if (saveOption == "1")
                             {
                                 Console.WriteLine("Enter a location where you would like to save your file:");
                                 string directoryPath = Console.ReadLine();
                                 Console.WriteLine("Enter a name for your file:");
-                                FullFilePath = IO.SaveFile(sortedFileContent, directoryPath, Console.ReadLine());
-                                Console.WriteLine($"Finished saving file at {FullFilePath}");
+                                fullFilePath = IO.SaveFile(sortedFileContent, directoryPath, Console.ReadLine());
+                                if (fullFilePath == "Could not save file.")
+                                {
+                                    Console.WriteLine(fullFilePath);
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Finished saving file at {fullFilePath}");
+                                }
                             }
                             else if (saveOption == "2")
                             {
-                                FullFilePath = IO.SaveFile(sortedFileContent, wordExtractor.GetCompoundedList()[0].File + "new.txt");
-                                Console.WriteLine($"Finished saving file at {FullFilePath}");
+                                fullFilePath = IO.SaveFile(sortedFileContent, wordExtractor.GetCompoundedList()[0].File + "new.txt");
+                                if (fullFilePath == "Could not save file.")
+                                {
+                                    Console.WriteLine(fullFilePath);
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Finished saving file at {fullFilePath}");
+                                }
                             }
                             else
                             {

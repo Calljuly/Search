@@ -5,7 +5,7 @@ using ClassLibrary;
 
 namespace TestChamber
 {
-    public class TestSor
+    public class TestSort
     {
         public List<Word> sut;
 

@@ -80,5 +80,41 @@ namespace TestChamber
             expected.Add(path4, 1);
             Assert.AreEqual(expected, result);
         }
+        [Test]
+        public void BinarySearch_LoadsEmptyTextFile_ReturnsEmptyDictionary()
+        {
+            WordExtractor extractor = new WordExtractor();
+
+            string path1 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\EmptyTextFile.txt";
+            string text1 = IO.ReadFile(path1);
+
+            extractor.ExtractWordsFromTextFile(text1, path1);
+
+            List<Word> list = extractor.GetCompoundedList();
+
+            Engine.QuickSort(list, 0, list.Count - 1);
+
+            var result = Engine.BinarySearch(list, true, "");
+            Dictionary<string, int> expected = new Dictionary<string, int>();
+            Assert.AreEqual(expected, result);
+        }
+        [Test]
+        public void BinarySearch_LoadsNull_ReturnsEmptyDictionary()
+        {
+            WordExtractor extractor = new WordExtractor();
+
+            string path1 = null;
+            string text1 = IO.ReadFile(path1);
+
+            extractor.ExtractWordsFromTextFile(text1, path1);
+
+            List<Word> list = extractor.GetCompoundedList();
+
+            Engine.QuickSort(list, 0, list.Count - 1);
+
+            var result = Engine.BinarySearch(list, true, "could");
+            Dictionary<string, int> expected = new Dictionary<string, int>();
+            Assert.AreEqual(expected, result);
+        }
     }
 }

@@ -51,7 +51,7 @@ namespace ClassLibrary
             var wordList = new List<Word>();
             try
             {
-                if (!(fileContent == "") && !(filePath == "") && fileContent != null)
+                if (!(fileContent == "") && !(filePath == "") && fileContent != null && filePath != null)
                 {
                     var textWithoutSpecialCharacters = this.ReplaceSpecialCharacters(fileContent);
 
@@ -87,7 +87,11 @@ namespace ClassLibrary
         }
         public List<Word> GetCompoundedList()
         {
-            List<Word> publicCompoundedList = this.compoundedList;
+            List<Word> publicCompoundedList = new List<Word>();
+            foreach (var word in this.compoundedList)
+            {
+                publicCompoundedList.Add(word);
+            }
             return publicCompoundedList;
         }
         public string BuildStringFromListOfWords(List<Word> wordList)

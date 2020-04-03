@@ -124,6 +124,12 @@ namespace TestChamber
             Assert.IsNotNull(wordList);
         }
         [Test]
+        public void ExtractWordsFromTextFile_FilePathIsNull_ListIsEmpty()
+        {
+            wordList = testExtractor.ExtractWordsFromTextFile("mjauuuu kss kss", null);
+            Assert.IsEmpty(wordList);
+        }
+        [Test]
         public void ReplaceSpecialCharacters_HappyDays()
         {
             string s = "hej, hej. hej! hej=hej( hej[i] / hej&hej%hej hej'hej\n hej: hej; @hej$hej kram\\kram* ja? #är det sant\"-+{}";

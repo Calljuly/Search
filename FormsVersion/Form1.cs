@@ -14,16 +14,21 @@ namespace FormsVersion
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
-
         // Essential variables
         List<string> fileList = new List<string>();
         List<Word> unsortedWordsList = new List<Word>();
         List<Word> sortedWordsList = new List<Word>();
+        WordExtractor extractor = new WordExtractor();
 
+
+        public Form1()
+        {
+            InitializeComponent();
+            SetLoadButtonsOn(false);
+            SetInterractionButtonsOn(false);
+        }
+
+       
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             openFileDialogue.Filter = "Text files (*.txt)|*.txt";
@@ -32,45 +37,38 @@ namespace FormsVersion
             if (openFileDialogue.ShowDialog() != DialogResult.Cancel)
             {
                 fileList.Add(openFileDialogue.FileName);
-                //lbxFileList.DataSource = fileList;
                 lbxFileList.Items.Add(openFileDialogue.FileName);
-                //try
-                //{
-                    
-                //}
-                //catch (ArgumentException)
-                //{
-                //    MessageBox.Show("File is not an acceptable format", "EditImages",
-                //                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    return;
-                //}
+            }
+
+            if (fileList.Count > 0)
+            {
+                SetLoadButtonsOn(true);
             }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //// Starta i mappen som filen låg i och föreslå namn och format på den nya filen.
-            //string fileName = Path.GetFileName(pathToImage);
-            //saveFileDialogue.FileName = PathManipulations.EditFileName(fileName, currentManipulation);
-            //saveFileDialogue.InitialDirectory = pathToDirectory;
-            //saveFileDialogue.DefaultExt = ".png";
-            //saveFileDialogue.Filter = "PNG | *.png | JPG |*.jpg";
-
-            if (saveFileDialogue.ShowDialog() != DialogResult.Cancel)
-            {
-
-            }
+            SaveViaSaveDialogue(sortedWordsList);
+                     
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
             fileList.RemoveAt(fileList.Count - 1);
-            lbxFileList.DataSource = fileList;
+            lbxFileList.Items.RemoveAt(lbxFileList.Items.Count - 1);
+
+            if (fileList.Count < 1)
+            {
+                SetLoadButtonsOn(false);
+                
+            }
+
+            SetInterractionButtonsOn(false);
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            WordExtractor extractor = new WordExtractor();
+           
 
             for (int i = 0; i < fileList.Count; i++)
             {
@@ -93,28 +91,52 @@ namespace FormsVersion
                 lbxSortedWords.Items.Add(sortedWordsList[i].Value);
             }
 
+            SetInterractionButtonsOn(true);
+
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             foreach (KeyValuePair<string, int> word in Engine.BinarySearch(sortedWordsList, true, tbxSearch.Text))
             {
-                lbxSearchResult.Items.Add($"{tbxSearch.Text} was found {word.Value} times in {word.Key}");
+                lbxSearchResults.Items.Add($"\"{tbxSearch.Text}\" was found {word.Value} times in {word.Key}");
             }
          
         }
 
-        // Common.InsertText(rtbAbout, "TextSwe\\Omappen.rtf");
-        // Eller varför inte bara skriva ut listan med ord i ny listbox?
-        //static public void InsertText(RichTextBox tbx, string file)
-        //{
+        private void SetLoadButtonsOn(bool on)
+        {
+            btnLoad.Enabled = on;
+            btnRemove.Enabled = on;
+        }
 
-        //    tbx.Rtf = File.ReadAllText($"{AppDomain.CurrentDomain.BaseDirectory}{file}");
-        //    tbx.SelectAll();
-        //    tbx.SelectionIndent += 20;
-        //    tbx.SelectionRightIndent += 20;
-        //    tbx.SelectionLength = 0;
-        //    tbx.DeselectAll();
-        //}
+        private void SetInterractionButtonsOn(bool on)
+        {
+            btnSave.Enabled = on;
+            btnSearch.Enabled = on;
+        }
+
+        private void SaveViaSaveDialogue(List<Word> list)
+        {
+            saveFileDialogue.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            saveFileDialogue.DefaultExt = ".txt";
+            saveFileDialogue.Filter = "TXT | *.txt";
+
+            if (saveFileDialogue.ShowDialog() != DialogResult.Cancel)
+            {
+                string stringFromList = extractor.BuildStringFromListOfWords(list);
+                string fullFilePath = IO.SaveFile(stringFromList, saveFileDialogue.InitialDirectory, Path.GetFileNameWithoutExtension(saveFileDialogue.FileName));
+
+                if (fullFilePath == "Could not save file.")
+                {
+                    MessageBox.Show(fullFilePath);
+                }
+                else
+                {
+                    MessageBox.Show($"Finished saving file at {fullFilePath}");
+                }
+
+            }
+        }
     }
 }

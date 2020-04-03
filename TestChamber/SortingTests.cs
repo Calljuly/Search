@@ -5,30 +5,14 @@ using ClassLibrary;
 
 namespace TestChamber
 {
-    public class Tests
-    {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
-        [Test]
-        public void Test1()
-        {
-            Assert.Pass();
-        }
-    }
-    public class TestSort // Julia
+    public class TestSor
     {
         public List<Word> sut;
-        public Engine myTestEngine;
-
 
         [Test]
         public void ifListGetSorted()
         {
             sut = new List<Word>();
-            myTestEngine = new Engine();
             sut.Add(new Word("Maja", "TextFile"));
             sut.Add(new Word("Hulda", "TextFile"));
 
@@ -40,7 +24,6 @@ namespace TestChamber
         public void ifListGetSortedMoreWords()
         {
             sut = new List<Word>();
-            myTestEngine = new Engine();
             sut.Add(new Word("Hulda", "TextFile"));
             sut.Add(new Word("Maja", "TextFile"));
             sut.Add(new Word("Sten", "TextFile"));
@@ -56,7 +39,6 @@ namespace TestChamber
         public void ifListGetSortedWithSimilarWords()
         {
             sut = new List<Word>();
-            myTestEngine = new Engine();
 
             sut.Add(new Word("Annas", "TextFile"));
             sut.Add(new Word("Anna", "TextFile"));
@@ -64,8 +46,6 @@ namespace TestChamber
             Engine.QuickSort(sut,0,1);
             
             Assert.AreEqual("Anna", sut[0].Value);
-
         }
     }
-
 }

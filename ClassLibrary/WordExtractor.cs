@@ -11,7 +11,7 @@ namespace ClassLibrary
 {
     public class WordExtractor
     {
-        private List<Word> compoundedList; // ändra private/internal, endast public för tester
+        private List<Word> compoundedList;
         public WordExtractor()
         {
             compoundedList = new List<Word>();
@@ -21,11 +21,11 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="text"></param>
         /// <returns>String without special characters</returns>
-        internal string ReplaceSpecialCharacters(string text) //enkapsulera till internal/private
+        internal string ReplaceSpecialCharacters(string text)
         {
+                var stringBuilder = new StringBuilder();
             try
             {
-                var stringBuilder = new StringBuilder();
                 foreach (char character in text)
                 {
                     if (char.IsLetterOrDigit(character) || (character == ' ') || (character == '\''))
@@ -37,7 +37,7 @@ namespace ClassLibrary
             }
             catch (NullReferenceException)
             {
-                return null;
+                return stringBuilder.ToString();
             }
         }
         /// <summary>
@@ -51,7 +51,7 @@ namespace ClassLibrary
             var wordList = new List<Word>();
             try
             {
-                if (!(fileContent == "") && !(filePath == ""))
+                if (!(fileContent == "") && !(filePath == "") && fileContent != null)
                 {
                     var textWithoutSpecialCharacters = this.ReplaceSpecialCharacters(fileContent);
 
@@ -77,7 +77,7 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="wordList"></param>
         /// <returns>The WordExtractors compounded list</returns>
-        internal List<Word> AppendWordListsToCompoundedList(List<Word> wordList) // ändra till internal 
+        internal List<Word> AppendWordListsToCompoundedList(List<Word> wordList)
         {
             foreach (var word in wordList)
             {
@@ -93,12 +93,20 @@ namespace ClassLibrary
         public string BuildStringFromListOfWords(List<Word> wordList)
         {
             StringBuilder fileContent = new StringBuilder();
-            fileContent.Append($"Word: \t\t\t File Path: {Environment.NewLine}");
-            foreach (var wordObject in wordList)
+            fileContent.Append($"Word:\t\t\tFile Path:{Environment.NewLine}");
+            try
             {
-                fileContent.Append(wordObject.Value + "\t\t\t(" + wordObject.File + ")" + Environment.NewLine);
+                foreach (var wordObject in wordList)
+                {
+                    fileContent.Append(wordObject.Value + "\t\t\t(" + wordObject.File + ")" + Environment.NewLine);
+                }
+                return fileContent.ToString();
             }
-            return fileContent.ToString();
+            catch (NullReferenceException)
+            {
+                return fileContent.ToString();
+            }
+            
         }
     }
 }

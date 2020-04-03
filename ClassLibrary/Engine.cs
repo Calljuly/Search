@@ -10,37 +10,40 @@ namespace ClassLibrary
          parts and get sorted.*/
         public static void QuickSort(List<Word> list, int start, int end)
         {
-            int leftSideOfList = start;
-            int rightSideOfList = end;
-            var pivot = list[(start + end) / 2];
-            Word temporaryWord;
-
-            while (leftSideOfList <= rightSideOfList)
+            if (list.Count > 1)
             {
-                //Checks if value should be in Left part of list
-                while (list[leftSideOfList].Value.CompareTo(pivot.Value) < 0) { leftSideOfList++; }
-                //Checks if value should be in right part of list
-                while (list[rightSideOfList].Value.CompareTo(pivot.Value) > 0) { rightSideOfList--; }
+                int leftSideOfList = start;
+                int rightSideOfList = end;
+                var pivot = list[(start + end) / 2];
+                Word temporaryWord;
 
-                //Swoops values found if they doesnt belong in their current part of list
-                if (leftSideOfList <= rightSideOfList)
+                while (leftSideOfList <= rightSideOfList)
                 {
-                    temporaryWord = list[leftSideOfList];
-                    list[leftSideOfList] = list[rightSideOfList];
-                    list[rightSideOfList] = temporaryWord;
+                    //Checks if value should be in Left part of list
+                    while (list[leftSideOfList].Value.CompareTo(pivot.Value) < 0) { leftSideOfList++; }
+                    //Checks if value should be in right part of list
+                    while (list[rightSideOfList].Value.CompareTo(pivot.Value) > 0) { rightSideOfList--; }
 
-                    leftSideOfList++;
-                    rightSideOfList--;
+                    //Swoops values found if they doesnt belong in their current part of list
+                    if (leftSideOfList <= rightSideOfList)
+                    {
+                        temporaryWord = list[leftSideOfList];
+                        list[leftSideOfList] = list[rightSideOfList];
+                        list[rightSideOfList] = temporaryWord;
+
+                        leftSideOfList++;
+                        rightSideOfList--;
+                    }
                 }
-            }
-            //Chooses if we should go to the right part of the list or the left and start sorting that part
-            if (start < rightSideOfList)
-            {
-                QuickSort(list, start, rightSideOfList);
-            }
-            if (leftSideOfList < end)
-            {
-                QuickSort(list, leftSideOfList, end);
+                //Chooses if we should go to the right part of the list or the left and start sorting that part
+                if (start < rightSideOfList)
+                {
+                    QuickSort(list, start, rightSideOfList);
+                }
+                if (leftSideOfList < end)
+                {
+                    QuickSort(list, leftSideOfList, end);
+                }
             }
         }
 

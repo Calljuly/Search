@@ -9,6 +9,7 @@ namespace Search
         static void Main(string[] args)
         {
             WordExtractor wordExtractor = new WordExtractor();
+            List<Word> compoundedList = new List<Word>();
 
             while (true)
             {
@@ -27,17 +28,18 @@ namespace Search
                         else
                         {
                             wordExtractor.ExtractWordsFromTextFile(fileContent, filePath);
-                            Engine.QuickSort(wordExtractor.GetCompoundedList(), 0, wordExtractor.GetCompoundedList().Count - 1);
+                            compoundedList = wordExtractor.GetCompoundedList();
+                            Engine.QuickSort(compoundedList, 0, compoundedList.Count - 1);
                         }
                         break;
 
                     //Searches for a word selected by user input. Prints existance of word in all files to console.
                     case "2":
-                        if (wordExtractor.GetCompoundedList().Count > 0)
+                        if (compoundedList.Count > 0)
                         {
                             Console.Write("Type the word you want to search: ");
                             var searchWord = Console.ReadLine().ToLower();
-                            var searchedWords = Engine.BinarySearch(wordExtractor.GetCompoundedList(), true, searchWord);
+                            var searchedWords = Engine.BinarySearch(compoundedList, true, searchWord);
                             foreach (var item in searchedWords)
                             {
                                 Console.WriteLine($"{searchWord} exists {item.Value} times in {item.Key}");
@@ -51,12 +53,12 @@ namespace Search
 
                     //Creates a new .txt-file. Saves sorted list of all words in all files read to this file.
                     case "3":
-                        if (wordExtractor.GetCompoundedList().Count > 0)
+                        if (compoundedList.Count > 0)
                         {
                             Console.WriteLine(@"Press '1' if you would like to save in a new file. Press '2' if you would like to create a new default file:");
                             var saveOption = Console.ReadLine();
                             string fullFilePath;
-                            string sortedFileContent = wordExtractor.BuildStringFromListOfWords(wordExtractor.GetCompoundedList());
+                            string sortedFileContent = wordExtractor.BuildStringFromListOfWords(compoundedList);
                             if (saveOption == "1")
                             {
                                 Console.WriteLine("Enter a location where you would like to save your file:");
@@ -74,7 +76,7 @@ namespace Search
                             }
                             else if (saveOption == "2")
                             {
-                                fullFilePath = IO.SaveFile(sortedFileContent, wordExtractor.GetCompoundedList()[0].File + "new.txt");
+                                fullFilePath = IO.SaveFile(sortedFileContent, compoundedList[0].File + "new.txt");
                                 if (fullFilePath == "Could not save file.")
                                 {
                                     Console.WriteLine(fullFilePath);
@@ -97,9 +99,9 @@ namespace Search
 
                     //Prints the sorted list to console.
                     case "4":
-                        if (wordExtractor.GetCompoundedList().Count > 0)
+                        if (compoundedList.Count > 0)
                         {
-                            Console.WriteLine(wordExtractor.BuildStringFromListOfWords(wordExtractor.GetCompoundedList()));
+                            Console.WriteLine(wordExtractor.BuildStringFromListOfWords(compoundedList));
                         }
                         else
                         {

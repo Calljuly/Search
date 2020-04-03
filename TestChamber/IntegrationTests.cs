@@ -116,5 +116,22 @@ namespace TestChamber
             Dictionary<string, int> expected = new Dictionary<string, int>();
             Assert.AreEqual(expected, result);
         }
+        [Test]
+        public void GetCompoundedList_SortedAndUnsortedLists_AreNotEqual()
+        {
+            WordExtractor extractor = new WordExtractor();
+
+            string path1 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile1.txt";
+            string text1 = IO.ReadFile(path1);
+
+            extractor.ExtractWordsFromTextFile(text1, path1);
+            var unsortedList = extractor.GetCompoundedList();
+            var sortedList = extractor.GetCompoundedList();
+
+            Engine.QuickSort(sortedList, 0, sortedList.Count - 1);
+            
+            Assert.AreNotEqual(unsortedList, sortedList);
+
+        }
     }
 }

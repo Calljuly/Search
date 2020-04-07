@@ -132,7 +132,7 @@ namespace TestChamber
         [Test]
         public void ReplaceSpecialCharacters_HappyDays()
         {
-            string s = "hej, hej. hej! hej=hej( hej[i] / hej&hej%hej hej'hej\n hej: hej; @hej$hej kram\\kram* ja? #är det sant\"-+{}";
+            string s = "hej, hej. hej! hej=hej( hej[i] / hej&hej%hej hej'hej hej: hej; @hej$hej kram\\kram* ja? #är det sant\"-+{}";
             s = testExtractor.ReplaceSpecialCharacters(s);
             Assert.AreEqual("hej hej hej hejhej heji  hejhejhej hej'hej hej hej hejhej kramkram ja är det sant", s);
         }

@@ -23,12 +23,12 @@ namespace ClassLibrary
         /// <returns>String without special characters</returns>
         internal string ReplaceSpecialCharacters(string text)
         {
-                var stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
             try
             {
                 foreach (char character in text)
                 {
-                    if (char.IsLetterOrDigit(character) || (character == ' ') || (character == '\''))
+                    if (char.IsLetterOrDigit(character) || (character == ' ') || (character == '\'') || (character == '\n'))
                     {
                         stringBuilder.Append(character);
                     }
@@ -56,12 +56,18 @@ namespace ClassLibrary
                     var textWithoutSpecialCharacters = this.ReplaceSpecialCharacters(fileContent);
 
                     //Upon space splits the string into a piece of string.
-                    var splittedText = textWithoutSpecialCharacters.Split(' ');
+                    var splittedText = textWithoutSpecialCharacters.Split(' ', '\n');
 
                     //Adds all words in the text in to a list of words.
                     foreach (var word in splittedText)
                     {
-                        wordList.Add(new Word(word, filePath));
+                        word.Trim('\n');
+                        word.Trim();
+                        word.TrimStart('\'');
+                        if (word != "")
+                        {
+                            wordList.Add(new Word(word, filePath));
+                        }
                     }
                     this.AppendWordListsToCompoundedList(wordList);
                 }
@@ -110,7 +116,7 @@ namespace ClassLibrary
             {
                 return fileContent.ToString();
             }
-            
+
         }
     }
 }

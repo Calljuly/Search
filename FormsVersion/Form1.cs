@@ -19,31 +19,48 @@ namespace FormsVersion
         List<Word> unsortedWordsList = new List<Word>();
         List<Word> sortedWordsList = new List<Word>();
         WordExtractor extractor = new WordExtractor();
-
+        public static Form1 form;
 
         public Form1()
         {
             InitializeComponent();
+
+            // Disable buttons the user shouldn't click on at this point. 
             SetLoadButtonsOn(false);
             SetInterractionButtonsOn(false);
         }
 
-       
-        private void btnBrowse_Click(object sender, EventArgs e)
+        public void btnBrowse_Click(object sender, EventArgs e)
         {
+            // The dialogue should only accept .txt files. 
             openFileDialogue.Filter = "Text files (*.txt)|*.txt";
             openFileDialogue.FileName = "";
 
             if (openFileDialogue.ShowDialog() != DialogResult.Cancel)
             {
-                fileList.Add(openFileDialogue.FileName);
-                lbxFileList.Items.Add(openFileDialogue.FileName);
+                if (!fileList.Contains(openFileDialogue.FileName))
+                {
+                    // Add files to list and show added files in lbxFileList. 
+                    fileList.Add(openFileDialogue.FileName);
+                    lbxFileList.Items.Add(openFileDialogue.FileName);
+
+                    // Interraction buttons disabled because added files means the user needs to load the files first. 
+                    SetInterractionButtonsOn(false);
+                }
+                else
+                {
+                    MessageBox.Show("This file has already been added.");
+                }
+                
             }
+
 
             if (fileList.Count > 0)
             {
                 SetLoadButtonsOn(true);
             }
+
+
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -59,16 +76,22 @@ namespace FormsVersion
 
             if (fileList.Count < 1)
             {
+                // Disable load button if there are no files to load. 
                 SetLoadButtonsOn(false);
                 
             }
 
+            // If list is changed then the user needs to reload before being able to search or save again. 
             SetInterractionButtonsOn(false);
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-           
+            // Reset info to clear way for new info. 
+            lbxSortedWords.Items.Clear();
+            lbxUnsortedWords.Items.Clear();
+            dataSearchResults.Rows.Clear();
+            extractor = new WordExtractor();
 
             for (int i = 0; i < fileList.Count; i++)
             {
@@ -77,10 +100,12 @@ namespace FormsVersion
 
             }
 
+            // Create one sorted list and one unsorted. 
             unsortedWordsList = extractor.GetCompoundedList();
             sortedWordsList = extractor.GetCompoundedList();
             Engine.QuickSort(sortedWordsList, 0, sortedWordsList.Count - 1);
 
+            // Show items in each list in each listBox
             for (int i = 0; i < unsortedWordsList.Count; i++)
             {
                 lbxUnsortedWords.Items.Add(unsortedWordsList[i].Value);
@@ -91,6 +116,7 @@ namespace FormsVersion
                 lbxSortedWords.Items.Add(sortedWordsList[i].Value);
             }
 
+            // Now things have been loaded and the user can search or save. 
             SetInterractionButtonsOn(true);
 
         }
@@ -99,7 +125,7 @@ namespace FormsVersion
         {
             foreach (KeyValuePair<string, int> word in Engine.BinarySearch(sortedWordsList, true, tbxSearch.Text))
             {
-                lbxSearchResults.Items.Add($"\"{tbxSearch.Text}\" was found {word.Value} times in {word.Key}");
+                dataSearchResults.Rows.Add(tbxSearch.Text, word.Value, word.Key.ToString());
             }
          
         }
@@ -118,12 +144,14 @@ namespace FormsVersion
 
         private void SaveViaSaveDialogue(List<Word> list)
         {
+            // Setting default folder to desktop and file-type to .txt
             saveFileDialogue.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             saveFileDialogue.DefaultExt = ".txt";
             saveFileDialogue.Filter = "TXT | *.txt";
 
             if (saveFileDialogue.ShowDialog() != DialogResult.Cancel)
             {
+                // Create a string out of the sorted list and save it. 
                 string stringFromList = extractor.BuildStringFromListOfWords(list);
                 string fullFilePath = IO.SaveFile(stringFromList, saveFileDialogue.InitialDirectory, Path.GetFileNameWithoutExtension(saveFileDialogue.FileName));
 

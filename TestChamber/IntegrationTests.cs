@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using ClassLibrary;
+using FormsVersion;
 
 namespace TestChamber
 {
@@ -30,6 +31,8 @@ namespace TestChamber
 
             string path4 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile4.txt";
             string text4 = IO.ReadFile(path4);
+
+            
 
             extractor.ExtractWordsFromTextFile(text1, path1);
             extractor.ExtractWordsFromTextFile(text2, path2);

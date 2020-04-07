@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClassLibrary;
@@ -63,7 +64,7 @@ namespace FormsVersion
                 if (!allFilesAdded)
                 {
                     LoadContent();
-                    MessageBox.Show("One or more files were skipped because they were alrady added before.");
+                    MessageBox.Show("One or more files were skipped because they were already added before.");
                 }
                 else
                 {
@@ -71,7 +72,8 @@ namespace FormsVersion
                     MessageBox.Show("All files loaded and sorted");
                 }
 
-
+                // Now things have been loaded and the user can search or save. 
+                SetInterractionButtonsOn(true);
 
             }
         }
@@ -126,8 +128,7 @@ namespace FormsVersion
             lbxUnsortedWords.DataSource = unsortedWordsList;
             lbxSortedWords.DataSource = sortedWordsList;
 
-            // Now things have been loaded and the user can search or save. 
-            SetInterractionButtonsOn(true);
+            
 
             
         }

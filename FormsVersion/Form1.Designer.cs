@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialogue = new System.Windows.Forms.OpenFileDialog();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.lbxFileList = new System.Windows.Forms.ListBox();
@@ -75,12 +75,14 @@
             // 
             // lbxFileList
             // 
+            this.lbxFileList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbxFileList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lbxFileList.ForeColor = System.Drawing.Color.White;
             this.lbxFileList.FormattingEnabled = true;
             this.lbxFileList.Location = new System.Drawing.Point(26, 130);
             this.lbxFileList.Name = "lbxFileList";
-            this.lbxFileList.Size = new System.Drawing.Size(776, 69);
+            this.lbxFileList.Size = new System.Drawing.Size(780, 69);
             this.lbxFileList.TabIndex = 1;
             // 
             // btnSave
@@ -111,6 +113,8 @@
             // 
             // lbxUnsortedWords
             // 
+            this.lbxUnsortedWords.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.lbxUnsortedWords.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lbxUnsortedWords.ForeColor = System.Drawing.Color.White;
             this.lbxUnsortedWords.FormattingEnabled = true;
@@ -121,16 +125,19 @@
             // 
             // lbxSortedWords
             // 
+            this.lbxSortedWords.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbxSortedWords.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lbxSortedWords.ForeColor = System.Drawing.Color.White;
             this.lbxSortedWords.FormattingEnabled = true;
-            this.lbxSortedWords.Location = new System.Drawing.Point(421, 225);
+            this.lbxSortedWords.Location = new System.Drawing.Point(425, 225);
             this.lbxSortedWords.Name = "lbxSortedWords";
             this.lbxSortedWords.Size = new System.Drawing.Size(381, 160);
             this.lbxSortedWords.TabIndex = 6;
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(23, 396);
             this.label3.Name = "label3";
@@ -160,9 +167,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.btnSave);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(520, 13);
+            this.groupBox1.Location = new System.Drawing.Point(524, 13);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(282, 95);
             this.groupBox1.TabIndex = 13;
@@ -183,10 +191,11 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox3.Controls.Add(this.tbxSearch);
             this.groupBox3.Controls.Add(this.btnSearch);
             this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(254, 13);
+            this.groupBox3.Location = new System.Drawing.Point(256, 13);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(260, 95);
             this.groupBox3.TabIndex = 16;
@@ -195,8 +204,9 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(418, 209);
+            this.label2.Location = new System.Drawing.Point(422, 209);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 13);
             this.label2.TabIndex = 9;
@@ -224,6 +234,8 @@
             // 
             this.dataSearchResults.AllowUserToAddRows = false;
             this.dataSearchResults.AllowUserToDeleteRows = false;
+            this.dataSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataSearchResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataSearchResults.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dataSearchResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -231,20 +243,20 @@
             this.WordColumn,
             this.MatchesColumn,
             this.FileColumn});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataSearchResults.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataSearchResults.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataSearchResults.Location = new System.Drawing.Point(26, 413);
             this.dataSearchResults.MultiSelect = false;
             this.dataSearchResults.Name = "dataSearchResults";
             this.dataSearchResults.ReadOnly = true;
             this.dataSearchResults.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataSearchResults.Size = new System.Drawing.Size(776, 130);
+            this.dataSearchResults.Size = new System.Drawing.Size(780, 130);
             this.dataSearchResults.TabIndex = 17;
             // 
             // WordColumn
@@ -277,7 +289,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(824, 559);
+            this.ClientSize = new System.Drawing.Size(828, 559);
             this.Controls.Add(this.dataSearchResults);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -291,6 +303,7 @@
             this.Controls.Add(this.lbxFileList);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.White;
+            this.MinimumSize = new System.Drawing.Size(822, 0);
             this.Name = "Form1";
             this.Text = "Searchie Search";
             this.groupBox1.ResumeLayout(false);

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialogue = new System.Windows.Forms.OpenFileDialog();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.lbxFileList = new System.Windows.Forms.ListBox();
@@ -36,7 +36,6 @@
             this.saveFileDialogue = new System.Windows.Forms.SaveFileDialog();
             this.btnRemove = new System.Windows.Forms.Button();
             this.lbxUnsortedWords = new System.Windows.Forms.ListBox();
-            this.btnLoad = new System.Windows.Forms.Button();
             this.lbxSortedWords = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -66,11 +65,11 @@
             this.btnBrowse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnBrowse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBrowse.Location = new System.Drawing.Point(15, 24);
+            this.btnBrowse.Location = new System.Drawing.Point(15, 26);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(90, 23);
+            this.btnBrowse.Size = new System.Drawing.Size(185, 23);
             this.btnBrowse.TabIndex = 0;
-            this.btnBrowse.Text = "Choose a file";
+            this.btnBrowse.Text = "Choose files";
             this.btnBrowse.UseVisualStyleBackColor = false;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
@@ -102,11 +101,11 @@
             this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRemove.Location = new System.Drawing.Point(115, 24);
+            this.btnRemove.Location = new System.Drawing.Point(15, 55);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(87, 23);
+            this.btnRemove.Size = new System.Drawing.Size(185, 23);
             this.btnRemove.TabIndex = 3;
-            this.btnRemove.Text = "Remove last file";
+            this.btnRemove.Text = "Remove files";
             this.btnRemove.UseVisualStyleBackColor = false;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
@@ -119,19 +118,6 @@
             this.lbxUnsortedWords.Name = "lbxUnsortedWords";
             this.lbxUnsortedWords.Size = new System.Drawing.Size(382, 160);
             this.lbxUnsortedWords.TabIndex = 4;
-            // 
-            // btnLoad
-            // 
-            this.btnLoad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnLoad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoad.Location = new System.Drawing.Point(15, 56);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(187, 23);
-            this.btnLoad.TabIndex = 5;
-            this.btnLoad.Text = "Load files";
-            this.btnLoad.UseVisualStyleBackColor = false;
-            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // lbxSortedWords
             // 
@@ -187,7 +173,6 @@
             // 
             this.groupBox2.Controls.Add(this.btnBrowse);
             this.groupBox2.Controls.Add(this.btnRemove);
-            this.groupBox2.Controls.Add(this.btnLoad);
             this.groupBox2.ForeColor = System.Drawing.Color.White;
             this.groupBox2.Location = new System.Drawing.Point(26, 13);
             this.groupBox2.Name = "groupBox2";
@@ -246,14 +231,14 @@
             this.WordColumn,
             this.MatchesColumn,
             this.FileColumn});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataSearchResults.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataSearchResults.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataSearchResults.Location = new System.Drawing.Point(26, 413);
             this.dataSearchResults.MultiSelect = false;
             this.dataSearchResults.Name = "dataSearchResults";
@@ -337,7 +322,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
-        public System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.DataGridView dataSearchResults;
         private System.Windows.Forms.DataGridViewTextBoxColumn WordColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn MatchesColumn;

@@ -26,12 +26,7 @@ namespace FormsVersion
             InitializeComponent();
 
             // Disable buttons the user shouldn't click on at this point. 
-            SetLoadButtonsOn(false);
             SetInterractionButtonsOn(false);
-
-            // We only ever want the listboxes to show the value property of a Word object. 
-            lbxSortedWords.DisplayMember = "Value";
-            lbxUnsortedWords.DisplayMember = "Value";
         }
 
         public void btnBrowse_Click(object sender, EventArgs e)
@@ -40,31 +35,45 @@ namespace FormsVersion
             openFileDialogue.Filter = "Text files (*.txt)|*.txt";
             openFileDialogue.FileName = "";
 
+            openFileDialogue.Multiselect = true;
+
             if (openFileDialogue.ShowDialog() != DialogResult.Cancel)
             {
-                if (!fileList.Contains(openFileDialogue.FileName))
-                {
-                    // Add files to list and show added files in lbxFileList. 
-                    fileList.Add(openFileDialogue.FileName);
-                    lbxFileList.Items.Add(openFileDialogue.FileName);
+                bool allFilesAdded = true;
 
-                    // Interraction buttons disabled because added files means the user needs to load the files first. 
-                    SetInterractionButtonsOn(false);
+                for (int i = 0; i < openFileDialogue.FileNames.Length; i++)
+                {
+                    // Go trhrough all and then give 
+                    if (!fileList.Contains(openFileDialogue.FileNames[i]))
+                    {
+                        // Add files to list and show added files in lbxFileList. 
+                        fileList.Add(openFileDialogue.FileNames[i]);
+                        lbxFileList.Items.Add(openFileDialogue.FileNames[i]);
+
+                        // Interraction buttons disabled because added files means the user needs to load the files first. 
+                        SetInterractionButtonsOn(false);
+                    }
+                    else
+                    {
+                        allFilesAdded = false;
+                    }
+                    
+                }
+
+                if (!allFilesAdded)
+                {
+                    LoadContent();
+                    MessageBox.Show("One or more files were skipped because they were alrady added before.");
                 }
                 else
                 {
-                    MessageBox.Show("This file has already been added.");
+                    LoadContent();
+                    MessageBox.Show("All files loaded and sorted");
                 }
-                
+
+
+
             }
-
-
-            if (fileList.Count > 0)
-            {
-                SetLoadButtonsOn(true);
-            }
-
-
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -75,21 +84,19 @@ namespace FormsVersion
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            fileList.RemoveAt(fileList.Count - 1);
-            lbxFileList.Items.RemoveAt(lbxFileList.Items.Count - 1);
+            fileList.Clear();
+            lbxFileList.Items.Clear();
 
-            if (fileList.Count < 1)
-            {
-                // Disable load button if there are no files to load. 
-                SetLoadButtonsOn(false);
-                
-            }
+            sortedWordsList.Clear();
+            unsortedWordsList.Clear();
 
-            // If list is changed then the user needs to reload before being able to search or save again. 
+            lbxSortedWords.DataSource = null;
+            lbxUnsortedWords.DataSource = null;
+            dataSearchResults.Rows.Clear();
             SetInterractionButtonsOn(false);
         }
 
-        private void btnLoad_Click(object sender, EventArgs e)
+        private void LoadContent()
         {
             // Reset info to clear way for new info. 
             dataSearchResults.Rows.Clear();
@@ -111,6 +118,10 @@ namespace FormsVersion
             sortedWordsList.RemoveAll(x => x.Value == "");
             unsortedWordsList.RemoveAll(x => x.Value == "");
 
+            // We only ever want the listboxes to show the value property of a Word object. 
+            lbxSortedWords.DisplayMember = "Value";
+            lbxUnsortedWords.DisplayMember = "Value";
+
             // Show items in each list in each listBox
             lbxUnsortedWords.DataSource = unsortedWordsList;
             lbxSortedWords.DataSource = sortedWordsList;
@@ -118,7 +129,7 @@ namespace FormsVersion
             // Now things have been loaded and the user can search or save. 
             SetInterractionButtonsOn(true);
 
-            MessageBox.Show("All files loaded and sorted");
+            
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -128,12 +139,6 @@ namespace FormsVersion
                 dataSearchResults.Rows.Add(tbxSearch.Text, word.Value, word.Key.ToString());
             }
          
-        }
-
-        private void SetLoadButtonsOn(bool on)
-        {
-            btnLoad.Enabled = on;
-            btnRemove.Enabled = on;
         }
 
         private void SetInterractionButtonsOn(bool on)

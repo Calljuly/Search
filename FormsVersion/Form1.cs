@@ -28,6 +28,10 @@ namespace FormsVersion
             // Disable buttons the user shouldn't click on at this point. 
             SetLoadButtonsOn(false);
             SetInterractionButtonsOn(false);
+
+            // We only ever want the listboxes to show the value property of a Word object. 
+            lbxSortedWords.DisplayMember = "Value";
+            lbxUnsortedWords.DisplayMember = "Value";
         }
 
         public void btnBrowse_Click(object sender, EventArgs e)
@@ -88,8 +92,6 @@ namespace FormsVersion
         private void btnLoad_Click(object sender, EventArgs e)
         {
             // Reset info to clear way for new info. 
-            lbxSortedWords.Items.Clear();
-            lbxUnsortedWords.Items.Clear();
             dataSearchResults.Rows.Clear();
             extractor = new WordExtractor();
 
@@ -102,23 +104,21 @@ namespace FormsVersion
 
             // Create one sorted list and one unsorted. 
             unsortedWordsList = extractor.GetCompoundedList();
-            sortedWordsList = extractor.GetCompoundedList();
-            Engine.QuickSort(sortedWordsList, 0, sortedWordsList.Count - 1);
+            List<Word> tmp = extractor.GetCompoundedList();
+            Engine.QuickSort(tmp, 0, tmp.Count - 1);
+            sortedWordsList = tmp;
+
+            sortedWordsList.RemoveAll(x => x.Value == "");
+            unsortedWordsList.RemoveAll(x => x.Value == "");
 
             // Show items in each list in each listBox
-            for (int i = 0; i < unsortedWordsList.Count; i++)
-            {
-                lbxUnsortedWords.Items.Add(unsortedWordsList[i].Value);
-            }
-
-            for (int i = 0; i < sortedWordsList.Count; i++)
-            {
-                lbxSortedWords.Items.Add(sortedWordsList[i].Value);
-            }
+            lbxUnsortedWords.DataSource = unsortedWordsList;
+            lbxSortedWords.DataSource = sortedWordsList;
 
             // Now things have been loaded and the user can search or save. 
             SetInterractionButtonsOn(true);
 
+            MessageBox.Show("All files loaded and sorted");
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

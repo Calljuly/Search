@@ -17,5 +17,7 @@ namespace ClassLibrary
             Value = theWord;
             File = theFile;
         }
+
+        public Word() { }
     }
 }

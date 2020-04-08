@@ -30,7 +30,10 @@ namespace ClassLibrary
             {
                 return "Could not read file";
             }
-
+            catch (UnauthorizedAccessException)
+            {
+                return "You don't have access, your authority level is to low";
+            }
         }
 
 
@@ -39,7 +42,7 @@ namespace ClassLibrary
             // Code reference from https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
             try
             {
-                
+
                 if (newFileName == null)
                 {
                     // Save on a existing file

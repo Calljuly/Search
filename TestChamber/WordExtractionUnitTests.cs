@@ -11,10 +11,42 @@ namespace TestChamber
         List<Word> wordList;
         WordExtractor testExtractor = new WordExtractor();
         [Test]
-        public void ExtractWordsFromTextFile_WordsAreExtractedCorrectly()
+        public void ExtractWordsFromTextFile_WordsAreExtractedCorrectly_WhiteSpace()
         {
             string filePath = @"C:/";
             string words = "hej! hejsan; hallå, tjena: sm-guld 2020.";
+            wordList = testExtractor.ExtractWordsFromTextFile(words, filePath);
+            for (int i = 0; i < wordList.Count - 1; i++)
+            {
+                Assert.AreEqual("hej", wordList[0].Value);
+                Assert.AreEqual("hejsan", wordList[1].Value);
+                Assert.AreEqual("hallå", wordList[2].Value);
+                Assert.AreEqual("tjena", wordList[3].Value);
+                Assert.AreEqual("smguld", wordList[4].Value);
+                Assert.AreEqual("2020", wordList[5].Value);
+            }
+        }
+        [Test]
+        public void ExtractWordsFromTextFile_WordsAreExtractedCorrectly_NewLine()
+        {
+            string filePath = @"C:/";
+            string words = "hej!\nhejsan;\nhallå,\ntjena:\nsm-guld\n2020.";
+            wordList = testExtractor.ExtractWordsFromTextFile(words, filePath);
+            for (int i = 0; i < wordList.Count - 1; i++)
+            {
+                Assert.AreEqual("hej", wordList[0].Value);
+                Assert.AreEqual("hejsan", wordList[1].Value);
+                Assert.AreEqual("hallå", wordList[2].Value);
+                Assert.AreEqual("tjena", wordList[3].Value);
+                Assert.AreEqual("smguld", wordList[4].Value);
+                Assert.AreEqual("2020", wordList[5].Value);
+            }
+        }
+        [Test]
+        public void ExtractWordsFromTextFile_WordsAreExtractedCorrectly_NewLineAndWhiteSpace()
+        {
+            string filePath = @"C:/";
+            string words = "hej! \nhejsan;\n hallå,\n tjena:\n sm-guld\n 2020.";
             wordList = testExtractor.ExtractWordsFromTextFile(words, filePath);
             for (int i = 0; i < wordList.Count - 1; i++)
             {

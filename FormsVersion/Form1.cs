@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -61,15 +62,13 @@ namespace FormsVersion
                     
                 }
 
+                Task.Run(() => LoadContent());
+                lblSortedList.Text = "Sorted list of words";
+                lblUnsortedList.Text = "Unsorted list of words";
+
                 if (!allFilesAdded)
                 {
-                    LoadContent();
                     MessageBox.Show("One or more files were skipped because they were already added before.");
-                }
-                else
-                {
-                    LoadContent();
-                    MessageBox.Show("All files loaded and sorted");
                 }
 
                 // Now things have been loaded and the user can search or save. 
@@ -96,6 +95,10 @@ namespace FormsVersion
             lbxUnsortedWords.DataSource = null;
             dataSearchResults.Rows.Clear();
             SetInterractionButtonsOn(false);
+
+            lblSortedList.Text = "Sorted list of words";
+            lblUnsortedList.Text = "Unsorted list of words";
+            lblFiles.Text = "Added Files";
         }
 
         private void LoadContent()
@@ -104,6 +107,9 @@ namespace FormsVersion
             dataSearchResults.Rows.Clear();
             extractor = new WordExtractor();
 
+           
+
+            DateTime start = DateTime.Now;
             for (int i = 0; i < fileList.Count; i++)
             {
                 string fileContent = IO.ReadFile(fileList[i]);
@@ -116,21 +122,41 @@ namespace FormsVersion
             List<Word> tmp = extractor.GetCompoundedList();
             Engine.QuickSort(tmp, 0, tmp.Count - 1);
             sortedWordsList = tmp;
-
-            //sortedWordsList.RemoveAll(x => x.Value == "");
-            //unsortedWordsList.RemoveAll(x => x.Value == "");
-
-            // We only ever want the listboxes to show the value property of a Word object. 
-            lbxSortedWords.DisplayMember = "Value";
-            lbxUnsortedWords.DisplayMember = "Value";
-
-            // Show items in each list in each listBox
-            lbxUnsortedWords.DataSource = unsortedWordsList;
-            lbxSortedWords.DataSource = sortedWordsList;
-
             
+            TimeSpan span = DateTime.Now - start;
 
-            
+            lblSortedList.Invoke((MethodInvoker)delegate {
+                lblSortedList.Text = "Sorted list of words (Loading... This might take a while)";
+
+            });
+
+            lblUnsortedList.Invoke((MethodInvoker)delegate {
+                lblUnsortedList.Text = "Unsorted list of words (Loading... This might take a while)";
+
+            });
+
+            lblFiles.Invoke((MethodInvoker)delegate {
+                
+                lblFiles.Text = $"Files analyzed and sorted... It took {span.TotalSeconds.ToString("F")} seconds";
+                
+            });
+
+
+            lblFiles.Invoke((MethodInvoker)delegate {
+                // We only ever want the listboxes to show the value property of a Word object. 
+                lbxSortedWords.DisplayMember = "Value";
+                lbxUnsortedWords.DisplayMember = "Value";
+
+                // Show items in each list in each listBox
+                lbxSortedWords.BeginUpdate();
+                lbxUnsortedWords.BeginUpdate();
+                lbxSortedWords.DataSource = sortedWordsList;
+                lbxUnsortedWords.DataSource = unsortedWordsList;
+                lbxSortedWords.EndUpdate();
+                lbxUnsortedWords.EndUpdate();
+                lblSortedList.Text = "Sorted list of words (Done)";
+                lblUnsortedList.Text = "Unsorted list of words (Done)";
+            });
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

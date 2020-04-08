@@ -43,9 +43,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblSortedList = new System.Windows.Forms.Label();
+            this.lblUnsortedList = new System.Windows.Forms.Label();
+            this.lblFiles = new System.Windows.Forms.Label();
             this.dataSearchResults = new System.Windows.Forms.DataGridView();
             this.WordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MatchesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -202,33 +202,33 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Search";
             // 
-            // label2
+            // lblSortedList
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(422, 209);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Sorted list of words";
+            this.lblSortedList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSortedList.AutoSize = true;
+            this.lblSortedList.Location = new System.Drawing.Point(422, 209);
+            this.lblSortedList.Name = "lblSortedList";
+            this.lblSortedList.Size = new System.Drawing.Size(96, 13);
+            this.lblSortedList.TabIndex = 9;
+            this.lblSortedList.Text = "Sorted list of words";
             // 
-            // label1
+            // lblUnsortedList
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 209);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Unsorted list of words";
+            this.lblUnsortedList.AutoSize = true;
+            this.lblUnsortedList.Location = new System.Drawing.Point(23, 209);
+            this.lblUnsortedList.Name = "lblUnsortedList";
+            this.lblUnsortedList.Size = new System.Drawing.Size(108, 13);
+            this.lblUnsortedList.TabIndex = 8;
+            this.lblUnsortedList.Text = "Unsorted list of words";
             // 
-            // label4
+            // lblFiles
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(23, 114);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Added files";
+            this.lblFiles.AutoSize = true;
+            this.lblFiles.Location = new System.Drawing.Point(23, 114);
+            this.lblFiles.Name = "lblFiles";
+            this.lblFiles.Size = new System.Drawing.Size(59, 13);
+            this.lblFiles.TabIndex = 14;
+            this.lblFiles.Text = "Added files";
             // 
             // dataSearchResults
             // 
@@ -293,11 +293,11 @@
             this.Controls.Add(this.dataSearchResults);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lblFiles);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblSortedList);
+            this.Controls.Add(this.lblUnsortedList);
             this.Controls.Add(this.lbxSortedWords);
             this.Controls.Add(this.lbxUnsortedWords);
             this.Controls.Add(this.lbxFileList);
@@ -332,9 +332,9 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblSortedList;
+        private System.Windows.Forms.Label lblUnsortedList;
+        private System.Windows.Forms.Label lblFiles;
         private System.Windows.Forms.DataGridView dataSearchResults;
         private System.Windows.Forms.DataGridViewTextBoxColumn WordColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn MatchesColumn;

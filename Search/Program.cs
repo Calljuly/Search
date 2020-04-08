@@ -21,7 +21,7 @@ namespace Search
                         Console.WriteLine("File Location exp \"C\\User\\... \"");
                         string filePath = Console.ReadLine();
                         string fileContent = IO.ReadFile(filePath);
-                        if (fileContent == "Could not read file")
+                        if (fileContent == "Could not read file" || fileContent == "You don't have access, your authority level is to low")
                         {
                             Console.WriteLine(fileContent);
                         }

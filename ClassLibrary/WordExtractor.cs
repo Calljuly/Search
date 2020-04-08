@@ -55,7 +55,7 @@ namespace ClassLibrary
                 {
                     var textWithoutSpecialCharacters = this.ReplaceSpecialCharacters(fileContent);
 
-                    //Upon space splits the string into a piece of string.
+                    //Upon space or new line splits the string into a piece of string.
                     var splittedText = textWithoutSpecialCharacters.Split(' ', '\n');
 
                     //Adds all words in the text in to a list of words.
@@ -103,12 +103,11 @@ namespace ClassLibrary
         public string BuildStringFromListOfWords(List<Word> wordList)
         {
             StringBuilder fileContent = new StringBuilder();
-            fileContent.Append($"Word:\t\t\tFile Path:{Environment.NewLine}");
             try
             {
                 foreach (var wordObject in wordList)
                 {
-                    fileContent.Append(wordObject.Value + "\t\t\t(" + wordObject.File + ")" + Environment.NewLine);
+                    fileContent.Append(wordObject.Value + Environment.NewLine);
                 }
                 return fileContent.ToString();
             }

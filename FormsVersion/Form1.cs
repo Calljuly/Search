@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -100,10 +101,10 @@ namespace FormsVersion
 
         private void LoadContent()
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("se-SE");
             // Reset info to clear way for new info. 
             dataSearchResults.Rows.Clear();
             extractor = new WordExtractor();
-
             for (int i = 0; i < fileList.Count; i++)
             {
                 string fileContent = IO.ReadFile(fileList[i]);

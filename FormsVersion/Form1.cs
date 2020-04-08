@@ -103,6 +103,7 @@ namespace FormsVersion
 
         private void LoadContent()
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("se-SE");
             // Reset info to clear way for new info. 
             dataSearchResults.Rows.Clear();
             extractor = new WordExtractor();

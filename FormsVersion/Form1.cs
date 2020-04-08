@@ -117,8 +117,8 @@ namespace FormsVersion
             Engine.QuickSort(tmp, 0, tmp.Count - 1);
             sortedWordsList = tmp;
 
-            sortedWordsList.RemoveAll(x => x.Value == "");
-            unsortedWordsList.RemoveAll(x => x.Value == "");
+            //sortedWordsList.RemoveAll(x => x.Value == "");
+            //unsortedWordsList.RemoveAll(x => x.Value == "");
 
             // We only ever want the listboxes to show the value property of a Word object. 
             lbxSortedWords.DisplayMember = "Value";

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
 using ClassLibrary;
 
 namespace Search
@@ -10,6 +12,7 @@ namespace Search
         {
             WordExtractor wordExtractor = new WordExtractor();
             List<Word> compoundedList = new List<Word>();
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("se-SE");
 
             while (true)
             {

@@ -29,6 +29,7 @@ namespace FormsVersion
 
             // Disable buttons the user shouldn't click on at this point. 
             SetInterractionButtonsOn(false);
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("se-SE");
         }
 
         public void btnBrowse_Click(object sender, EventArgs e)
@@ -103,12 +104,9 @@ namespace FormsVersion
 
         private void LoadContent()
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("se-SE");
             // Reset info to clear way for new info. 
-            dataSearchResults.Rows.Clear();
+            dataSearchResults.Invoke((MethodInvoker)delegate { dataSearchResults.Rows.Clear(); }); 
             extractor = new WordExtractor();
-
-           
 
             DateTime start = DateTime.Now;
             for (int i = 0; i < fileList.Count; i++)
@@ -126,6 +124,8 @@ namespace FormsVersion
             
             TimeSpan span = DateTime.Now - start;
 
+            // Since LoadContent() is loaded in a new thread, we need to tell the thread to start the controllers in the main thread
+            // otherwise it doesn't work. 
             lblSortedList.Invoke((MethodInvoker)delegate {
                 lblSortedList.Text = "Sorted list of words (Loading... This might take a while)";
 

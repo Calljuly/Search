@@ -105,7 +105,12 @@ namespace FormsVersion
         private void LoadContent()
         {
             // Reset info to clear way for new info. 
-            dataSearchResults.Invoke((MethodInvoker)delegate { dataSearchResults.Rows.Clear(); }); 
+            dataSearchResults.Invoke((MethodInvoker)delegate { dataSearchResults.Rows.Clear(); });
+            lblFiles.Invoke((MethodInvoker)delegate
+            {
+                lblFiles.Text = "Added Files (Analyzing files...)";
+            });
+            
             extractor = new WordExtractor();
 
             DateTime start = DateTime.Now;

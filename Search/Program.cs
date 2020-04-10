@@ -13,27 +13,27 @@ namespace Search
             WordExtractor wordExtractor = new WordExtractor();
             List<Word> compoundedList = new List<Word>();
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("se-SE");
-
-            while (true)
+            Console.WriteLine($"This program lets you search for single words from text files. To begin your search, start by entering a file. {Environment.NewLine}");
+            while (compoundedList.Count <= 0)
             {
-                Console.WriteLine("1:Read file. 2:Search word. 3:Save file. 4:Print word list to console. 0:Exit. ");
+                //Reads file from file path. Extracts words from file. Sorts words in ascending alphabetical order.
+                compoundedList = LoadFileToMain(wordExtractor, compoundedList);
+
+            }
+            while (compoundedList.Count > 0)
+            {
+                Console.WriteLine($"To read a new file:\t\t\t\t\t Press [1] + [Enter]");
+                Console.WriteLine($"To search for a word:\t\t\t\t\t Press [2] + [Enter]");
+                Console.WriteLine($"To save all words in the document(s) in a sorted list:\t Press [3] + [Enter]");
+                Console.WriteLine($"To print all words in the document(s):\t\t\t Press [4] + [Enter]");
+                Console.WriteLine($"To exit the program:\t\t\t\t\t Press [0] + [Enter]");
+                Console.Write(">: ");
                 switch (Console.ReadLine())
                 {
                     //Reads file from file path. Extracts words from file. Sorts words in ascending alphabetical order.
                     case "1":
-                        Console.WriteLine("File Location exp \"C\\User\\... \"");
-                        string filePath = Console.ReadLine();
-                        string fileContent = IO.ReadFile(filePath);
-                        if (fileContent == "Could not read file" || fileContent == "You don't have access, your authority level is to low")
-                        {
-                            Console.WriteLine(fileContent);
-                        }
-                        else
-                        {
-                            wordExtractor.ExtractWordsFromTextFile(fileContent, filePath);
-                            compoundedList = wordExtractor.GetCompoundedList();
-                            Engine.QuickSort(compoundedList, 0, compoundedList.Count - 1);
-                        }
+                        //Console.WriteLine("File Location exp \"C\\User\\... \"");
+                        compoundedList = LoadFileToMain(wordExtractor, compoundedList);
                         break;
 
                     //Searches for a word selected by user input. Prints existance of word in all files to console.
@@ -43,9 +43,16 @@ namespace Search
                             Console.Write("Type the word you want to search: ");
                             var searchWord = Console.ReadLine().ToLower();
                             var searchedWords = Engine.BinarySearch(compoundedList, true, searchWord);
-                            foreach (var item in searchedWords)
+                            if (searchedWords.Count > 0)
                             {
-                                Console.WriteLine($"{searchWord} exists {item.Value} times in {item.Key}");
+                                foreach (var item in searchedWords)
+                                {
+                                    Console.WriteLine($"{searchWord} exists {item.Value} times in {item.Key}");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine($"{searchWord} does not exist in the document(s)");
                             }
                         }
                         else
@@ -58,7 +65,9 @@ namespace Search
                     case "3":
                         if (compoundedList.Count > 0)
                         {
-                            Console.WriteLine(@"Press '1' if you would like to save in a new file. Press '2' if you would like to create a new default file:");
+                            Console.WriteLine();
+                            Console.WriteLine($"Press [1] and [Enter] if you would like to save in a new file.{Environment.NewLine}Press [2] and [Enter] if you would like to create a new default file:");
+                            Console.Write(">: ");
                             var saveOption = Console.ReadLine();
                             string fullFilePath;
                             string sortedFileContent = wordExtractor.BuildStringFromListOfWords(compoundedList);
@@ -102,7 +111,11 @@ namespace Search
 
                     //Prints the sorted list to console.
                     case "4":
-                        if (compoundedList.Count > 0)
+                        if (compoundedList.Count > 10000)
+                        {
+                            Console.WriteLine("Too many words to print in console. To see all words, try saving to a text file instead.");
+                        }
+                        else if (compoundedList.Count > 0)
                         {
                             Console.WriteLine(wordExtractor.BuildStringFromListOfWords(compoundedList));
                         }
@@ -125,6 +138,33 @@ namespace Search
                 }
             }
 
+        }
+        /// <summary>
+        /// Reads file from file path. Extracts words from file. Sorts words in ascending alphabetical order.
+        /// </summary>
+        /// <param name="wordExtractor"></param>
+        /// <param name="compoundedList"></param>
+        /// <returns></returns>
+        static List<Word> LoadFileToMain(WordExtractor wordExtractor, List<Word> compoundedList)
+        {
+            Console.WriteLine("Enter a file from a catalogue using the following syntax: \"C\\User\\admin\\text.txt\"");
+            Console.Write(">: ");
+            string filePath = Console.ReadLine();
+            string fileContent = IO.ReadFile(filePath);
+            if (fileContent == "Could not read file" || fileContent == "You don't have access, your authority level is to low")
+            {
+                Console.WriteLine(fileContent);
+                Console.WriteLine();
+            }
+            else
+            {
+                wordExtractor.ExtractWordsFromTextFile(fileContent, filePath);
+                compoundedList = wordExtractor.GetCompoundedList();
+                Engine.QuickSort(compoundedList, 0, compoundedList.Count - 1);
+                Console.WriteLine($"{filePath} has been loaded.");
+                Console.WriteLine();
+            }
+            return compoundedList;
         }
     }
 }

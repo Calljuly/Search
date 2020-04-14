@@ -76,7 +76,7 @@ namespace Search
                                 Console.WriteLine("Enter a location where you would like to save your file:");
                                 string directoryPath = Console.ReadLine();
                                 Console.WriteLine("Enter a name for your file:");
-                                fullFilePath = IO.SaveFile(sortedFileContent, directoryPath, Console.ReadLine());
+                                fullFilePath = InputOutput.SaveFile(sortedFileContent, directoryPath, Console.ReadLine());
                                 if (fullFilePath == "Could not save file.")
                                 {
                                     Console.WriteLine(fullFilePath);
@@ -88,7 +88,7 @@ namespace Search
                             }
                             else if (saveOption == "2")
                             {
-                                fullFilePath = IO.SaveFile(sortedFileContent, compoundedList[0].File + "new.txt");
+                                fullFilePath = InputOutput.SaveFile(sortedFileContent, compoundedList[0].File + "new.txt");
                                 if (fullFilePath == "Could not save file.")
                                 {
                                     Console.WriteLine(fullFilePath);
@@ -150,7 +150,7 @@ namespace Search
             Console.WriteLine("Enter a file from a catalogue using the following syntax: \"C\\User\\admin\\text.txt\"");
             Console.Write(">: ");
             string filePath = Console.ReadLine();
-            string fileContent = IO.ReadFile(filePath);
+            string fileContent = InputOutput.ReadFile(filePath);
             if (fileContent == "Could not read file" || fileContent == "You don't have access, your authority level is to low")
             {
                 Console.WriteLine(fileContent);

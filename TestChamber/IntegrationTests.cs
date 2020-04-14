@@ -21,16 +21,16 @@ namespace TestChamber
             WordExtractor extractor = new WordExtractor();
 
             string path1 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile1.txt";
-            string text1 = IO.ReadFile(path1);
+            string text1 = InputOutput.ReadFile(path1);
             
             string path2 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile2.txt";
-            string text2 = IO.ReadFile(path2);
+            string text2 = InputOutput.ReadFile(path2);
 
             string path3 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile3.txt";
-            string text3 = IO.ReadFile(path3);
+            string text3 = InputOutput.ReadFile(path3);
 
             string path4 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile4.txt";
-            string text4 = IO.ReadFile(path4);
+            string text4 = InputOutput.ReadFile(path4);
 
             
 
@@ -55,16 +55,16 @@ namespace TestChamber
             WordExtractor extractor = new WordExtractor();
 
             string path1 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile1.txt";
-            string text1 = IO.ReadFile(path1);
+            string text1 = InputOutput.ReadFile(path1);
 
             string path2 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile2.txt";
-            string text2 = IO.ReadFile(path2);
+            string text2 = InputOutput.ReadFile(path2);
 
             string path3 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile3.txt";
-            string text3 = IO.ReadFile(path3);
+            string text3 = InputOutput.ReadFile(path3);
 
             string path4 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile4.txt";
-            string text4 = IO.ReadFile(path4);
+            string text4 = InputOutput.ReadFile(path4);
 
             extractor.ExtractWordsFromTextFile(text1, path1);
             extractor.ExtractWordsFromTextFile(text2, path2);
@@ -89,7 +89,7 @@ namespace TestChamber
             WordExtractor extractor = new WordExtractor();
 
             string path1 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\EmptyTextFile.txt";
-            string text1 = IO.ReadFile(path1);
+            string text1 = InputOutput.ReadFile(path1);
 
             extractor.ExtractWordsFromTextFile(text1, path1);
 
@@ -107,7 +107,7 @@ namespace TestChamber
             WordExtractor extractor = new WordExtractor();
 
             string path1 = null;
-            string text1 = IO.ReadFile(path1);
+            string text1 = InputOutput.ReadFile(path1);
 
             extractor.ExtractWordsFromTextFile(text1, path1);
 
@@ -125,7 +125,7 @@ namespace TestChamber
             WordExtractor extractor = new WordExtractor();
 
             string path1 = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile1.txt";
-            string text1 = IO.ReadFile(path1);
+            string text1 = InputOutput.ReadFile(path1);
 
             extractor.ExtractWordsFromTextFile(text1, path1);
             var unsortedList = extractor.GetCompoundedList();

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SearchLibrary
 {
-    public class IO
+    public class InputOutput
     {
         public static string ReadFile(string fileLocation)
         {

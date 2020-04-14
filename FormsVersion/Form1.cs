@@ -21,7 +21,6 @@ namespace FormsVersion
         List<Word> unsortedWordsList = new List<Word>();
         List<Word> sortedWordsList = new List<Word>();
         WordExtractor extractor = new WordExtractor();
-        public static Form1 form;
 
         public Form1()
         {
@@ -46,7 +45,7 @@ namespace FormsVersion
 
                 for (int i = 0; i < openFileDialogue.FileNames.Length; i++)
                 {
-                    // Go trhrough all and then give 
+                    // Go through all that haven't been loaded
                     if (!fileList.Contains(openFileDialogue.FileNames[i]))
                     {
                         // Add files to list and show added files in lbxFileList. 
@@ -116,16 +115,16 @@ namespace FormsVersion
             DateTime start = DateTime.Now;
             for (int i = 0; i < fileList.Count; i++)
             {
-                string fileContent = IO.ReadFile(fileList[i]);
+                string fileContent = InputOutput.ReadFile(fileList[i]);
                 extractor.ExtractWordsFromTextFile(fileContent, fileList[i]);
 
             }
 
             // Create one sorted list and one unsorted. 
             unsortedWordsList = extractor.GetCompoundedList();
-            List<Word> tmp = extractor.GetCompoundedList();
-            Engine.QuickSort(tmp, 0, tmp.Count - 1);
-            sortedWordsList = tmp;
+            List<Word> temporaryList = extractor.GetCompoundedList();
+            SearchEngine<Word>.QuickSort(temporaryList, 0, temporaryList.Count - 1);
+            sortedWordsList = temporaryList;
             
             TimeSpan span = DateTime.Now - start;
 
@@ -167,7 +166,7 @@ namespace FormsVersion
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            foreach (KeyValuePair<string, int> word in Engine.BinarySearch(sortedWordsList, true, tbxSearch.Text))
+            foreach (KeyValuePair<string, int> word in SearchEngine<Word>.BinarySearch(sortedWordsList, true, tbxSearch.Text))
             {
                 dataSearchResults.Rows.Add(tbxSearch.Text, word.Value, word.Key.ToString());
             }
@@ -191,7 +190,7 @@ namespace FormsVersion
             {
                 // Create a string out of the sorted list and save it. 
                 string stringFromList = extractor.BuildStringFromListOfWords(list);
-                string fullFilePath = IO.SaveFile(stringFromList, saveFileDialogue.InitialDirectory, Path.GetFileNameWithoutExtension(saveFileDialogue.FileName));
+                string fullFilePath = InputOutput.SaveFile(stringFromList, saveFileDialogue.InitialDirectory, Path.GetFileNameWithoutExtension(saveFileDialogue.FileName));
 
                 if (fullFilePath == "Could not save file.")
                 {

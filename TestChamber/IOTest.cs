@@ -12,7 +12,7 @@ namespace TestChamber
         public void IORead_HappyDays()
         {
             string path = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile3.txt";
-            Assert.AreEqual("timmy is the smartest. #admit", IO.ReadFile(path));
+            Assert.AreEqual("timmy is the smartest. #admit", InputOutput.ReadFile(path));
         }
 
         //[Test]

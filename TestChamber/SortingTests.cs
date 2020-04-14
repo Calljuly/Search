@@ -16,7 +16,7 @@ namespace TestChamber
             sut.Add(new Word("Maja", "TextFile"));
             sut.Add(new Word("Hulda", "TextFile"));
 
-            SearchEngine.QuickSort(sut,0,1);
+            SearchEngine<Word>.QuickSort(sut,0,1);
             Assert.AreEqual(sut[1].Value, "Maja");
         }
 
@@ -31,7 +31,7 @@ namespace TestChamber
             sut.Add(new Word("Kanna", "TextFile"));
             sut.Add(new Word("Lama", "TextFile"));
 
-            SearchEngine.QuickSort(sut, 0,5);
+            SearchEngine<Word>.QuickSort(sut, 0,5);
 
             Assert.AreEqual("Brygga", sut[0].Value);
         }
@@ -46,7 +46,7 @@ namespace TestChamber
             sut.Add(new Word("Kanna", "TextFile"));
             sut.Add(new Word("Lama", "TextFile"));
 
-            SearchEngine.QuickSort(sut, 0, 5);
+            SearchEngine<Word>.QuickSort(sut, 0, 5);
 
             Assert.AreEqual("Sten", sut[5].Value);
         }
@@ -61,7 +61,7 @@ namespace TestChamber
             sut.Add(new Word("Kanna", "TextFile"));
             sut.Add(new Word("Lama", "TextFile"));
 
-            SearchEngine.QuickSort(sut, 0, 5);
+            SearchEngine<Word>.QuickSort(sut, 0, 5);
 
             Assert.AreEqual("Lama", sut[3].Value);
         }
@@ -77,7 +77,7 @@ namespace TestChamber
             sut.Add(new Word("Emil", "TextFile"));
             sut.Add(new Word("Felicia", "TextFile"));
 
-            SearchEngine.QuickSort(sut, 0, 5);
+            SearchEngine<Word>.QuickSort(sut, 0, 5);
 
             Assert.AreEqual("Alban", sut[0].Value);
             Assert.AreEqual("Bengt", sut[1].Value);
@@ -95,7 +95,7 @@ namespace TestChamber
             sut.Add(new Word("Annas", "TextFile"));
             sut.Add(new Word("Anna", "TextFile"));
 
-            SearchEngine.QuickSort(sut,0,1);
+            SearchEngine<Word>.QuickSort(sut,0,1);
             
             Assert.AreEqual("Anna", sut[0].Value);
         }

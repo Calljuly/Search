@@ -19,7 +19,7 @@ namespace TestChamber
         {
 
             List<Word> wordList = new List<Word> { new Word("a", "txt"), new Word("b", "txt"), new Word("c", "txt"), new Word("d", "txt"), new Word("e", "txt") };
-            var result = SearchEngine.BinarySearch(wordList, true, "b");
+            var result = SearchEngine<Word>.BinarySearch(wordList, true, "b");
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add("txt", 1);
             Assert.AreEqual(expected, result);
@@ -30,7 +30,7 @@ namespace TestChamber
         {
 
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bB", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = SearchEngine.BinarySearch(wordList, true, "Bb");
+            var result = SearchEngine<Word>.BinarySearch(wordList, true, "Bb");
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add("txt", 1);
             Assert.AreEqual(expected, result);
@@ -41,9 +41,9 @@ namespace TestChamber
         {
 
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = SearchEngine.BinarySearch(wordList, true, "");
+            var result = SearchEngine<Word>.BinarySearch(wordList, true, "");
             Assert.AreEqual(0, result.Count);
-            var result2 = SearchEngine.BinarySearch(wordList, true, null);
+            var result2 = SearchEngine<Word>.BinarySearch(wordList, true, null);
             Assert.AreEqual(0, result2.Count);
         }
 
@@ -53,7 +53,7 @@ namespace TestChamber
 
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("bb", "txt"), new Word("bb", "txt"), new Word("bb", "txt"),
                                   new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = SearchEngine.BinarySearch(wordList, true, "bb");
+            var result = SearchEngine<Word>.BinarySearch(wordList, true, "bb");
 
             Assert.AreEqual(4, result["txt"]);
             Dictionary<string, int> expected = new Dictionary<string, int>();
@@ -66,7 +66,7 @@ namespace TestChamber
         {
 
             List<Word> wordList = new List<Word> { new Word("aa", "txt"), new Word("bb", "txt"), new Word("cc", "txt"), new Word("dd", "txt"), new Word("ee", "txt") };
-            var result = SearchEngine.BinarySearch(wordList, true, "pp");
+            var result = SearchEngine<Word>.BinarySearch(wordList, true, "pp");
             Assert.AreEqual(0, result.Count);
         }
 
@@ -75,7 +75,7 @@ namespace TestChamber
         {
 
             List<Word> wordList = new List<Word> { new Word("jj", "txt"), new Word("ee", "txt"), new Word("pp", "txt"), new Word("aa", "txt"), new Word("bb", "txt") };
-            var result = SearchEngine.BinarySearch(wordList, false, "bb");
+            var result = SearchEngine<Word>.BinarySearch(wordList, false, "bb");
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add("txt", 1);
             Assert.AreEqual(expected, result);
@@ -86,7 +86,7 @@ namespace TestChamber
         {
 
             List<Word> wordList = new List<Word>();
-            var result = SearchEngine.BinarySearch(wordList, false, "bb");
+            var result = SearchEngine<Word>.BinarySearch(wordList, false, "bb");
             Assert.AreEqual(0, result.Count);
         }
 
@@ -95,7 +95,7 @@ namespace TestChamber
         {
 
             List<Word> wordList = null;
-            var result = SearchEngine.BinarySearch(wordList, false, "bb");
+            var result = SearchEngine<Word>.BinarySearch(wordList, false, "bb");
             Assert.AreEqual(0, result.Count);
         }
 
@@ -120,12 +120,12 @@ namespace TestChamber
             }
 
             DateTime start = DateTime.Now;
-            SearchEngine.QuickSort(wordList, 0, wordList.Count - 1);
+            SearchEngine<Word>.QuickSort(wordList, 0, wordList.Count - 1);
             TimeSpan span = DateTime.Now - start;
             Debug.WriteLine($"Time of sort was {span.TotalSeconds} seconds");
 
             start = DateTime.Now;
-            var result = SearchEngine.BinarySearch(wordList, true, "bb");
+            var result = SearchEngine<Word>.BinarySearch(wordList, true, "bb");
             span = DateTime.Now - start;
             Debug.WriteLine($"Time of search was {span.TotalSeconds} seconds");
 
@@ -140,7 +140,7 @@ namespace TestChamber
 
             List<Word> wordList = new List<Word> { new Word("aa", "txt1"), new Word("bb", "txt2"), new Word("bb", "txt3"), new Word("bb", "txt4"), new Word("bb", "txt5"),
                                   new Word("cc", "txt7"), new Word("dd", "txt8"), new Word("ee", "txt10") };
-            var result = SearchEngine.BinarySearch(wordList, true, "bb");
+            var result = SearchEngine<Word>.BinarySearch(wordList, true, "bb");
 
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add("txt2", 1);

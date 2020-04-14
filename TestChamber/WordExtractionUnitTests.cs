@@ -215,7 +215,7 @@ namespace TestChamber
             wordList.Add(new Word("def", "a.txt"));
             wordList.Add(new Word("ghi", "a.txt"));
             wordList.Add(new Word("jkl", "a.txt"));
-            var expected = $"Word:\t\t\tFile Path:{Environment.NewLine}abc\t\t\t(a.txt){Environment.NewLine}def\t\t\t(a.txt){Environment.NewLine}ghi\t\t\t(a.txt){Environment.NewLine}jkl\t\t\t(a.txt){Environment.NewLine}";
+            var expected = $"abc{Environment.NewLine}def{Environment.NewLine}ghi{Environment.NewLine}jkl{Environment.NewLine}";
             var actual = testExtractor.BuildStringFromListOfWords(wordList);
             Assert.AreEqual(expected, actual);
         }
@@ -223,7 +223,7 @@ namespace TestChamber
         public void BuildStringFromListOfWords_EmptyWordList()
         {
             wordList = new List<Word>();
-            var expected = $"Word:\t\t\tFile Path:{Environment.NewLine}";
+            var expected = string.Empty;
             var actual = testExtractor.BuildStringFromListOfWords(wordList);
             Assert.AreEqual(expected, actual);
         }
@@ -231,7 +231,7 @@ namespace TestChamber
         public void BuildStringFromListOfWords_ListIsNull()
         {
             wordList = new List<Word>();
-            var expected = $"Word:\t\t\tFile Path:{Environment.NewLine}";
+            var expected = string.Empty;
             var actual = testExtractor.BuildStringFromListOfWords(null);
             Assert.AreEqual(expected, actual);
         }

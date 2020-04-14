@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace ClassLibrary
+namespace SearchLibrary
 {
     public class IO
     {
         public static string ReadFile(string fileLocation)
         {
-            // Code reference from https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-
+            // Code reference from https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-read-text-from-a-file
             try
             {   // Open the text file using a stream reader.
                 StreamReader fileReader = new StreamReader(fileLocation);

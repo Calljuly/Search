@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Search;
-using ClassLibrary;
+using SearchLibrary;
 
 namespace TestChamber
 {

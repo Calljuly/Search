@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using Search;
-using ClassLibrary;
+using SearchLibrary;
 
 namespace TestChamber
 {
@@ -10,18 +10,18 @@ namespace TestChamber
         public List<Word> sut;
 
         [Test]
-        public void IfListGetSorted()
+        public void QuickSort_ListGetSorted()
         {
             sut = new List<Word>();
             sut.Add(new Word("Maja", "TextFile"));
             sut.Add(new Word("Hulda", "TextFile"));
 
-            Engine.QuickSort(sut,0,1);
+            SearchEngine.QuickSort(sut,0,1);
             Assert.AreEqual(sut[1].Value, "Maja");
         }
 
         [Test]
-        public void IfListGetSortedMoreWords()
+        public void QuickSort_MoreWords_ListGetSorted()
         {
             sut = new List<Word>();
             sut.Add(new Word("Hulda", "TextFile"));
@@ -31,12 +31,12 @@ namespace TestChamber
             sut.Add(new Word("Kanna", "TextFile"));
             sut.Add(new Word("Lama", "TextFile"));
 
-            Engine.QuickSort(sut, 0,5);
+            SearchEngine.QuickSort(sut, 0,5);
 
             Assert.AreEqual("Brygga", sut[0].Value);
         }
         [Test]
-        public void IfListGetSortedCheckLastWord()
+        public void QuickSort_CheckLastWord_ReturnsLastInOrder()
         {
             sut = new List<Word>();
             sut.Add(new Word("Hulda", "TextFile"));
@@ -46,12 +46,12 @@ namespace TestChamber
             sut.Add(new Word("Kanna", "TextFile"));
             sut.Add(new Word("Lama", "TextFile"));
 
-            Engine.QuickSort(sut, 0, 5);
+            SearchEngine.QuickSort(sut, 0, 5);
 
             Assert.AreEqual("Sten", sut[5].Value);
         }
         [Test]
-        public void IfListGetSortedCheckWordInMiddle()
+        public void QuickSort_WordInMiddle_ReturnsMiddleInOrder()
         {
             sut = new List<Word>();
             sut.Add(new Word("Hulda", "TextFile"));
@@ -61,13 +61,13 @@ namespace TestChamber
             sut.Add(new Word("Kanna", "TextFile"));
             sut.Add(new Word("Lama", "TextFile"));
 
-            Engine.QuickSort(sut, 0, 5);
+            SearchEngine.QuickSort(sut, 0, 5);
 
             Assert.AreEqual("Lama", sut[3].Value);
         }
 
         [Test]
-        public void IfASortedListSendsInNoChange()
+        public void QuickSort_ListAlreadySorted_ListUnchanged()
         {
             sut = new List<Word>();
             sut.Add(new Word("Alban", "TextFile"));
@@ -77,7 +77,7 @@ namespace TestChamber
             sut.Add(new Word("Emil", "TextFile"));
             sut.Add(new Word("Felicia", "TextFile"));
 
-            Engine.QuickSort(sut, 0, 5);
+            SearchEngine.QuickSort(sut, 0, 5);
 
             Assert.AreEqual("Alban", sut[0].Value);
             Assert.AreEqual("Bengt", sut[1].Value);
@@ -88,14 +88,14 @@ namespace TestChamber
 
         }
         [Test]
-        public void IfListGetSortedWithSimilarWords()
+        public void QuickSort_ListContainsSimilarWords_SortsCorretly()
         {
             sut = new List<Word>();
 
             sut.Add(new Word("Annas", "TextFile"));
             sut.Add(new Word("Anna", "TextFile"));
 
-            Engine.QuickSort(sut,0,1);
+            SearchEngine.QuickSort(sut,0,1);
             
             Assert.AreEqual("Anna", sut[0].Value);
         }

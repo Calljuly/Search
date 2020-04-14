@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ClassLibrary
+namespace SearchLibrary
 {
-    public class Engine
+    public class SearchEngine
     {
         /*Quicksort method that had an pivot in the middle of the list. The list will be divied in two
          parts and get sorted.*/

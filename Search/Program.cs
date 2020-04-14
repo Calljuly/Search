@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
-using ClassLibrary;
+using SearchLibrary;
 
 namespace Search
 {
@@ -32,7 +32,7 @@ namespace Search
                         {
                             wordExtractor.ExtractWordsFromTextFile(fileContent, filePath);
                             compoundedList = wordExtractor.GetCompoundedList();
-                            Engine.QuickSort(compoundedList, 0, compoundedList.Count - 1);
+                            SearchEngine.QuickSort(compoundedList, 0, compoundedList.Count - 1);
                         }
                         break;
 
@@ -42,7 +42,7 @@ namespace Search
                         {
                             Console.Write("Type the word you want to search: ");
                             var searchWord = Console.ReadLine().ToLower();
-                            var searchedWords = Engine.BinarySearch(compoundedList, true, searchWord);
+                            var searchedWords = SearchEngine.BinarySearch(compoundedList, true, searchWord);
                             foreach (var item in searchedWords)
                             {
                                 Console.WriteLine($"{searchWord} exists {item.Value} times in {item.Key}");

@@ -3,7 +3,7 @@ using Search;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using ClassLibrary;
+using SearchLibrary;
 using FormsVersion;
 
 namespace TestChamber
@@ -41,9 +41,9 @@ namespace TestChamber
 
             List<Word> list = extractor.GetCompoundedList();
 
-            Engine.QuickSort(list, 0, list.Count - 1);
+            SearchEngine.QuickSort(list, 0, list.Count - 1);
             
-            var result = Engine.BinarySearch(list, true, "admit");
+            var result = SearchEngine.BinarySearch(list, true, "admit");
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add(path3, 1);
             Assert.AreEqual(expected, result);
@@ -73,9 +73,9 @@ namespace TestChamber
 
             List<Word> list = extractor.GetCompoundedList();
 
-            Engine.QuickSort(list, 0, list.Count - 1);
+            SearchEngine.QuickSort(list, 0, list.Count - 1);
 
-            var result = Engine.BinarySearch(list, true, "is");
+            var result = SearchEngine.BinarySearch(list, true, "is");
             Dictionary<string, int> expected = new Dictionary<string, int>();
             expected.Add(path1, 1);
             expected.Add(path2, 2);
@@ -95,9 +95,9 @@ namespace TestChamber
 
             List<Word> list = extractor.GetCompoundedList();
 
-            Engine.QuickSort(list, 0, list.Count - 1);
+            SearchEngine.QuickSort(list, 0, list.Count - 1);
 
-            var result = Engine.BinarySearch(list, true, "");
+            var result = SearchEngine.BinarySearch(list, true, "");
             Dictionary<string, int> expected = new Dictionary<string, int>();
             Assert.AreEqual(expected, result);
         }
@@ -113,9 +113,9 @@ namespace TestChamber
 
             List<Word> list = extractor.GetCompoundedList();
 
-            Engine.QuickSort(list, 0, list.Count - 1);
+            SearchEngine.QuickSort(list, 0, list.Count - 1);
 
-            var result = Engine.BinarySearch(list, true, "could");
+            var result = SearchEngine.BinarySearch(list, true, "could");
             Dictionary<string, int> expected = new Dictionary<string, int>();
             Assert.AreEqual(expected, result);
         }
@@ -131,7 +131,7 @@ namespace TestChamber
             var unsortedList = extractor.GetCompoundedList();
             var sortedList = extractor.GetCompoundedList();
 
-            Engine.QuickSort(sortedList, 0, sortedList.Count - 1);
+            SearchEngine.QuickSort(sortedList, 0, sortedList.Count - 1);
             
             Assert.AreNotEqual(unsortedList, sortedList);
 

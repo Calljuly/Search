@@ -2,14 +2,14 @@
 using Search;
 using System;
 using System.IO;
-using ClassLibrary;
+using SearchLibrary;
 
 namespace TestChamber
 {
     public class IOTest
     {
         [Test]
-        public void IORead()
+        public void IORead_HappyDays()
         {
             string path = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile3.txt";
             Assert.AreEqual("timmy is the smartest. #admit", IO.ReadFile(path));

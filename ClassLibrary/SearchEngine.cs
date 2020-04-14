@@ -4,18 +4,18 @@ using System.Text;
 
 namespace SearchLibrary
 {
-    public class SearchEngine
+    public class SearchEngine<T> where T: IWord
     {
         /*Quicksort method that had an pivot in the middle of the list. The list will be divied in two
          parts and get sorted.*/
-        public static void QuickSort(List<Word> list, int start, int end)
+        public static void QuickSort(List<T> list, int start, int end)
         {
             if (list.Count > 1)
             {
                 int leftSideOfList = start;
                 int rightSideOfList = end;
                 var pivot = list[(start + end) / 2];
-                Word temporaryWord;
+                T temporaryWord;
 
                 while (leftSideOfList <= rightSideOfList)
                 {
@@ -53,7 +53,7 @@ namespace SearchLibrary
         /// <param name="list"></param>
         /// <param name="targetWord"></param>
         /// <returns></returns>
-        public static Dictionary<string, int> BinarySearch(List<Word> list, bool listIsSorted, string targetWord)
+        public static Dictionary<string, int> BinarySearch(List<T> list, bool listIsSorted, string targetWord)
         {
             // Place for essential variables 
             Dictionary<string, int> result = new Dictionary<string, int>();

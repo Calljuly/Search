@@ -42,7 +42,7 @@ namespace Search
                         {
                             Console.Write("Type the word you want to search: ");
                             var searchWord = Console.ReadLine().ToLower();
-                            var searchedWords = SearchEngine.BinarySearch(compoundedList, true, searchWord);
+                            var searchedWords = SearchEngine<Word>.BinarySearch(compoundedList, true, searchWord);
                             if (searchedWords.Count > 0)
                             {
                                 foreach (var item in searchedWords)
@@ -160,7 +160,7 @@ namespace Search
             {
                 wordExtractor.ExtractWordsFromTextFile(fileContent, filePath);
                 compoundedList = wordExtractor.GetCompoundedList();
-                SearchEngine.QuickSort(compoundedList, 0, compoundedList.Count - 1);
+                SearchEngine<Word>.QuickSort(compoundedList, 0, compoundedList.Count - 1);
                 Console.WriteLine($"{filePath} has been loaded.");
                 Console.WriteLine();
             }

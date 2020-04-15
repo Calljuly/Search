@@ -10,7 +10,7 @@ namespace SearchLibrary
          parts and get sorted.*/
         public static void QuickSort(List<T> list, int start, int end)
         {
-            if (list.Count > 1)
+            if (list.Count > 1 && list != null)
             {
                 int leftSideOfList = start;
                 int rightSideOfList = end;

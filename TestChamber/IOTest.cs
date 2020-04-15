@@ -16,12 +16,40 @@ namespace TestChamber
         }
 
         [Test]
+        public void ReadFile_NullInput_catchexeption()
+        {
+            try
+            {
+                InputOutput.ReadFile(null);
+                Assert.Fail();
+            }
+            catch
+            {
+                Assert.Pass();
+            }
+        }
+
+        [Test]
         public void SaveFile_HappyDays()
         {
             string fileLocation = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\IOTest1.txt";
             InputOutput.SaveFile(fileLocation, $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles", "IOTest1");
 
             if (File.Exists(fileLocation))
+            {
+                Assert.Pass();
+            }
+        }
+
+        [Test]
+        public void SaveFile_NullInput_catchexeption()
+        {
+            try
+            {
+                InputOutput.SaveFile(null,null);
+                Assert.Fail();
+            }
+            catch
             {
                 Assert.Pass();
             }

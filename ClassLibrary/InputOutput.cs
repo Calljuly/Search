@@ -67,6 +67,10 @@ namespace SearchLibrary
             {
                 return "Could not save file.";
             }
+            catch (UnauthorizedAccessException)
+            {
+                return "You don't have access, your authority level is to low";
+            }
 
         }
     }

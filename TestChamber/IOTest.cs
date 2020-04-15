@@ -76,5 +76,13 @@ namespace TestChamber
             Assert.AreEqual(expected, InputOutput.SaveFile("file content", directory, "name"));
         }
 
+        [Test]
+        public void SaveFile_EmptyStringAsDirectory_CatchesUnauthorizedAccessException()
+        {
+            string directory = string.Empty;
+            string expected = "You don't have access, your authority level is to low";
+            Assert.AreEqual(expected, InputOutput.SaveFile("file content", directory, "name"));
+        }
+
     }
 }

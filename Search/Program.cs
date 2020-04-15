@@ -91,7 +91,7 @@ namespace Search
                             else if (saveOption == "2")
                             {
                                 fullFilePath = InputOutput.SaveFile(sortedFileContent, compoundedList[0].File + "new.txt");
-                                if (fullFilePath == "Could not save file.")
+                                if (fullFilePath == "Could not save file." || fullFilePath == "You don't have access, your authority level is to low")
                                 {
                                     Console.WriteLine(fullFilePath);
                                 }

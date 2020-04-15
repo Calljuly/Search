@@ -79,7 +79,7 @@ namespace ConsoleVersion
                                 Console.WriteLine("Enter a name for your file:");
                                 Console.Write(">: ");
                                 fullFilePath = InputOutput.SaveFile(sortedFileContent, directoryPath, Console.ReadLine());
-                                if (fullFilePath == "Could not save file.")
+                                if (fullFilePath == "Could not save file." || fullFilePath == "You don't have access, your authority level is to low")
                                 {
                                     Console.WriteLine(fullFilePath);
                                 }

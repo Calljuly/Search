@@ -1,13 +1,29 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using SearchLibrary;
+using System;
 
 namespace TestChamber
 {
     public class TestSort
     {
         public List<Word> sut;
+        public List<Word> testListNotInitalized;
 
+
+        [Test]
+        public void QuickSort_NotInitalized()
+        {
+            try
+            {
+                SearchEngine<Word>.QuickSort(testListNotInitalized, 0, 0);
+                Assert.Fail();
+            }
+            catch (NullReferenceException a)
+            {
+                Assert.Pass();
+            }
+        }
         [Test]
         public void QuickSort_ListGetSorted()
         {

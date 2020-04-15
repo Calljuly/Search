@@ -14,6 +14,20 @@ namespace TestChamber
             string path = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile3.txt";
             Assert.AreEqual("timmy is the smartest. #admit", InputOutput.ReadFile(path));
         }
+        [Test]
+        public void ReadFile_EntersEmptyString_CatchesArgumentException()
+        {
+            string path = string.Empty;
+            string expected = "Could not read file";
+            Assert.AreEqual(expected, InputOutput.ReadFile(path));
+        }
+        [Test]
+        public void ReadFile_DoesNotEnterCorrectDirectory_CatchesIOException()
+        {
+            string path = "Trying to enter text";
+            string expected = "Could not read file";
+            Assert.AreEqual(expected, InputOutput.ReadFile(path));
+        }
 
         [Test]
         public void ReadFile_NullInput_catchexeption()

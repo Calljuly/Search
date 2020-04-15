@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Threading;
 using SearchLibrary;
 
-namespace Search
+namespace ConsoleVersion
 {
     public class Program
     {

@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using System.Collections.Generic;
-using Search;
 using SearchLibrary;
 
 namespace TestChamber

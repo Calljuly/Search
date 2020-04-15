@@ -31,7 +31,7 @@ namespace FormsVersion
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("se-SE");
         }
 
-        public void btnBrowse_Click(object sender, EventArgs e)
+        public async void btnBrowse_Click(object sender, EventArgs e)
         {
             // The dialogue should only accept .txt files. 
             openFileDialogue.Filter = "Text files (*.txt)|*.txt";
@@ -62,7 +62,25 @@ namespace FormsVersion
                     
                 }
 
-                Task.Run(() => LoadContent());
+                lblSortedList.Text = "Sorted list of words (Loading... This might take a while)";
+                lblUnsortedList.Text = "Unsorted list of words (Loading... This might take a while)";
+
+                await Task.Run(() => LoadContent());
+
+                // We only ever want the listboxes to show the value property of a Word object. 
+                lbxSortedWords.DisplayMember = "Value";
+                lbxUnsortedWords.DisplayMember = "Value";
+
+                // Show items in each list in each listBox
+                lbxSortedWords.BeginUpdate();
+                lbxUnsortedWords.BeginUpdate();
+                lbxSortedWords.DataSource = sortedWordsList;
+                lbxUnsortedWords.DataSource = unsortedWordsList;
+                lbxSortedWords.EndUpdate();
+                lbxUnsortedWords.EndUpdate();
+                lblSortedList.Text = "Sorted list of words (Done)";
+                lblUnsortedList.Text = "Unsorted list of words (Done)";
+
                 lblSortedList.Text = "Sorted list of words";
                 lblUnsortedList.Text = "Unsorted list of words";
 
@@ -125,43 +143,11 @@ namespace FormsVersion
             List<Word> temporaryList = extractor.GetCompoundedList();
             SearchEngine<Word>.QuickSort(temporaryList, 0, temporaryList.Count - 1);
             sortedWordsList = temporaryList;
-            
             TimeSpan span = DateTime.Now - start;
 
-            // Since LoadContent() is loaded in a new thread, we need to tell the thread to start the controllers in the main thread
-            // otherwise it doesn't work. 
-            lblSortedList.Invoke((MethodInvoker)delegate {
-                lblSortedList.Text = "Sorted list of words (Loading... This might take a while)";
-
-            });
-
-            lblUnsortedList.Invoke((MethodInvoker)delegate {
-                lblUnsortedList.Text = "Unsorted list of words (Loading... This might take a while)";
-
-            });
-
-            lblFiles.Invoke((MethodInvoker)delegate {
-                
-                lblFiles.Text = $"Files analyzed and sorted... It took {span.TotalSeconds.ToString("F")} seconds";
-                
-            });
-
-
-            lblFiles.Invoke((MethodInvoker)delegate {
-                // We only ever want the listboxes to show the value property of a Word object. 
-                lbxSortedWords.DisplayMember = "Value";
-                lbxUnsortedWords.DisplayMember = "Value";
-
-                // Show items in each list in each listBox
-                lbxSortedWords.BeginUpdate();
-                lbxUnsortedWords.BeginUpdate();
-                lbxSortedWords.DataSource = sortedWordsList;
-                lbxUnsortedWords.DataSource = unsortedWordsList;
-                lbxSortedWords.EndUpdate();
-                lbxUnsortedWords.EndUpdate();
-                lblSortedList.Text = "Sorted list of words (Done)";
-                lblUnsortedList.Text = "Unsorted list of words (Done)";
-            });
+            // Since this method is called in a separate thread, we to invoke this code in the main-thread. Because that's where lblFiles is. 
+            lblFiles.Invoke((MethodInvoker)delegate { lblFiles.Text = $"Files analyzed and sorted... It took {span.TotalSeconds.ToString("F")} seconds"; });
+            
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

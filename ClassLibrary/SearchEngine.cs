@@ -129,7 +129,6 @@ namespace SearchLibrary
                 stepLength++;
             }
 
-            //result.Add("fail", 28);
             return result;
         }
 

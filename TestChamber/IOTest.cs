@@ -9,23 +9,23 @@ namespace TestChamber
     public class IOTest
     {
         [Test]
-        public void IORead_HappyDays()
+        public void ReadFile_HappyDays()
         {
             string path = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\TextFile3.txt";
             Assert.AreEqual("timmy is the smartest. #admit", InputOutput.ReadFile(path));
         }
 
-        //[Test]
-        //public void IOSave()
-        //{
-        //    string fileLocation = "C:\\Users\\97yunwon\\Desktop\\IOTest1.txt";
-        //    IO.SaveFile(fileLocation, "text1", "test1");
+        [Test]
+        public void SaveFile_HappyDays()
+        {
+            string fileLocation = $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles\\IOTest1.txt";
+            InputOutput.SaveFile(fileLocation, $"{AppDomain.CurrentDomain.BaseDirectory}TestFiles", "IOTest1");
 
-        //    if (!File.Exists(fileLocation))
-        //    {
-        //        Assert.Pass();
-        //    }
-        //}
+            if (File.Exists(fileLocation))
+            {
+                Assert.Pass();
+            }
+        }
 
     }
 }

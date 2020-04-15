@@ -91,6 +91,10 @@ namespace SearchLibrary
             }
             return compoundedList;
         }
+        /// <summary>
+        /// Gets a copy of the compounded list of a WordExtractor.
+        /// </summary>
+        /// <returns></returns>
         public List<Word> GetCompoundedList()
         {
             List<Word> publicCompoundedList = new List<Word>();
@@ -100,6 +104,11 @@ namespace SearchLibrary
             }
             return publicCompoundedList;
         }
+        /// <summary>
+        /// From a given list of word objects builds the value of the word objects into a string. Each word separated with a new line.
+        /// </summary>
+        /// <param name="wordList"></param>
+        /// <returns></returns>
         public string BuildStringFromListOfWords(List<Word> wordList)
         {
             StringBuilder fileContent = new StringBuilder();

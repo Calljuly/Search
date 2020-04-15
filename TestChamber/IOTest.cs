@@ -30,7 +30,7 @@ namespace TestChamber
         }
 
         [Test]
-        public void ReadFile_NullInput_catchexeption()
+        public void ReadFile_NullInput_Catchexeption()
         {
             try
             {
@@ -56,7 +56,7 @@ namespace TestChamber
         }
 
         [Test]
-        public void SaveFile_NullInput_catchexeption()
+        public void SaveFile_NullInput_Catchexeption()
         {
             try
             {

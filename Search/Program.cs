@@ -74,8 +74,10 @@ namespace Search
                             if (saveOption == "1")
                             {
                                 Console.WriteLine("Enter a location where you would like to save your file:");
+                                Console.Write(">: ");
                                 string directoryPath = Console.ReadLine();
                                 Console.WriteLine("Enter a name for your file:");
+                                Console.Write(">: ");
                                 fullFilePath = InputOutput.SaveFile(sortedFileContent, directoryPath, Console.ReadLine());
                                 if (fullFilePath == "Could not save file.")
                                 {

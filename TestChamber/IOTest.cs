@@ -68,6 +68,13 @@ namespace TestChamber
                 Assert.Pass();
             }
         }
+        [Test]
+        public void SaveFile_NonExistingDirectory_CatchesIOException()
+        {
+            string directory = "Non existing";
+            string expected = "Could not save file.";
+            Assert.AreEqual(expected, InputOutput.SaveFile("file content", directory, "name"));
+        }
 
     }
 }

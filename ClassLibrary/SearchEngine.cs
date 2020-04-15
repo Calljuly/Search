@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SearchLibrary
 {
-    public class SearchEngine<T> where T: IWord
+    public class SearchEngine<T> where T: ISearchable
     {
         /*Quicksort method that had an pivot in the middle of the list. The list will be divied in two
          parts and get sorted.*/

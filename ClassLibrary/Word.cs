@@ -7,12 +7,12 @@ using System.Runtime.CompilerServices;
 
 namespace SearchLibrary
 {
-    public interface IWord
+    public interface ISearchable
     {
          string Value { get; set; }
          string File { get; set; }
     }
-    public class Word : IWord
+    public class Word : ISearchable
     {
         public string Value { get; set; }
         public string File { get; set; }

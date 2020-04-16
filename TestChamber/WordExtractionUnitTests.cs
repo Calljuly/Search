@@ -5,7 +5,7 @@ using SearchLibrary;
 
 namespace TestChamber
 {
-    public class WordExtractionUnitTests //Patrik
+    public class WordExtractionUnitTests
     {
         List<Word> wordList;
         WordExtractor testExtractor = new WordExtractor();

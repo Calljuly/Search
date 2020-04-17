@@ -61,12 +61,13 @@ namespace SearchLibrary
                     //Adds all words in the text in to a list of words.
                     foreach (var word in splittedText)
                     {
-                        word.Trim('\n');
-                        word.Trim();
-                        word.TrimStart('\'');
-                        if (word != "")
+                        string trimmedWord = "";
+                        trimmedWord = trimmedWord.Trim('\n');
+                        trimmedWord = trimmedWord.Trim();
+                        trimmedWord = word.TrimStart('\'');
+                        if (trimmedWord != "")
                         {
-                            wordList.Add(new Word(word, filePath));
+                            wordList.Add(new Word(trimmedWord, filePath));
                         }
                     }
                     this.AppendWordListsToCompoundedList(wordList);
